@@ -1,0 +1,39 @@
+body {
+    font-family: "Raleway", sans-serif;
+    text-align: center;
+    background-color: #bdd5dc
+}
+h2 {
+    color: #ec9892;
+}
+#board {
+    width: 30%;
+    height: 30%;
+    border: 4px solid #ec9892;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#board img {
+    width: calc(20% - (0.5px + 2 * (4px / 5)));
+    height: calc(20% - (0.5px + 2 * (4px / 5)));
+    border: 0.5px solid #b5e6fc;
+}
+
+
+#pieces {
+    width: 60%;
+    height: 20%;
+    border: 2px dashed #ec9892;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#pieces img {
+    width: calc(6% - (0.25px + 2 * (2px / 10)));
+    height: calc(50% - (0.25px + 2 * (2px / 10)));
+    border: 0.25px solid #b5e6fc;
+}
