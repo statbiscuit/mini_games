@@ -43,8 +43,9 @@ function add_elem(i, elem) {
     add_class("tile_icon_" + i, "math-" + elem);
 
     if (window.tilecount == 1) {
-      if (i != window.lasttile && window.A[i] == window.A[window.lasttile]) {
-        //checks if the 2 stmbols match and aren't the same tile
+	if (i != window.lasttile && window.A[i].indexOf(window.A[window.lasttile]) >= 0  ||
+	    window.A[window.lasttile].indexOf(window.A[i]) >= 0) {
+        //checks if the 2 symbols match and aren't the same tile
         var first = document.getElementById("tile_" + i); //get tile id
         var second = document.getElementById("tile_" + window.lasttile); //get tile id
 
@@ -75,11 +76,23 @@ function add_elem(i, elem) {
 //This function removes all tile classes (used to hide tiles)
 
 function rem_select(i) {
-  rem_class("tile_" + i, "tile_open");
-    rem_class("tile_icon_" + i, "math-sum");
+    rem_class("tile_" + i, "tile_open");
+    rem_class("tile_icon_" + i, "math-pipe");
     rem_class("tile_icon_" + i, "math-equal");
-    rem_class("tile_icon_" + i, "math-beta");
-    rem_class("tile_icon_" + i, "math-minusplus");
+    rem_class("tile_icon_" + i, "math-assign");
+    rem_class("tile_icon_" + i, "math-plus");
+    rem_class("tile_icon_" + i, "math-neq");
+    rem_class("tile_icon_" + i, "math-comment");
+    rem_class("tile_icon_" + i, "math-base");
+    rem_class("tile_icon_" + i, "math-mean");
+    rem_class("tile_icon_" + i, "math-pipepipe");
+    rem_class("tile_icon_" + i, "math-equalequal");
+    rem_class("tile_icon_" + i, "math-assignassign");
+    rem_class("tile_icon_" + i, "math-plusplus");
+    rem_class("tile_icon_" + i, "math-neqneq");
+    rem_class("tile_icon_" + i, "math-commentcomment");
+    rem_class("tile_icon_" + i, "math-basebase");
+    rem_class("tile_icon_" + i, "math-meanmean");
 }
 
 //this function hides tiles, with a delay
@@ -99,22 +112,22 @@ function shuffle() {
   var t;
 
   var A = [
-    "sum",
-    "sum",
-    "sum",
-    "sum",
-    "equal",
-    "equal",
-    "equal",
-    "equal",
-    "beta",
-    "beta",
-    "beta",
-    "beta",
-    "minusplus",
-    "minusplus",
-    "minusplus",
-    "minusplus"
+      "pipe",
+      "pipepipe",
+      "equal",
+      "equalequal",
+      "assign",
+      "assignassign",
+      "plus",
+      "plusplus",
+      "neq",
+      "neqneq",
+      "comment",
+      "commentcomment",
+      "base",
+      "basebase",
+      "mean",
+      "meanmean"
   ];
 
   for (i = 0; i < 16; i++) {

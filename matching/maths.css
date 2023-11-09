@@ -2,16 +2,72 @@
     display: inline-block;
     text-rendering: auto;
 }
-
-.math-sum:before {
-    content: "cai" "\2211";
+/* pairs of symbol and word are matched on .indexOf */
+/* in tiles.js 'contains' so no cross pair name should share */
+/* substrings */
+/* First pair */
+.math-pipe:before {
+    content: "%>%";
+    font-size: 40px;
 }
+.math-pipepipe:before {
+    content: "Tidy. Pipe";
+    font-size: 30px;
+}
+/* Second pair */
 .math-equal:before {
-  content: "\003D";
+  content: "==";
 }
-.math-beta:before {
-  content: "\03B2";
+.math-equalequal:before {
+    content: "equalily";
+    font-size: 25px;
 }
-.math-minusplus:before {
-  content: "\2213";
+/* Third pair */
+.math-assign:before {
+  content: "<-";
+}
+.math-assignassign:before {
+    content: "assign";
+     font-size: 30px;
+}
+/* Fourth pair */
+.math-plus:before {
+  content: "+";
+}
+.math-plusplus:before {
+    content: "add";
+    font-size: 40px;
+}
+/* Fifth pair */
+.math-neq:before {
+  content: "!=";
+}
+.math-neqneq:before {
+    content: "not equal";
+    font-size: 30px;
+}
+/* Sixth pair */
+.math-comment:before {
+  content: "#";
+}
+.math-commentcomment:before {
+    content: "Comment";
+    font-size: 30px;
+}
+/* Seventh pair */
+.math-base:before {
+    content: "|>";
+}
+.math-basebase:before {
+    content: "base pipe";
+    font-size: 30px;
+}
+/* Eigth pair */
+.math-mean:before {
+    content: "mean(c(3,4))";
+    font-size: 25px;
+}
+.math-meanmean:before {
+    content: "3.5";
+    font-size: 40px;
 }
