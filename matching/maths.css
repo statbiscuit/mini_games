@@ -11,7 +11,7 @@
     font-size: 40px;
 }
 .math-pipepipe:before {
-    content: "Tidy. Pipe";
+    content: "tidy. pipe";
     font-size: 30px;
 }
 /* Second pair */
@@ -19,7 +19,7 @@
   content: "==";
 }
 .math-equalequal:before {
-    content: "equalily";
+    content: "equality";
     font-size: 25px;
 }
 /* Third pair */
