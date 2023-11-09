@@ -1,0 +1,17 @@
+.math {
+    display: inline-block;
+    text-rendering: auto;
+}
+
+.math-sum:before {
+    content: "cai" "\2211";
+}
+.math-equal:before {
+  content: "\003D";
+}
+.math-beta:before {
+  content: "\03B2";
+}
+.math-minusplus:before {
+  content: "\2213";
+}
