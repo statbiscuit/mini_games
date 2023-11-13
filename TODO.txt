@@ -1,0 +1,9 @@
+MemoRy
++ add analytics
++ fix double clicking tile as a solution
++ add other syntax/randomise?
+
+gg_puzzle()
+ + phone compatibility
+ + change pictures so that they are visually unique
+ + add completed screen and export analytics
