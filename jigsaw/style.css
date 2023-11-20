@@ -1,8 +1,8 @@
 /* number of columns/rows, don't forget to adjust the HTML value */
 g {
-  --s: 70px;
+  --s: 100px;
   /* size of the puzzle */
-  --r: 12px;
+  --r: 30px;
   display: grid;
   width: fit-content;
   border: 1px solid;
