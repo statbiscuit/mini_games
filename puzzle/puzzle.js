@@ -78,6 +78,7 @@ function dragDrop() {
     otherTile = this; //this refers to image that is being dropped on
 }
 
+
 function dragEnd() {
     if (currTile.src.includes("blank")) {
         return;
@@ -90,3 +91,23 @@ function dragEnd() {
     turns += 1;
     document.getElementById("turns").innerText = turns;
 }
+// mobile drag & drop compatibility
+// get The element on which to attach the event 
+var btn = document.querySelector('.pieces');
+
+// attaching each event listener
+btn.addEventListener('touchstart', function(){
+	console.log('btn touched');
+})
+btn.addEventListener('touchend', function(){
+	console.log('btn leaved');
+})
+btn.addEventListener('touchmove', function(){
+	console.log('btn leaved');
+})
+btn.addEventListener('touchleave', function(){
+	console.log('btn moving end');
+})
+btn.addEventListener('touchcancel', function(){
+	console.log('btn moving cancel');
+})
