@@ -7,3 +7,7 @@ gg_puzzle()
  + phone compatibility
  + change pictures so that they are visually unique
  + add completed screen and export analytics
+
+jigsaw
+ + phone compatibility
+ + fix radar misalignment issue
