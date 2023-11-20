@@ -21,7 +21,23 @@ window.onload = function() {
             tile.addEventListener("dragleave", dragLeave); //dragging an image away from another one
             tile.addEventListener("drop", dragDrop);       //drop an image onto another one
             tile.addEventListener("dragend", dragEnd);      //after you completed dragDrop
-
+	    // mobile drag & drop compatibility
+	    // attaching each event listener
+	    tile.addEventListener('touchstart', function(){
+		console.log('btn touched');
+	    })
+	    tile.addEventListener('touchend', function(){
+		console.log('btn leaved');
+	    })
+	    tile.addEventListener('touchmove', function(){
+		console.log('btn leaved');
+	    })
+	    tile.addEventListener('touchleave', function(){
+		console.log('btn moving end');
+	    })
+	    tile.addEventListener('touchcancel', function(){
+		console.log('btn moving cancel');
+	    })
             document.getElementById("board").append(tile);
         }
     }
@@ -52,7 +68,23 @@ window.onload = function() {
         tile.addEventListener("dragleave", dragLeave); //dragging an image away from another one
         tile.addEventListener("drop", dragDrop);       //drop an image onto another one
         tile.addEventListener("dragend", dragEnd);      //after you completed dragDrop
-
+	// mobile drag & drop compatibility
+	// attaching each event listener
+	tile.addEventListener('touchstart', function(){
+	    console.log('btn touched');
+	})
+	tile.addEventListener('touchend', function(){
+	    console.log('btn leaved');
+	})
+	tile.addEventListener('touchmove', function(){
+	    console.log('btn leaved');
+	})
+	tile.addEventListener('touchleave', function(){
+	    console.log('btn moving end');
+	})
+	tile.addEventListener('touchcancel', function(){
+	    console.log('btn moving cancel');
+	})
         document.getElementById("pieces").append(tile);
     }
 }
@@ -91,23 +123,5 @@ function dragEnd() {
     turns += 1;
     document.getElementById("turns").innerText = turns;
 }
-// mobile drag & drop compatibility
-// get The element on which to attach the event 
-var btn = document.querySelector('.pieces');
 
-// attaching each event listener
-btn.addEventListener('touchstart', function(){
-	console.log('btn touched');
-})
-btn.addEventListener('touchend', function(){
-	console.log('btn leaved');
-})
-btn.addEventListener('touchmove', function(){
-	console.log('btn leaved');
-})
-btn.addEventListener('touchleave', function(){
-	console.log('btn moving end');
-})
-btn.addEventListener('touchcancel', function(){
-	console.log('btn moving cancel');
-})
+
