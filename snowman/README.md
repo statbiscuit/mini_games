@@ -1,6 +1,6 @@
 ## Summary
 
-[snowman](https://statbiscuit.github.io/mini_games/puzzle/snowman.html): guess the word before the snowman melts.
+[snowman](https://statbiscuit.github.io/mini_games/snowman/index.html): guess the word before the snowman melts.
 
 ## Notes
 
