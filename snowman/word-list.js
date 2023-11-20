@@ -5,11 +5,11 @@ const wordList = [
     },
     {
         word: "spatstat",
-        hint: "R package for spatial statistics authored by Adrian Baddeley, Rolf Turner and Ege Rubak."
+        hint: "R package for spatial statistics authoured by Adrian Baddeley, Rolf Turner and Ege Rubak."
     },
     {
         word: "cartesian",
-        hint: "A coordinate reference systems."
+        hint: "A coordinate reference system."
     },
      {
         word: "gaussian",
@@ -20,7 +20,7 @@ const wordList = [
         hint: "A method of spatial interpolation."
     },
     {
-        word: "interploation",
+        word: "interpolation",
         hint: "Spatial ___: estimating values for spatial locations where they have not been observed."
     },
     {
@@ -37,7 +37,7 @@ const wordList = [
     },
     {
         word: "stelfi",
-        hint: "R package for Hawkes and Log-Gaussian Cox Point Processes."
+        hint: "R package for Hawkes and log-Gaussian Cox point processes authoured by me :)"
     },
     {
         word: "hawkes",
