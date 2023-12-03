@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap");
+:root {
+    --background-color:  #fff2D7;
+    --shadow-color: rgba(0, 0, 0, 0.342);
+    --border-color: #000;
+    --solved-color: #56964f;
+    --unsolved-color: #d29ad4;
+    --menu-background: #383838;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: var(--background-color);
+    font-family: "Source Code Pro", cursive;
+    font-size: 24px;
+}
+#game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.board {
+    background-color:   #e4c7b7;
+    display: flex;
+    flex-direction: column;
+    width: 80vmin;
+    height: 80vmin;
+    margin: 20px auto;
+    box-shadow: 4px 4px 6px var(--shadow-color);
+}
+.menu-board {
+    background-color:  #f9e4bc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vmin;
+    height: 80vmin;
+    margin: 20px auto auto;
+    box-shadow: 6px 14px 10px var(--shadow-color);
+}
+.menu {
+    flex: 1;
+    width: 70%;
+    margin: 20px;
+    background-color:  #e4c7b7;
+    color: aliceblue;
+    font-size: 30px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px var(--shadow-color);
+}
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80vmin;
+}
+.row-el {
+    display: flex;
+    flex: 1;
+}
+.cell {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.column-header-cell {
+    border-left: solid 2px var(--border-color);
+    white-space: pre;
+    height: auto;
+    display: flex;
+    align-items: flex-end;
+}
+.row-header-cell {
+    border-top: 2px solid var(--border-color);
+    align-items: center;
+}
+.game-cell {
+    border-top: 2px solid var(--border-color);
+    border-left: solid 2px var(--border-color);
+}
+
+.game-cell .innercell {
+    justify-self: center;
+    position: relative;
+    height: 80%;
+    width: 80%;
+    margin: auto;
+    opacity: 0;
+    transform: rotateY(180deg);
+    transition: all 500ms ease-in;
+    border-radius: 100px 0px;
+}
+.game-cell .innerfull {
+    background-color: var(--unsolved-color);
+    opacity: 1;
+    transform: rotateY(0);
+}
+.game-cell .innercell.solved {
+    background-color: var(--solved-color);
+    transform: rotateY(180deg);
+}
+
+.restart-btn {
+    background-color: var(--menu-background);
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px var(--shadow-color);
+    padding: 10px;
+}
+.timer {
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: all 500ms ease;
+}
+.timer.border {
+    border: 4px solid var(--border-color);
+    background-color: var(--solved-color);
+}
