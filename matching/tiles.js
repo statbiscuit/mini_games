@@ -44,7 +44,7 @@ function add_elem(i, elem) {
 
     if (window.tilecount == 1) {
 	if (i != window.lasttile && window.A[i].indexOf(window.A[window.lasttile]) >= 0  ||
-	    window.A[window.lasttile].indexOf(window.A[i]) >= 0) {
+	    window.A[window.lasttile].indexOf(window.A[i]) >= 0 && window.A[i] != window.A[window.lasttile]) {
         //checks if the 2 symbols match and aren't the same tile
         var first = document.getElementById("tile_" + i); //get tile id
         var second = document.getElementById("tile_" + window.lasttile); //get tile id
