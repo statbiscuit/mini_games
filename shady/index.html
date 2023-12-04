@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shady</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header><h2>Guess the <span class="shady">shaded area</span> under the curve</h2></header>
+      <h4>The total area under the curve is 1.</h4>
+      <h5>Make your guess to 2 d.p.</h5>
+      <div class="input-field">
+        <input type="number" />
+        <button>Check</button>
+      </div>
+      <p class="guess"></p>
+      <p>You have <span class="chances">10</span> chances left</p>
+    </div>
+    <div id="bar-chart" class="beta-graph"/>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.1/d3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.4.2/math.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.3/jstat.min.js"></script>
+    <script src="script.js" defer></script>
+  </body>
+</html>
