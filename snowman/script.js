@@ -60,12 +60,15 @@ const initGame = (button, clickedLetter) => {
     if(correctLetters.length === currentWord.length) return gameOver(true);
 }
 
+const keys = ['q', 'w', 'e', 'ē', 'r', 't' , 'y', 'u', 'ū','i', 'ī', 'o', 'ō', 'p', 'a','ā', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
+
+
 // Creating keyboard buttons and adding event listeners
-for (let i = 97; i <= 122; i++) {
+for (let i = 0; i <= 30; i++) {
     const button = document.createElement("button");
-    button.innerText = String.fromCharCode(i);
+    button.innerText = keys[i]; 
     keyboardDiv.appendChild(button);
-    button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)));
+    button.addEventListener("click", (e) => initGame(e.target, keys[i]));
 }
 
 getRandomWord();
