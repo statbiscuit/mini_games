@@ -1,6 +1,6 @@
 ## Summary
 
-[`tidyverse` jigsaw](https://statbiscuit.github.io/mini_games/jigsaw/index.html) is a jigsaw puzzle of the core `tidyverse` `R` packages.
+[slide`R` jigsaws](https://statbiscuit.github.io/mini_games/slider/slider.html) can be solved by using the arrows manoeuvre the pieces to complete the puzzles.
 
 ## Notes
 

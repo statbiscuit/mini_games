@@ -1,6 +1,6 @@
 ## Summary
 
-[numnah](https://statbiscuit.github.io/mini_games/shady/index.html): how quickly can you guess the p-value?
+[shady](https://statbiscuit.github.io/mini_games/shady/index.html): how quickly can you guess the p-value?
 
 ## Notes
 

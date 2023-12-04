@@ -1,6 +1,6 @@
 ## Summary
 
-[codeR](https://statbiscuit.github.io/mini_games/coding/index.html): `R` coding speed test!
+[code`R`](https://statbiscuit.github.io/mini_games/coding/index.html): `R` coding speed test!
 
 ## Notes
 
