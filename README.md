@@ -1,12 +1,12 @@
 ## [A selection of `R` and stats focused mini games for classroom entertainment](https://statbiscuit.github.io/mini_games/)
 
 
-[<p align="center"><img src="https://github.com/statbiscuit/mini_games/blob/main/img/games.png?raw=true" /></p>](https://statbiscuit.github.io/mini_games/)
+[![](https://github.com/statbiscuit/mini_games/blob/main/img/games.png?raw=true)](https://statbiscuit.github.io/mini_games/)
 
 
 ## Games
 
- + [Memo`R'y](https://statbiscuit.github.io/mini_games/matching/matching.html) is simple memory matching game for basic `R` syntax and meaning.
+ + [Memo`R`y](https://statbiscuit.github.io/mini_games/matching/matching.html) is simple memory matching game for basic `R` syntax and meaning.
  + [slide`R` jigsaws](https://statbiscuit.github.io/mini_games/slider/slider.html) can be solved by using the arrows manoeuvre the pieces to complete the puzzles.
  + [Code`R`](https://statbiscuit.github.io/mini_games/coding/index.html) is a `R` coding speed test.
  + [sonwman](https://statbiscuit.github.io/mini_games/snowman/index.html): guess the word before the snowman melts.
