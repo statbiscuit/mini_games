@@ -191,4 +191,4 @@ class GameManager {
   }
 }
 // pass any board size to game manager here:
-new GameManager("game", 3, 4, 6);
+new GameManager("game", 3, 4, 7);
