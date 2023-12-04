@@ -10,14 +10,14 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background:  #d29ad4;
+  background:  #e8cce9;
 }
 ::selection{
   color: #fff;
-  background:  #d29ad4;
+  background:  #e8cce9;
 }
 .wrapper{
-  width: 770px;
+  width: 40%;
   padding: 35px;
   background: #fff;
   border-radius: 10px;
@@ -59,7 +59,8 @@ body{
   border-radius: 4px;
 }
 .typing-text p span.active{
-  color: #d29ad4;
+    color: #968296;
+    font-weight: bold;
 }
 .typing-text p span.active::before{
   position: absolute;
@@ -70,7 +71,7 @@ body{
   left: 0;
   opacity: 0;
   border-radius: 5px;
-  background: #d29ad4;
+  background: #968296;
   animation: blink 1s ease-in-out infinite;
 }
 @keyframes blink{
