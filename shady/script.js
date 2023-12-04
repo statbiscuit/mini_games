@@ -188,8 +188,11 @@ checkButton.addEventListener("click", () => {
     // Check if the input value is equal to the random number
     if (inputValue == randomNumP) {
 	// Update guessed number, disable input, check button text and color.
-	[guess.textContent, input.disabled] = ["Congratulations", true];
-	[checkButton.textContent, guess.style.color] = ["Replay", "#333"];
+	[checkButton.textContent, guess.style.color, input.disabled] = ["Reloading...", "#333", true];
+	[guess.textContent, guess.style.color] = ["Congratulations", "#03AC13"];
+	setTimeout(() => {
+	    window.location.reload()
+	}, 4000); // wait 4 seconds befoe replaying after a win
 	//Check if input value is > random number and within  range.
     } else if (inputValue > randomNumP && inputValue < 1.01) {
 	// Update the guess text and remaining chances
@@ -206,13 +209,13 @@ checkButton.addEventListener("click", () => {
 	guess.style.color = "#DE0611";
     }
     // Check if the chance is zero
-    if (chance == 0) {
+    if (chance == 0 && inputValue != randomNumP) {
 	//Update check button, disable input, and clear input value.
 	// Update guessed number text and color to indicate user loss.
 	[checkButton.textContent, input.disabled, inputValue] = ["Replay", true, ""];
 	[guess.textContent, guess.style.color] = ["You lost the game", "#DE0611"];
     }
-    if (chance < 0) {
+    if (chance < 0 ) {
 	window.location.reload();
     }
 });
