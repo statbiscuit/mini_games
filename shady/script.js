@@ -172,7 +172,7 @@ function renderBetaDist(elementId, ablist, num) {
 input.focus();
 
 let randomNum = Math.round(Math.random() * 100);
-let ranA = Math.round(Math.random() * 10);
+let ranA = 0.5 + (Math.random() * 10);
 let randomNumP = Math.round((1 - jStat.beta.cdf(randomNum/100, ranA, 4))*100)/100;
 chance = 10;
 
