@@ -4,32 +4,11 @@ const loading = document.querySelector(".loading");
 
 let win = false;
 let lose = false;
-
 let numberOfLetters = 0;
 let currentWord = 1;
 
-async function validateWord(valid) {
-  appearOrDisappearLoading();
-  const tryToValidate = {
-    word: `${valid}`,
-  };
-  const options = {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(tryToValidate),
-  };
-  const response = await fetch(
-    "https://words.dev-apis.com/validate-word",
-    options
-  );
-  const processedResponse = await response.json();
-  appearOrDisappearLoading();
-  return processedResponse.validWord;
-}
-let wordlist = ['point','dplyr'];
+let wordlist = ['point','blank', 'count', 'label','spoke','theme','aaply'];
+
 async function init() {
   // Getting the word
     let rand = Math.floor(Math.random() * wordlist.length);
@@ -88,27 +67,22 @@ function backspaceTyped() {
 }
 
 function enterTyped(wordOfTheDay) {
-  let comparativeWord = "";
-  let index;
-  if (numberOfLetters < 5) {
-    index = 1;
-  } else {
-    index = numberOfLetters - 4;
-  }
-  // Making the letters become a word
-  for (index; index <= numberOfLetters; index++) {
-    comparativeWord += document.getElementById("letter-" + index).innerText;
-  }
-
-  validateWord(comparativeWord).then((isValid) => {
-    if (isValid) {
-      validWordTyped(wordOfTheDay, comparativeWord);
+    let comparativeWord = "";
+    let index;
+    if (numberOfLetters < 5) {
+	index = 1;
     } else {
-      invalidWordTyped();
+	index = numberOfLetters - 4;
     }
-  });
+    // Making the letters become a word
+    for (index; index <= numberOfLetters; index++) {
+	comparativeWord += document.getElementById("letter-" + index).innerText;
+    }
+    // assumes any 5 letters is a valid word,  crude work around for non-word funtions
+    validWordTyped(wordOfTheDay, comparativeWord);
 }
 
+				       
 function isLetter(key) {
   return /^[a-zA-Z]$/.test(key);
 }
@@ -175,12 +149,12 @@ function validWordTyped(wordOfTheDay, comparativeWord) {
     if (wordOfTheDay == comparativeWord) {
       win = true;
       winEffect();
-      alert("You win!!");
+      //alert("You win!!");
     } else {
       currentWord++;
       if (currentWord == 7) {
         lose = true;
-        alert("You lose!!");
+        alert("You lose :-|");
       }
     }
   }
