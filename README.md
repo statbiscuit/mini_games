@@ -10,7 +10,7 @@
  + [slide`R` jigsaws](https://statbiscuit.github.io/mini_games/slider/slider.html) can be solved by using the arrows manoeuvre the pieces to complete the puzzles.
  + [Code`R`](https://statbiscuit.github.io/mini_games/coding/index.html) is a `R` coding speed test.
  + [sonwman](https://statbiscuit.github.io/mini_games/snowman/index.html): guess the word before the snowman melts.
- + [geom_guess()](https://statbiscuit.github.io/mini_games/guess/index.html): dechipher the emojis to figure out the `geom_`.
+ + [ggrdle](https://statbiscuit.github.io/mini_games/ggrdle/index.html): 6 chances to guess a 5-letter `tidyverse` function.
  + [Design-o-gram](https://statbiscuit.github.io/mini_games/design-o-gram/index.html) is a experimental design-inspired nonogram game.
  + [shady](https://statbiscuit.github.io/mini_games/shady/index.html) gets you to guess the p-value correct to two decimal places.
 
@@ -23,7 +23,7 @@ All source code is available in the subfolders of this repo. Note that many of t
  + [CSS Slider Puzzle Game, Mark Robbins, CodePen](https://codepen.io/M_J_Robbins/pen/VeNWQQ)
  + [Typing Speed Test Game](https://www.codingnepalweb.com/typing-speed-test-game-html-javascript/)
  + [Hangman Game](https://www.codingnepalweb.com/build-hangman-game-html-javascript/)
- + [Guess The Movie - a mini CSS game, Ines, CodePen](https://codepen.io/inescodes/pen/BaKxdVG)
+ + [Wordle-game, Rafael Pacini, GitHub](https://github.com/rafaelpacinii/wordle-game/tree/main)
  + [Nonogram, Mostafa Alvandi, CodePen](https://codepen.io/alvandisetvat/pen/oNBwvWK)
  + [Number Guessing Game,  CodingNepal](https://www.codingnepalweb.com/create-game-html-css-javascript/)
  + [Beta distribution plot, Üstün Ergenoglu, CodePen](https://codepen.io/rgngl/pen/MLBBON)
