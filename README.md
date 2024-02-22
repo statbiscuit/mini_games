@@ -13,6 +13,7 @@
  + [ggrdle](https://statbiscuit.github.io/mini_games/ggrdle/index.html): 6 chances to guess a 5-letter `tidyverse` function.
  + [Design-o-gram](https://statbiscuit.github.io/mini_games/design-o-gram/index.html) is a experimental design-inspired nonogram game.
  + [shady](https://statbiscuit.github.io/mini_games/shady/index.html) gets you to guess the p-value correct to two decimal places.
+ + [zork](https://statbiscuit.github.io/mini_games/zork/index.html)go on an adventure and find the dragon, Andara.
 
 
 ## Notes
@@ -27,5 +28,6 @@ All source code is available in the subfolders of this repo. Note that many of t
  + [Nonogram, Mostafa Alvandi, CodePen](https://codepen.io/alvandisetvat/pen/oNBwvWK)
  + [Number Guessing Game,  CodingNepal](https://www.codingnepalweb.com/create-game-html-css-javascript/)
  + [Beta distribution plot, Üstün Ergenoglu, CodePen](https://codepen.io/rgngl/pen/MLBBON)
+ + [Building a Mini Text-Based Adventure Game]https://dev.to/shawn2208/building-a-mini-text-based-adventure-game-mini-zork-with-html-css-js-3879)
 
 
