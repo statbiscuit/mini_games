@@ -1,0 +1,39 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 25px;
+    background-color: #000;
+    color: #00FF00;
+}
+
+#terminal {
+    padding: 20px;
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#input-line {
+    display: flex;
+    align-items: center;
+}
+
+.prompt {
+    margin-right: 5px;
+}
+
+#input {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    color: inherit;
+}
+#output{
+    white-space: pre;
+}
+.field {
+    white-space: pre;
+    font-size: 20px;
+}
