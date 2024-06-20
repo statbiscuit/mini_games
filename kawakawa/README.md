@@ -1,6 +1,6 @@
 ## Summary
 
-[snowman](https://statbiscuit.github.io/mini_games/snowman/index.html): guess the word before the snowman melts.
+[kawakawa](https://statbiscuit.github.io/mini_games/kawakawa/index.html): guess the word before the Kawakawa gets eaten.
 
 ## Notes
 
