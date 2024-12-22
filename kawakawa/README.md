@@ -9,3 +9,5 @@ Modify the `word` and `hint` elements in `word-list.js` to customize. Change the
 The base code is modified from [Hangman Game](https://www.codingnepalweb.com/build-hangman-game-html-javascript/)
 
 This branch includes changes by Cris Escandor
+
+Test 2
