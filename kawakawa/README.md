@@ -8,8 +8,14 @@ Modify the `word` and `hint` elements in `word-list.js` to customize. Change the
 
 The base code is modified from [Hangman Game](https://www.codingnepalweb.com/build-hangman-game-html-javascript/)
 
-This branch includes changes by Cris Escandor
+## Changes
 
-Test 2
+*Modifications by Cris Escandor as part of SCI199*
 
-Test 3 trying to publish the branch
+This branch includes the following changes:
+
+1. Bigger word pool / i.e., changes to *`word-list.js`*
+
+## Further Ideas
+
+* A way to export number of guesses required by the word

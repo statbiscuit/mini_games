@@ -1,14 +1,15 @@
-const wordDisplay = document.querySelector(".word-display");
-const guessesText = document.querySelector(".guesses-text b");
-const keyboardDiv = document.querySelector(".keyboard");
-const hangmanImage = document.querySelector(".hangman-box img");
-const gameModal = document.querySelector(".game-modal");
-const playAgainBtn = gameModal.querySelector("button");
+const wordDisplay = document.querySelector(".word-display"); // Points to the area where the word (guessed) so far will appear
+const guessesText = document.querySelector(".guesses-text b"); // Points to the text showing how many guesses the player has made
+const keyboardDiv = document.querySelector(".keyboard"); // Refers to the on-screen keyboard where players click letters
+const hangmanImage = document.querySelector(".hangman-box img"); // Refers to the image of the hangman (or equivalent) that changes as guesses go wrong
+const gameModal = document.querySelector(".game-modal"); // Points to the modal window that shows at the end of the game
+const playAgainBtn = gameModal.querySelector("button"); // Refers to the "Play Again" button inside the modal
 
 // Initializing game variables
 let currentWord, correctLetters, wrongGuessCount;
 const maxGuesses = 6;
 
+// Resets the game to its starting state (whenever a word is selected or the game restarts)
 const resetGame = () => {
     // Ressetting game variables and UI elements
     correctLetters = [];
@@ -22,10 +23,11 @@ const resetGame = () => {
 
 const getRandomWord = () => {
     // Selecting a random word and hint from the wordList
+    // const { word, hint } = wordList[1] // Use when testing to see if every word works
     const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
     currentWord = word; // Making currentWord as random word
-    document.querySelector(".hint-text b").innerText = hint;
-    resetGame();
+    document.querySelector(".hint-text b").innerText = hint; // Updates the hint displayed in the .hint-text element
+    resetGame(); // Calls resetGame to initialise the game with the new word
 }
 
 const gameOver = (isVictory) => {
@@ -36,6 +38,7 @@ const gameOver = (isVictory) => {
     gameModal.classList.add("show");
 }
 
+// Main gaim logic to process each letter guessed by the player
 const initGame = (button, clickedLetter) => {
     // Checking if clickedLetter is exist on the currentWord
     if(currentWord.includes(clickedLetter)) {
