@@ -19,3 +19,4 @@ This branch includes the following changes:
 ## Further Ideas
 
 * A way to export number of guesses required by the word
+* 

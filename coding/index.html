@@ -7,12 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <!-- Narrative Section -->
+    <div id="narrative" style="display: none;"></div>
+
+    <!-- Typing Game Wrapper -->
     <div class="wrapper">
+      <!-- Input Field -->
       <input type="text" class="input-field">
+
+      <!-- Typing and Game Content -->
       <div class="content-box">
+        <!-- Typing Text -->
         <div class="typing-text">
           <p></p>
         </div>
+
+        <!-- Game Stats and Controls -->
         <div class="content">
           <ul class="result-details">
             <li class="time">
@@ -37,8 +47,11 @@
       </div>
     </div>
 
+    <!-- Outcome Section -->
+    <div id="outcome" style="display: none;"></div>
+
+    <!-- Scripts -->
     <script src="paragraphs.js"></script>
-    <script src="script.js"></script>
-  
+    <script src="script.js" type="module"></script>
   </body>
 </html>
