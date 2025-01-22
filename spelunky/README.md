@@ -2,7 +2,8 @@
 
 HTML5 version of [Spelunky Classic HD](https://github.com/yancharkin/SpelunkyClassicHD).
 
-**This project is no longer under development. You can still report bugs, but it's unlikely that those bugs will be fixed. But if someday someone decides to continue development, your bug reports may come in handy. Maybe I'll keep updating builds to the latest Electron and Cordova versions but no guarantee.**
+
+**This version is currently being modified by Cris Escandor**
 
 ![screenshot](screenshots/screenshot_00.jpg)
 
@@ -12,4 +13,4 @@ This version has a bit more bugs but also it has some nice features:
 - touch input on any device that supports it (not only android)
 
 
-** Changes
+** Changes:
