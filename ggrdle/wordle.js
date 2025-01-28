@@ -105,9 +105,14 @@ function startGame(wordBankCategory) {
 function initGame(wordBank) {
   // Select a random word from the word bank
   const randomIndex = Math.floor(Math.random() * wordBank.length);
-  const selectedWord = wordBank[randomIndex].word;
+  const selectedWordData = wordBank[randomIndex];
+  const selectedWord = selectedWordData.word;
+  const wordDescription = selectedWordData.description; // Get the description
   currentWordOfTheDay = selectedWord.toUpperCase();
   console.log(`Word of the Day: ${currentWordOfTheDay}`);
+
+  // Store the word description globally
+  window.currentWordDescription = wordDescription;
 
   resetGame();
 
@@ -132,11 +137,11 @@ function handleKeyDown(event) {
 const newWordButton = document.getElementById("new-word-button");
 const homeButton = document.getElementById("home-button");
 
-// Event Listener for "New Word"
-newWordButton.addEventListener("click", () => {
-  resetGame();
-  initGame(selectedWordBank); // Restart the game with the same word bank
-});
+// Hint button
+const hintButton = document.getElementById("hint-button");
+const hintContainer = document.getElementById("hint-container");
+const hintText = document.getElementById("hint-text");
+
 
 // Event Listener for "Home"
 homeButton.addEventListener("click", () => {
@@ -145,15 +150,35 @@ homeButton.addEventListener("click", () => {
   modeSelection.style.display = "flex"; // Show the mode selection screen
 });
 
+// Event Listener for "New Word"
+newWordButton.addEventListener("click", () => {
+  resetGame();
+  initGame(selectedWordBank); // Restart the game with the same word bank
+});
+
+// Event listener for the Hint button
+hintButton.addEventListener("click", () => {
+  hintText.textContent = window.currentWordDescription; // Display the hint
+  hintContainer.classList.remove("hidden"); // Make the hint container visible
+});
 
 function resetGame() {
   win = false;
   lose = false;
   numberOfLetters = 0;
   currentWord = 1;
+
   clearGrid();
   clearKeyboard();
+
+  // Reset the hint
+  hintText.textContent = ""; // Clear the hint text
+  hintContainer.classList.add("hidden"); // Hide the hint container
+
+  // Show the Hint button
+  hintButton.classList.remove("hidden");
 }
+
 
 
 function clearGrid() {
@@ -295,6 +320,9 @@ function enterTyped(wordOfTheDay) {
   } else {
       lose = true;
       showModal("You Lost!", `The correct word was: ${wordOfTheDay}`);
+      
+      // Hide the Hint button
+      hintButton.classList.add("hidden");
   }
 }
 
@@ -367,7 +395,12 @@ function winEffect() {
   document.querySelectorAll(".key-button").forEach((button) => {
       button.disabled = true; // Disable keyboard inputs on win
   });
+
+  // Hide the Hint button
+  hintButton.classList.add("hidden");
 }
+
+
 
 function showModal(title, message) {
   const modal = document.getElementById("result-modal");
@@ -382,9 +415,13 @@ function showModal(title, message) {
   // Show the modal
   modal.classList.remove("hidden");
 
+  // Hide the hint button
+  hintButton.style.display = "none";
+
   // Close the modal on button click
   closeButton.addEventListener("click", () => {
       modal.classList.add("hidden");
       resetGame(); // Reset the game when modal is closed
   });
 }
+
