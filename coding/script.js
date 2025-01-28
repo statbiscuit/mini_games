@@ -61,7 +61,7 @@ function loadParagraph() {
 function initTyping() {
   let characters = typingText.querySelectorAll("span");
   let typedChar = inpField.value.split("")[charIndex];
-  if (charIndex < characters.length - 1 && timeLeft > 0) {
+  if (charIndex < characters.length && timeLeft > 0) {
     if (!isTyping) {
       timer = setInterval(initTimer, 1000);
       isTyping = true;
@@ -82,31 +82,40 @@ function initTyping() {
         characters[charIndex].classList.add("incorrect");
       }
       charIndex++;
+  
+      // Check if the paragraph is complete
+      if (charIndex === characters.length) {
+        evaluateSolution();
+        return;
+      }
     }
     characters.forEach((span) => span.classList.remove("active"));
-    characters[charIndex].classList.add("active");
-
+    if (charIndex < characters.length) {
+      characters[charIndex].classList.add("active");
+    }
+  
     let wpm = Math.round(((charIndex - mistakes) / 5) / (maxTime - timeLeft) * 60);
     wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-
+  
     wpmTag.innerText = wpm;
     mistakeTag.innerText = mistakes;
     cpmTag.innerText = charIndex - mistakes;
-  } else {
+  }
+   else {
     evaluateSolution();
   }
 }
 
 // Timer logic
 function initTimer() {
-    if (timeLeft > 0) {
-      timeLeft--;
-      timeTag.innerText = timeLeft;
-    } else {
-      // Timer ran out, evaluate solution
-      evaluateSolution();
-    }
+  if (timeLeft > 0) {
+    timeLeft--;
+    timeTag.innerText = timeLeft;
+  } else {
+    // Timer ran out, evaluate solution
+    evaluateSolution();
   }
+}
 
 // Evaluate the player's performance
 function evaluateSolution() {
@@ -118,7 +127,7 @@ function evaluateSolution() {
   const hasTooManyMistakes = mistakes > 5; // Adjust this threshold as needed
 
   const success = !isIncomplete && !hasTooManyMistakes;
-  
+
   outcomeDiv.innerHTML = `
     <h2>${success ? "Success!" : "Failure!"}</h2>
     <p>${success ? currentNarrative.success : currentNarrative.failure}</p>
