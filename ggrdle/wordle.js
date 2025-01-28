@@ -57,54 +57,53 @@ subcategoryButtons.forEach((button) => {
 
 // Function to Start the Game
 function startGame(wordBankCategory) {
-  function startGame(wordBankCategory) {
-    let selectedWordBank;
-  
-    // Determine the correct word bank based on the category
-    switch (wordBankCategory) {
-      case "statisticalFunction":
-        selectedWordBank = statisticalFunction;
-        break;
-      case "baseRFunctions":
-        selectedWordBank = baseRFunctions;
-        break;
-      case "dataFrameFunctions":
-        selectedWordBank = dataFrameFunctions;
-        break;
-      case "dplyrFunctions":
-        selectedWordBank = dplyrFunctions;
-        break;
-      case "tidyrFunctions":
-        selectedWordBank = tidyrFunctions;
-        break;
-      case "ggplot2Functions":
-        selectedWordBank = ggplot2Functions;
-        break;
-      case "stringRFunctions":
-        selectedWordBank = stringRFunctions;
-        break;
-      case "generalTidyverseFunctions":
-        selectedWordBank = generalTidyverseFunctions;
-        break;
-      case "magickFunctions":
-        selectedWordBank = magickFunctions;
-        break;
-      case "lubridateFunctions":
-        selectedWordBank = lubridateFunctions;
-        break;
-      case "playWordBank": // Default for Play mode
-      default:
-        selectedWordBank = playWordBank;
-        break;
-    }
-  
-    console.log(`Starting game with category: ${wordBankCategory}`);
-    console.log(`Word bank contains ${selectedWordBank.length} words.`);
-  
-    // Pass the selected word bank to initialize the game
-    initGame(selectedWordBank);
-  }  
+  let selectedWordBank;
+
+  // Determine the correct word bank based on the category
+  switch (wordBankCategory) {
+    case "statisticalFunction":
+      selectedWordBank = statisticalFunction;
+      break;
+    case "baseRFunctions":
+      selectedWordBank = baseRFunctions;
+      break;
+    case "dataFrameFunctions":
+      selectedWordBank = dataFrameFunctions;
+      break;
+    case "dplyrFunctions":
+      selectedWordBank = dplyrFunctions;
+      break;
+    case "tidyrFunctions":
+      selectedWordBank = tidyrFunctions;
+      break;
+    case "ggplot2Functions":
+      selectedWordBank = ggplot2Functions;
+      break;
+    case "stringRFunctions":
+      selectedWordBank = stringRFunctions;
+      break;
+    case "generalTidyverseFunctions":
+      selectedWordBank = generalTidyverseFunctions;
+      break;
+    case "magickFunctions":
+      selectedWordBank = magickFunctions;
+      break;
+    case "lubridateFunctions":
+      selectedWordBank = lubridateFunctions;
+      break;
+    case "playWordBank": // Default for Play mode
+    default:
+      selectedWordBank = playWordBank;
+      break;
+  }
+
+  console.log(`Starting game with category: ${wordBankCategory}`);
+  console.log(`Word bank contains ${selectedWordBank.length} words.`);
+
+  // Pass the selected word bank to initialize the game
+  initGame(selectedWordBank);
 }
+
 
 function initGame(wordBank) {
   // Select a random word from the word bank
@@ -114,6 +113,9 @@ function initGame(wordBank) {
 
   // Reset game state (implemented below)
   resetGame();
+
+  // Generate grid dynamically based on word length
+  generateGrid(selectedWord.length);
 
   // Pass the selected word to the main game logic
   setupGame(selectedWord);
@@ -162,6 +164,28 @@ subcategoryButtons.forEach((button) => {
   });
 });
 
+/* Step 2: Dynamic Grid Generation */
+function generateGrid(wordLength, maxAttempts = 6) {
+  const gridContainer = document.querySelector(".wordle-words");
+
+  // Clear any existing grid
+  gridContainer.innerHTML = "";
+
+  // Create rows and letter boxes
+  for (let i = 0; i < maxAttempts; i++) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+
+    for (let j = 0; j < wordLength; j++) {
+      const box = document.createElement("div");
+      box.classList.add("letter-box");
+      box.id = `letter-${i * wordLength + j + 1}`; // Unique ID for each box
+      row.appendChild(box);
+    }
+
+    gridContainer.appendChild(row);
+  }
+}
 
 
 /* Existing code */
@@ -212,10 +236,11 @@ function handleInputs(value, wordOfTheDay) {
 }
 
 function letterTyped(letter) {
+  const wordLength = document.querySelector(".row").children.length; // Dynamic word length
   if (
-    numberOfLetters % 5 != 0 ||
+    numberOfLetters % wordLength != 0 ||
     numberOfLetters == 0 ||
-    numberOfLetters / 5 < currentWord
+    numberOfLetters / wordLength < currentWord
   ) {
     numberOfLetters++;
   }
@@ -223,10 +248,12 @@ function letterTyped(letter) {
   addLetterAnimation();
 }
 
+
 function backspaceTyped() {
   if (numberOfLetters != 0) {
+    const wordLength = document.querySelector(".row").children.length; // Dynamic word length
     removeLetterAnimation();
-    if (numberOfLetters % 5 != 0 || numberOfLetters / currentWord === 5) {
+    if (numberOfLetters % wordLength != 0 || numberOfLetters / currentWord === wordLength) {
       document.getElementById("letter-" + numberOfLetters).innerText = "";
       numberOfLetters--;
     }
@@ -234,19 +261,23 @@ function backspaceTyped() {
 }
 
 function enterTyped(wordOfTheDay) {
-    let comparativeWord = "";
-    let index;
-    if (numberOfLetters < 5) {
-	index = 1;
-    } else {
-	index = numberOfLetters - 4;
-    }
-    // Making the letters become a word
-    for (index; index <= numberOfLetters; index++) {
-	comparativeWord += document.getElementById("letter-" + index).innerText;
-    }
-    // assumes any 5 letters is a valid word,  crude work around for non-word funtions
-    validWordTyped(wordOfTheDay, comparativeWord);
+  const wordLength = document.querySelector(".row").children.length; // Dynamic word length
+  let comparativeWord = "";
+  let index;
+
+  if (numberOfLetters < wordLength) {
+    index = 1;
+  } else {
+    index = numberOfLetters - wordLength + 1;
+  }
+
+  // Build the guessed word
+  for (index; index <= numberOfLetters; index++) {
+    comparativeWord += document.getElementById("letter-" + index).innerText;
+  }
+
+  // Validate the guessed word
+  validWordTyped(wordOfTheDay, comparativeWord);
 }
 
 				       
