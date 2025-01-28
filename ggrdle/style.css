@@ -1,69 +1,46 @@
 /* Animations */
 @keyframes RGB {
-  0% {
-    color: #dcd8cc;
-  }
-  15% {
-    color: #a84438;
-  }
-  30% {
-    color: #458d50;
-  }
-  45% {
-    color: #2e5070;
-  }
-  60% {
-    color: #1577a5;
-  }
-  75% {
-    color: #6b4636;
-  }
-  90% {
-    color: #2e374c;
-  }
-  100% {
-    color:#31754e;
-  }
+  0% { color: #dcd8cc; }
+  15% { color: #a84438; }
+  30% { color: #458d50; }
+  45% { color: #2e5070; }
+  60% { color: #1577a5; }
+  75% { color: #6b4636; }
+  90% { color: #2e374c; }
+  100% { color: #31754e; }
 }
 
 @keyframes flash {
-  5% {
-    border-color: crimson;
-  }
-
-  100% {
-    border-color: #ccc;
-  }
+  5% { border-color: crimson; }
+  100% { border-color: #ccc; }
 }
 
 @keyframes shrinks {
-  25% {
-    width: 35px;
-    height: 35px;
-  }
-  50% {
-    width: 50px;
-    height: 50px;
-  }
-  95% {
-    width: 45px;
-    height: 45px;
-  }
+  25% { width: 35px; height: 35px; }
+  50% { width: 50px; height: 50px; }
+  95% { width: 45px; height: 45px; }
 }
 
 @keyframes stretch {
-  25% {
-    width: 55px;
-    height: 55px;
-  }
-  50% {
-    width: 40px;
-    height: 40px;
-  }
-  95% {
-    width: 45px;
-    height: 45px;
-  }
+  25% { width: 55px; height: 55px; }
+  50% { width: 40px; height: 40px; }
+  95% { width: 45px; height: 45px; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes winColorChange {
+  0% { color: #dcd8cc; }
+  15% { color: #a84438; }
+  30% { color: #458d50; }
+  45% { color: #2e5070; }
+  60% { color: #1577a5; }
+  75% { color: #6b4636; }
+  90% { color: #2e374c; }
+  100% { color: #31754e; }
 }
 
 /* Default CSS settings */
@@ -80,14 +57,13 @@ html {
 body {
   padding: 0;
   border: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-	       Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-image: url(img/tidy.png);
   font-weight: bold;
 }
 
 .win-animation {
-  animation: RGB 5s infinite linear;
+  animation: winColorChange 5s infinite linear;
 }
 
 /* Centering Title */
@@ -217,8 +193,10 @@ body {
   width: 50px;
   height: 50px;
   background: white;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
 }
 
+/* Word Grid */
 .wordle-words {
   display: flex;
   flex-flow: column wrap;
@@ -232,48 +210,94 @@ body {
   margin-bottom: 1%;
 }
 
+/* Keyboard container */
 .keyboard {
-  margin: 2rem auto;
-  max-width: 1200px;
   display: flex;
-  flex-flow: row wrap;
-}
-
-.kb-line {
-  flex-basis: 100%;
-  display: flex;
-  flex-flow: row nowrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem; /* Add padding around the container */
 }
 
+/* Keyboard rows */
+.kb-line {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem; /* Adjust gap between buttons */
+}
+
+/* Keyboard buttons */
 .key-button {
   display: flex;
+  justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  height: 50px;
-  margin: 0.25%;
-  padding: 1.2%;
-  border: none;
-  border-radius: 3px;
+  font-size: 1.25rem; /* Increase font size */
+  padding: 1rem 1.5rem; /* Increase padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  min-width: 60px; /* Set a minimum width for the buttons */
+  min-height: 60px; /* Set a minimum height for the buttons */
+  text-transform: uppercase; /* Uppercase text for uniformity */
 }
 
-/* Add spacing for smaller screens */
-@media (max-width: 800px) {
-  .key-button {
-    margin: 0.5%;
-    padding: 2%;
-  }
+/* Hover effect for buttons */
+.key-button:hover {
+  background-color: #e2e6ea;
+  transform: scale(1.05);
 }
 
-/* Animating the "R" in the title */
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
+/* Active effect for buttons */
+.key-button:active {
+  background-color: #ced4da;
+}
+
+/* Focus effect for buttons */
+.key-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Special styles for Enter and Backspace buttons */
+.key-button[aria-label="Key Enter"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.key-button[aria-label="Key Backspace"] {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Correct letter in the correct position (green) */
+.letter-box.correct {
+  background-color: #6aaa64; /* Green */
+  color: #fff;
+}
+
+/* Correct letter in the wrong position (yellow) */
+.letter-box.matched {
+  background-color: #c9b458; /* Yellow */
+  color: #fff;
+}
+
+/* Incorrect letter (gray) */
+.letter-box.incorrect {
+  background-color: #787c7e; /* Gray */
+  color: #fff;
+}
+
+/* Animating letter boxes when letters are typed */
+.letter-box.stretch-animation {
+  animation: stretch 0.8s ease;
+}
+
+.letter-box.shrink-animation {
+  animation: shrinks 0.8s ease;
 }
 
 /* Animated R in the woRdle title */
@@ -288,53 +312,4 @@ body {
 .r-letter {
   color: #1577a5;
   font-weight: bold;
-}
-
-/* Keyboard container */
-.keyboard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-/* Keyboard rows */
-.kb-line {
-  display: flex;
-  justify-content: center;
-  gap: 0.3rem;
-}
-
-/* Keyboard buttons */
-.key-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  padding: 0.8rem 1.2rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.key-button:hover {
-  background-color: #e2e6ea;
-  transform: scale(1.05);
-}
-
-.key-button:active {
-  background-color: #ced4da;
-}
-
-.key-button[aria-label="Key Enter"] {
-  background-color: #007bff;
-  color: white;
-}
-
-.key-button[aria-label="Key Backspace"] {
-  background-color: #dc3545;
-  color: white;
 }

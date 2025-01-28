@@ -286,8 +286,7 @@ function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
     const letter = guessedArray[i];
 
     if (wordArray[i] === letter) {
-      letterBox.style.backgroundColor = "#6aaa64"; // Green
-      letterBox.style.color = "#fff";
+      letterBox.classList.add("correct");
       remainingLetters[i] = null; // Mark this position as matched
     }
   }
@@ -301,13 +300,11 @@ function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
       wordArray[i] !== letter && // Skip already matched letters
       remainingLetters.includes(letter)
     ) {
-      letterBox.style.backgroundColor = "#c9b458"; // Yellow
-      letterBox.style.color = "#fff";
+      letterBox.classList.add("matched");
       remainingLetters[remainingLetters.indexOf(letter)] = null; // Mark this letter as matched
     } else if (wordArray[i] !== letter) {
       // Incorrect letter (gray)
-      letterBox.style.backgroundColor = "#787c7e"; // Gray
-      letterBox.style.color = "#fff";
+      letterBox.classList.add("incorrect");
     }
   }
 }
