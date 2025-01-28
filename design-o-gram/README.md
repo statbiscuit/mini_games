@@ -29,3 +29,12 @@ Since this game already had aspects of randomisation and procedurally generated 
 * Introduced a persistent Help button that allows players to revisit the guide at any time during the game.
 * Location: Always visible at the bottom-right corner of the screen.
 * Purpose: Ensures players can access instructions or refresh their understanding without needing to restart.
+
+## Future Ideas:
+
+### 1. "Feeling Adventurous" Mode 
+
+* This mode hopes to integrate more Statistics and R-Focussed concepts
+
+* Key Features:
+    * Some sort of AIC model so the nonograms would take the shape of a plot
