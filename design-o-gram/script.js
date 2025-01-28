@@ -205,3 +205,29 @@ document.addEventListener("DOMContentLoaded", () => {
     guideModal.classList.add("hidden");
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const guideModal = document.getElementById("guide-modal");
+  const startGameBtn = document.getElementById("start-game-btn");
+
+  // Show the guide modal on page load
+  guideModal.classList.remove("hidden");
+
+  // Hide the guide and start the game when the "Start Game" button is clicked
+  startGameBtn.addEventListener("click", () => {
+    guideModal.classList.add("hidden");
+  });
+
+  // Create the Help button (ensures it is always present)
+  const helpButton = document.createElement("button");
+  helpButton.textContent = "Help";
+  helpButton.classList.add("help-btn");
+
+  // Append Help button to the body (so it is not tied to game-specific containers)
+  document.body.appendChild(helpButton);
+
+  // Add event listener to show the guide modal when Help button is clicked
+  helpButton.addEventListener("click", () => {
+    guideModal.classList.remove("hidden");
+  });
+});

@@ -192,3 +192,25 @@ body {
 .hidden {
   display: none;
 }
+
+.help-btn {
+    position: fixed;
+    bottom: 20px; /* Fixed position at the bottom-right corner */
+    right: 20px;
+    background-color: var(--menu-background);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px var(--shadow-color);
+    z-index: 1001; /* Ensure it is above other elements */
+    transition: background-color 0.3s ease;
+  }
+  
+  .help-btn:hover {
+    background-color: var(--unsolved-color);
+  }
+  
+  
