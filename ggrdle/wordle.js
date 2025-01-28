@@ -286,8 +286,16 @@ function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
     const letter = guessedArray[i];
 
     if (wordArray[i] === letter) {
-      letterBox.classList.add("correct");
+      letterBox.style.backgroundColor = "#6aaa64"; // Green
+      letterBox.style.color = "#fff";
       remainingLetters[i] = null; // Mark this position as matched
+
+      // Update the keyboard button for this letter
+      const keyButton = document.querySelector(`[data-key="${letter}"]`);
+      if (keyButton) {
+        keyButton.style.backgroundColor = "#6aaa64"; // Green
+        keyButton.style.color = "#fff";
+      }
     }
   }
 
@@ -300,11 +308,27 @@ function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
       wordArray[i] !== letter && // Skip already matched letters
       remainingLetters.includes(letter)
     ) {
-      letterBox.classList.add("matched");
+      letterBox.style.backgroundColor = "#c9b458"; // Yellow
+      letterBox.style.color = "#fff";
       remainingLetters[remainingLetters.indexOf(letter)] = null; // Mark this letter as matched
+
+      // Update the keyboard button for this letter
+      const keyButton = document.querySelector(`[data-key="${letter}"]`);
+      if (keyButton) {
+        keyButton.style.backgroundColor = "#c9b458"; // Yellow
+        keyButton.style.color = "#fff";
+      }
     } else if (wordArray[i] !== letter) {
       // Incorrect letter (gray)
-      letterBox.classList.add("incorrect");
+      letterBox.style.backgroundColor = "#787c7e"; // Gray
+      letterBox.style.color = "#fff";
+
+      // Update the keyboard button for this letter
+      const keyButton = document.querySelector(`[data-key="${letter}"]`);
+      if (keyButton) {
+        keyButton.style.backgroundColor = "#787c7e"; // Gray
+        keyButton.style.color = "#fff";
+      }
     }
   }
 }
