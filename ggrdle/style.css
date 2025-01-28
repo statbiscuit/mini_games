@@ -165,3 +165,20 @@ body {
   color: #1577a5; /*  R-themed color */
   font-weight: bold;
 }
+
+/* Animating the "R" in the title */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.r-title-letter {
+  color: #1577a5;
+  font-weight: bold;
+  display: inline-block; 
+  animation: pulse 2s infinite ease-in-out;
+}
