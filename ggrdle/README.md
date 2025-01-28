@@ -15,8 +15,6 @@ The base code is modified from [wordle-game, Rafael Pacini, GitHub](https://gith
 - **Interactive Keyboard**: The on-screen keyboard dynamically changes colors (green for correct letters in the right place, yellow for correct letters in the wrong place, gray for incorrect letters) based on the player’s guesses, similar to the behavior in Wordle.
 - **Physical Keyboard Support**: In addition to the on-screen keyboard, the game now supports physical keyboard input, allowing players to type directly using their keyboard.
 - **Grid and Keyboard Synchronization**: Both the game grid and the virtual keyboard update together in real-time, reflecting the accuracy of each guess.
-- **Word Validation**: Guesses are validated to ensure they match the expected word length and are not left incomplete. Incomplete guesses will trigger a prompt alert.
-- **Win/Loss Handling**: The game tracks the number of attempts and alerts the user upon win or loss. The game can be reset after completion.
 
 ### How to Play
 1. **Start Game**: Click on "Play" to start the game. You can select different categories to customize the words you'll guess.
