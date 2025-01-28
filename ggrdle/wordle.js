@@ -114,15 +114,19 @@ function initGame(wordBank) {
   // Generate grid dynamically based on word length
   generateGrid(selectedWord.length);
   generateKeyboard();
-
-  // Event listener for physical keyboard inputs
-  document.addEventListener("keydown", (event) => {
-    const key = event.key;
-    if (key === "Backspace" || key === "Enter" || isLetter(key)) {
-      handleInputs(key.toUpperCase()); // Normalize key to uppercase
-    }
-  });
 }
+
+// Ensure that handleInputs only listens to a single `keydown` event
+document.removeEventListener("keydown", handleKeyDown);
+document.addEventListener("keydown", handleKeyDown);
+
+function handleKeyDown(event) {
+  const key = event.key;
+  if (key === "Backspace" || key === "Enter" || isLetter(key)) {
+      handleInputs(key.toUpperCase()); // Normalize key to uppercase
+  }
+}
+
 
 // Buttons
 const newWordButton = document.getElementById("new-word-button");
@@ -130,14 +134,15 @@ const homeButton = document.getElementById("home-button");
 
 // Event Listener for "New Word"
 newWordButton.addEventListener("click", () => {
-    resetGame(); // Reset game state
-    initGame(selectedWordBank); // Restart game with the same word bank
+  resetGame();
+  initGame(selectedWordBank); // Restart the game with the same word bank
 });
 
 // Event Listener for "Home"
 homeButton.addEventListener("click", () => {
-    wordleGame.style.display = "none"; // Hide the game
-    modeSelection.style.display = "flex"; // Show the mode selection screen
+  resetGame();
+  wordleGame.style.display = "none"; // Hide the game
+  modeSelection.style.display = "flex"; // Show the mode selection screen
 });
 
 

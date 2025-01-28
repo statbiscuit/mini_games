@@ -43,6 +43,18 @@
   100% { color: #31754e; }
 }
 
+@media (max-width: 600px) {
+  .key-button {
+    font-size: 0.9rem; /* Smaller font size for small screens */
+    padding: 0.4rem 0.8rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .kb-line {
+    gap: 0.2rem; /* Further reduce spacing */
+  }
+}
+
 /* Default CSS settings */
 html {
   box-sizing: border-box;
@@ -224,7 +236,7 @@ body {
 .kb-line {
   display: flex;
   justify-content: center;
-  gap: 0.4rem; /* Adjust gap between buttons */
+  gap: 0.3rem; /* Adjust gap between buttons */
 }
 
 /* Keyboard buttons */
@@ -232,16 +244,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.25rem; /* Increase font size */
-  padding: 1rem 1.5rem; /* Increase padding */
+  font-size: 1rem; /* Increase font size */
+  padding: 0.5rem 1rem; /* Increase padding */
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: #f8f9fa;
   color: #495057;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s, color 0.3s;
-  min-width: 60px; /* Set a minimum width for the buttons */
-  min-height: 60px; /* Set a minimum height for the buttons */
+  min-width: 45px; /* Set a minimum width for the buttons */
+  min-height: 45px; /* Set a minimum height for the buttons */
   text-transform: uppercase; /* Uppercase text for uniformity */
 }
 
@@ -384,9 +396,10 @@ body {
 /* Game Controls Container */
 .game-controls {
   display: flex;
-  justify-content: center;
-  gap: 1rem; /* Space between buttons */
-  margin-bottom: 1rem; /* Space below the buttons */
+  flex-direction: column; /* Change direction to column for vertical layout */
+  align-items: center; /* Center buttons horizontally */
+  gap: 1rem; /* Add spacing between buttons */
+  margin-bottom: 1rem; /* Space below the controls */
 }
 
 /* Game Control Buttons */
@@ -400,6 +413,8 @@ body {
   color: white;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.3s;
+  width: 100%; /* Ensure buttons are the same width */
+  max-width: 200px; /* Optional: Limit maximum button width */
 }
 
 .game-controls button:hover {
