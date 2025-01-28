@@ -1,3 +1,18 @@
+/* Step 1: Dynamic Word Bank Selection */
+import {
+  statisticalFunction,
+  baseRFunctions,
+  dataFrameFunctions,
+  dplyrFunctions,
+  tidyrFunctions,
+  ggplot2Functions,
+  stringRFunctions,
+  generalTidyverseFunctions,
+  magickFunctions,
+  lubridateFunctions,
+  playWordBank
+} from "./words.js";
+
 // Elements
 const modeSelection = document.getElementById("mode-selection");
 const subcategorySelection = document.getElementById("subcategory-selection");
@@ -42,11 +57,114 @@ subcategoryButtons.forEach((button) => {
 
 // Function to Start the Game
 function startGame(wordBankCategory) {
-  console.log(`Starting game with category: ${wordBankCategory}`);
-  // Implement logic to load the selected word bank and initialize the game
+  function startGame(wordBankCategory) {
+    let selectedWordBank;
+  
+    // Determine the correct word bank based on the category
+    switch (wordBankCategory) {
+      case "statisticalFunction":
+        selectedWordBank = statisticalFunction;
+        break;
+      case "baseRFunctions":
+        selectedWordBank = baseRFunctions;
+        break;
+      case "dataFrameFunctions":
+        selectedWordBank = dataFrameFunctions;
+        break;
+      case "dplyrFunctions":
+        selectedWordBank = dplyrFunctions;
+        break;
+      case "tidyrFunctions":
+        selectedWordBank = tidyrFunctions;
+        break;
+      case "ggplot2Functions":
+        selectedWordBank = ggplot2Functions;
+        break;
+      case "stringRFunctions":
+        selectedWordBank = stringRFunctions;
+        break;
+      case "generalTidyverseFunctions":
+        selectedWordBank = generalTidyverseFunctions;
+        break;
+      case "magickFunctions":
+        selectedWordBank = magickFunctions;
+        break;
+      case "lubridateFunctions":
+        selectedWordBank = lubridateFunctions;
+        break;
+      case "playWordBank": // Default for Play mode
+      default:
+        selectedWordBank = playWordBank;
+        break;
+    }
+  
+    console.log(`Starting game with category: ${wordBankCategory}`);
+    console.log(`Word bank contains ${selectedWordBank.length} words.`);
+  
+    // Pass the selected word bank to initialize the game
+    initGame(selectedWordBank);
+  }  
 }
 
+function initGame(wordBank) {
+  // Select a random word from the word bank
+  const randomIndex = Math.floor(Math.random() * wordBank.length);
+  const selectedWord = wordBank[randomIndex].word; // Assuming wordBank is an array of { word, description }
+  console.log(`Selected word: ${selectedWord}`);
 
+  // Reset game state (implemented below)
+  resetGame();
+
+  // Pass the selected word to the main game logic
+  setupGame(selectedWord);
+}
+
+function resetGame() {
+  win = false;
+  lose = false;
+  numberOfLetters = 0;
+  currentWord = 1;
+
+  // Clear the game grid and keyboard
+  clearGrid();
+  clearKeyboard();
+}
+
+function clearGrid() {
+  const letterBoxes = document.querySelectorAll(".letter-box");
+  letterBoxes.forEach((box) => {
+    box.innerText = "";
+    box.style = ""; // Reset all inline styles
+  });
+}
+
+function clearKeyboard() {
+  const keyboardButtons = document.querySelectorAll(".key-button");
+  keyboardButtons.forEach((button) => {
+    button.style = ""; // Reset all inline styles
+  });
+}
+
+// Play Mode
+playButton.addEventListener("click", () => {
+  modeSelection.style.display = "none";
+  wordleGame.style.display = "block";
+  startGame("playWordBank"); // Start game with full word bank
+});
+
+// Learn Mode Subcategories
+subcategoryButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const category = event.target.dataset.category; // Get category from button
+    subcategorySelection.style.display = "none";
+    wordleGame.style.display = "block";
+    startGame(category); // Start game with the selected category
+  });
+});
+
+
+
+/* Existing code */
 const letters = document.querySelectorAll(".key-button");
 const boxes = document.querySelectorAll(".letter-box");
 const loading = document.querySelector(".loading");
