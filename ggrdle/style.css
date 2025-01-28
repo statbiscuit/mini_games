@@ -26,7 +26,6 @@
   }
 }
 
-
 @keyframes flash {
   5% {
     border-color: crimson;
@@ -87,22 +86,127 @@ body {
   font-weight: bold;
 }
 
-
 .win-animation {
   animation: RGB 5s infinite linear;
 }
 
-.wordle-game {
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 1rem;
-}
-
+/* Centering Title */
 .wordle-title {
   font-size: 2rem;
   color: #222222;
+  text-align: center;
+  margin-top: 5rem;
 }
 
+/* Centering Mode Selection Under Title */
+.mode-selection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* Space between buttons */
+  margin-top: 2rem; /* Adjust spacing below the title */
+}
+
+/* Styling the Play and Learn Buttons */
+.mode-button {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.mode-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+.mode-button:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+
+.mode-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Add spacing for smaller screens */
+@media (max-width: 800px) {
+  .mode-button {
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Hide Subcategories by Default */
+.subcategory-selection {
+  display: none; /* Hidden initially */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem; /* Ensure consistent spacing */
+}
+
+.subcategory-button {
+  font-size: 1rem;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #6c757d;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s, color 0.3s;
+}
+
+.subcategory-button:hover {
+  background-color: #d6d8db; /* Improved contrast */
+  color: #212529;
+  transform: scale(1.05);
+}
+
+.subcategory-button:active {
+  background-color: #ced4da;
+}
+
+.subcategory-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Back Button */
+.back-button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #6c757d;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #495057;
+  transform: scale(1.05);
+}
+
+.back-button:active {
+  background-color: #343a40;
+}
+
+.back-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Letter Box Styling */
 .letter-box {
   display: flex;
   justify-content: center;
@@ -154,16 +258,12 @@ body {
   border-radius: 3px;
 }
 
+/* Add spacing for smaller screens */
 @media (max-width: 800px) {
   .key-button {
     margin: 0.5%;
     padding: 2%;
   }
-}
-
-.r-letter {
-  color: #1577a5; /*  R-themed color */
-  font-weight: bold;
 }
 
 /* Animating the "R" in the title */
@@ -176,9 +276,16 @@ body {
   }
 }
 
+/* Animated R in the woRdle title */
 .r-title-letter {
   color: #1577a5;
   font-weight: bold;
-  display: inline-block; 
+  display: inline-block;
   animation: pulse 2s infinite ease-in-out;
+}
+
+/* colours the "R" in the header */
+.r-letter {
+  color: #1577a5;
+  font-weight: bold;
 }

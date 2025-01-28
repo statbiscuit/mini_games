@@ -1,3 +1,52 @@
+// Elements
+const modeSelection = document.getElementById("mode-selection");
+const subcategorySelection = document.getElementById("subcategory-selection");
+const wordleGame = document.getElementById("wordle-game");
+const playButton = document.getElementById("play-mode");
+const learnButton = document.getElementById("learn-mode");
+const backButton = document.getElementById("back-to-mode");
+const subcategoryButtons = document.querySelectorAll(".subcategory-button");
+
+// Hide all sections initially except mode selection
+subcategorySelection.style.display = "none";
+wordleGame.style.display = "none";
+
+// Event Listener: Play Button
+playButton.addEventListener("click", () => {
+  modeSelection.style.display = "none";
+  wordleGame.style.display = "block";
+  startGame("playWordBank"); // Use full word bank
+});
+
+// Event Listener: Learn Button
+learnButton.addEventListener("click", () => {
+  modeSelection.style.display = "none";
+  subcategorySelection.style.display = "flex"; // Show subcategories
+});
+
+// Event Listener: Back Button
+backButton.addEventListener("click", () => {
+  subcategorySelection.style.display = "none";
+  modeSelection.style.display = "flex"; // Return to mode selection
+});
+
+// Event Listener: Subcategory Buttons
+subcategoryButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const category = event.target.dataset.category; // Get category from button
+    subcategorySelection.style.display = "none";
+    wordleGame.style.display = "block";
+    startGame(category); // Start game with selected category
+  });
+});
+
+// Function to Start the Game
+function startGame(wordBankCategory) {
+  console.log(`Starting game with category: ${wordBankCategory}`);
+  // Implement logic to load the selected word bank and initialize the game
+}
+
+
 const letters = document.querySelectorAll(".key-button");
 const boxes = document.querySelectorAll(".letter-box");
 const loading = document.querySelector(".loading");
