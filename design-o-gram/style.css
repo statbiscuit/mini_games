@@ -262,18 +262,29 @@ body {
     background-color: var(--unsolved-color);
   }
   
-  .scrollable-content ul {
-    background-color: #dbd7d17f; /* Light background */
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid var(--shadow-color);
-    text-align: center;
-  }
+.scrollable-content ul {
+  list-style: none;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
 
-  .scrollable-content ul li {
-  list-style-type: disc;
-  }
-  
+.scrollable-content ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 8px;
+}
+
+.scrollable-content ul li::before {
+  content: "✔"; /* Use checkmarks or icons */
+  color: var(--unsolved-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+    
   .section-divider {
     border: none;
     height: 1px;
