@@ -174,24 +174,35 @@ class GameManager {
     this.hostEl = host;
     this.showMenu(this.hostEl);
   }
+
   showMenu(hostEl) {
     const host = document.getElementById(hostEl);
     host.innerHTML = "";
     const board = Utility.create("menu-board");
     for (const mode of this.modes) {
       const menuEl = Utility.create("menu");
-      menuEl.innerHTML = `${mode} treatments`;
+      menuEl.innerHTML = mode === "Feeling Adventurous" 
+        ? `<strong>${mode}</strong>` 
+        : `${mode} treatments`;
+      
+      // Add click event for each mode
       menuEl.addEventListener("click", this.start.bind(null, mode, this));
       board.appendChild(menuEl);
     }
     host.appendChild(board);
   }
+
   start(mode, manager) {
+    if (mode === "Feeling Adventurous") {
+      alert("Feeling Adventurous mode is under construction. Stay tuned!");
+      return;
+    }
     new Game(mode, manager);
   }
 }
-// pass any board size to game manager here:
-new GameManager("game", 3, 4, 7);
+
+// Initialize GameManager with the new mode
+new GameManager("game", 3, 4, 7, "Feeling Adventurous");
 
 document.addEventListener("DOMContentLoaded", () => {
   const guideModal = document.getElementById("guide-modal");
