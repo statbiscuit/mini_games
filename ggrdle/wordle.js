@@ -242,17 +242,17 @@ function enterTyped(wordOfTheDay) {
 
   // Collect the guessed word
   for (let i = 0; i < wordLength; i++) {
-    const letterBox = document.getElementById(`letter-${startIndex + i}`);
-    const letter = letterBox.innerText.trim(); // Trim to remove spaces or empty strings
-    guessedWord += letter || " "; // Use a space to represent missing letters
+      const letterBox = document.getElementById(`letter-${startIndex + i}`);
+      const letter = letterBox.innerText.trim(); // Trim to remove spaces or empty strings
+      guessedWord += letter || " "; // Use a space to represent missing letters
   }
 
   guessedWord = guessedWord.toUpperCase();
 
   // Validate input
   if (guessedWord.trim().length !== wordLength || guessedWord.includes(" ")) {
-    alert("Word is incomplete!");
-    return;
+      alert("Word is incomplete!");
+      return;
   }
 
   // Style the current row
@@ -260,20 +260,20 @@ function enterTyped(wordOfTheDay) {
 
   // Check if the guessed word is correct
   if (guessedWord === wordOfTheDay) {
-    win = true;
-    winEffect();
-    alert("You Win!");
-    return;
+      win = true;
+      winEffect();
+      return;
   }
 
   // Proceed to the next attempt or end the game if guesses are exhausted
   if (currentWord < 6) {
-    currentWord++;
+      currentWord++;
   } else {
-    lose = true;
-    alert(`You Lose! The word was ${wordOfTheDay}`);
+      lose = true;
+      showModal("You Lost!", `The correct word was: ${wordOfTheDay}`);
   }
 }
+
 
 function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
   const wordArray = wordOfTheDay.split("");
@@ -338,9 +338,29 @@ function isLetter(key) {
 }
 
 function winEffect() {
+  showModal("You Win!", "Congratulations on guessing the correct word!");
   document.querySelector(".wordle-title").classList.add("win-animation");
   document.querySelectorAll(".key-button").forEach((button) => {
-    button.disabled = true; // Disable keyboard inputs on win
+      button.disabled = true; // Disable keyboard inputs on win
   });
 }
 
+function showModal(title, message) {
+  const modal = document.getElementById("result-modal");
+  const resultTitle = document.getElementById("result-title");
+  const resultMessage = document.getElementById("result-message");
+  const closeButton = document.getElementById("close-modal");
+
+  // Set the modal content
+  resultTitle.textContent = title;
+  resultMessage.textContent = message;
+
+  // Show the modal
+  modal.classList.remove("hidden");
+
+  // Close the modal on button click
+  closeButton.addEventListener("click", () => {
+      modal.classList.add("hidden");
+      resetGame(); // Reset the game when modal is closed
+  });
+}
