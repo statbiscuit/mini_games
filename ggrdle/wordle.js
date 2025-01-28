@@ -343,3 +343,4 @@ function winEffect() {
     button.disabled = true; // Disable keyboard inputs on win
   });
 }
+
