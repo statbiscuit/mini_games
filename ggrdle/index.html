@@ -61,16 +61,22 @@
             <button class="subcategory-button back-button" id="back-to-mode" aria-label="Back to Mode Selection">Back</button>
         </div>
 
-        <!-- Wordle Game Area -->
-        <div class="wordle-game hidden" id="wordle-game">
-            <div class="wordle-words">
-                <!-- Game grid dynamically generated in wordle.js -->
+            <!-- Wordle Game Area -->
+            <div class="wordle-game hidden" id="wordle-game">
+                <!-- New Buttons -->
+                <div class="game-controls">
+                    <button id="new-word-button">New Word</button>
+                    <button id="home-button">Home</button>
+                </div>
+
+                <div class="wordle-words">
+                    <!-- Game grid dynamically generated in wordle.js -->
+                </div>
+                <div class="keyboard">
+                    <!-- Virtual keyboard dynamically generated in wordle.js -->
+                </div>
             </div>
-            <div class="keyboard">
-                <!-- Virtual keyboard dynamically generated in wordle.js -->
-            </div>
-        </div>
-    </div>
+
 
     <script type="module" src="wordle.js"></script>
 

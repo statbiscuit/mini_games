@@ -59,46 +59,47 @@ subcategoryButtons.forEach((button) => {
 });
 
 // Start Game Function
-function startGame(wordBankCategory) {
-  let selectedWordBank;
-  switch (wordBankCategory) {
-    case "statisticalFunction":
-      selectedWordBank = statisticalFunction;
-      break;
-    case "baseRFunctions":
-      selectedWordBank = baseRFunctions;
-      break;
-    case "dataFrameFunctions":
-      selectedWordBank = dataFrameFunctions;
-      break;
-    case "dplyrFunctions":
-      selectedWordBank = dplyrFunctions;
-      break;
-    case "tidyrFunctions":
-      selectedWordBank = tidyrFunctions;
-      break;
-    case "ggplot2Functions":
-      selectedWordBank = ggplot2Functions;
-      break;
-    case "stringRFunctions":
-      selectedWordBank = stringRFunctions;
-      break;
-    case "generalTidyverseFunctions":
-      selectedWordBank = generalTidyverseFunctions;
-      break;
-    case "magickFunctions":
-      selectedWordBank = magickFunctions;
-      break;
-    case "lubridateFunctions":
-      selectedWordBank = lubridateFunctions;
-      break;
-    case "playWordBank": // Default for Play mode
-    default:
-      selectedWordBank = playWordBank;
-  }
+let selectedWordBank = []; // Global variable to store the current word bank
 
-  console.log(`Starting game with category: ${wordBankCategory}`);
-  initGame(selectedWordBank);
+function startGame(wordBankCategory) {
+    switch (wordBankCategory) {
+        case "statisticalFunction":
+            selectedWordBank = statisticalFunction;
+            break;
+        case "baseRFunctions":
+            selectedWordBank = baseRFunctions;
+            break;
+        case "dataFrameFunctions":
+            selectedWordBank = dataFrameFunctions;
+            break;
+        case "dplyrFunctions":
+            selectedWordBank = dplyrFunctions;
+            break;
+        case "tidyrFunctions":
+            selectedWordBank = tidyrFunctions;
+            break;
+        case "ggplot2Functions":
+            selectedWordBank = ggplot2Functions;
+            break;
+        case "stringRFunctions":
+            selectedWordBank = stringRFunctions;
+            break;
+        case "generalTidyverseFunctions":
+            selectedWordBank = generalTidyverseFunctions;
+            break;
+        case "magickFunctions":
+            selectedWordBank = magickFunctions;
+            break;
+        case "lubridateFunctions":
+            selectedWordBank = lubridateFunctions;
+            break;
+        case "playWordBank": // Default for Play mode
+        default:
+            selectedWordBank = playWordBank;
+    }
+
+    console.log(`Starting game with category: ${wordBankCategory}`);
+    initGame(selectedWordBank);
 }
 
 function initGame(wordBank) {
@@ -123,6 +124,23 @@ function initGame(wordBank) {
   });
 }
 
+// Buttons
+const newWordButton = document.getElementById("new-word-button");
+const homeButton = document.getElementById("home-button");
+
+// Event Listener for "New Word"
+newWordButton.addEventListener("click", () => {
+    resetGame(); // Reset game state
+    initGame(selectedWordBank); // Restart game with the same word bank
+});
+
+// Event Listener for "Home"
+homeButton.addEventListener("click", () => {
+    wordleGame.style.display = "none"; // Hide the game
+    modeSelection.style.display = "flex"; // Show the mode selection screen
+});
+
+
 function resetGame() {
   win = false;
   lose = false;
@@ -131,6 +149,7 @@ function resetGame() {
   clearGrid();
   clearKeyboard();
 }
+
 
 function clearGrid() {
   document.querySelector(".wordle-words").innerHTML = "";
