@@ -289,3 +289,52 @@ body {
   color: #1577a5;
   font-weight: bold;
 }
+
+/* Keyboard container */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Keyboard rows */
+.kb-line {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+/* Keyboard buttons */
+.key-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.key-button:hover {
+  background-color: #e2e6ea;
+  transform: scale(1.05);
+}
+
+.key-button:active {
+  background-color: #ced4da;
+}
+
+.key-button[aria-label="Key Enter"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.key-button[aria-label="Key Backspace"] {
+  background-color: #dc3545;
+  color: white;
+}

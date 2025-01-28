@@ -117,6 +117,8 @@ function initGame(wordBank) {
   // Generate grid dynamically based on word length
   generateGrid(selectedWord.length);
 
+  generateKeyboard();
+
   // Pass the selected word to the main game logic
   setupGame(selectedWord);
 }
@@ -185,6 +187,50 @@ function generateGrid(wordLength, maxAttempts = 6) {
 
     gridContainer.appendChild(row);
   }
+}
+
+/* Step 3: Dynamic Keyboard Generation */
+function generateKeyboard() {
+  const keyboardContainer = document.querySelector(".keyboard");
+
+  // Clear existing keyboard
+  keyboardContainer.innerHTML = "";
+
+  // Define the keyboard layout
+  const keyboardLayout = [
+    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "Backspace"], // Add Backspace here
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Enter"], // Add Enter here
+    ["Z", "X", "C", "V", "B", "N", "M", "_", "."]
+  ];
+
+  // Create rows of keys
+  keyboardLayout.forEach((row) => {
+    const kbRow = document.createElement("div");
+    kbRow.classList.add("kb-line");
+
+    row.forEach((key) => {
+      const button = document.createElement("button");
+      button.classList.add("key-button");
+      button.dataset.key = key; // Store the key value for easy access
+      button.textContent = key === "Backspace" ? "←" : key; // Use a symbol for Backspace
+      button.setAttribute("aria-label", `Key ${key}`); // Accessibility label
+
+      // Append the button to the row
+      kbRow.appendChild(button);
+    });
+
+    // Append the row to the keyboard container
+    keyboardContainer.appendChild(kbRow);
+  });
+
+  // Add event listeners to the dynamically created buttons
+  const buttons = document.querySelectorAll(".key-button");
+  buttons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const key = event.target.dataset.key;
+      handleInputs(key, currentWord); // Use handleInputs for key handling
+    });
+  });
 }
 
 
@@ -282,8 +328,10 @@ function enterTyped(wordOfTheDay) {
 
 				       
 function isLetter(key) {
-  return /^[a-zA-Z]$/.test(key);
+  // Allow letters, underscore, and dot
+  return /^[a-zA-Z_.]$/.test(key);
 }
+
 
 // Handle words
 
