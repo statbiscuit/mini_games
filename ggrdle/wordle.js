@@ -1,4 +1,3 @@
-/* Step 1: Dynamic Word Bank Selection */
 import {
   statisticalFunction,
   baseRFunctions,
@@ -26,6 +25,13 @@ const subcategoryButtons = document.querySelectorAll(".subcategory-button");
 subcategorySelection.style.display = "none";
 wordleGame.style.display = "none";
 
+// Game Variables
+let win = false;
+let lose = false;
+let numberOfLetters = 0;
+let currentWord = 1;
+let currentWordOfTheDay = "";
+
 // Event Listeners for Mode Selection
 playButton.addEventListener("click", () => {
   modeSelection.style.display = "none";
@@ -51,13 +57,6 @@ subcategoryButtons.forEach((button) => {
     startGame(category); // Start game with selected category
   });
 });
-
-// Game Variables
-let win = false;
-let lose = false;
-let numberOfLetters = 0;
-let currentWord = 1;
-let currentWordOfTheDay = "";
 
 // Start Game Function
 function startGame(wordBankCategory) {
@@ -114,6 +113,14 @@ function initGame(wordBank) {
   // Generate grid dynamically based on word length
   generateGrid(selectedWord.length);
   generateKeyboard();
+
+  // Event listener for physical keyboard inputs
+  document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (key === "Backspace" || key === "Enter" || isLetter(key)) {
+      handleInputs(key.toUpperCase()); // Normalize key to uppercase
+    }
+  });
 }
 
 function resetGame() {
@@ -192,17 +199,17 @@ function generateKeyboard() {
   buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
       const key = event.target.dataset.key;
-      handleInputs(key, currentWord); // Use handleInputs for key handling
+      handleInputs(key); // Use handleInputs for key handling
     });
   });
 }
 
 // Handle Inputs
-function handleInputs(value, wordOfTheDay) {
+function handleInputs(value) {
   if (!win && !lose) {
-    if (value === "Enter") {
-      enterTyped(wordOfTheDay);
-    } else if (value === "Backspace") {
+    if (value === "ENTER") {
+      enterTyped(currentWordOfTheDay);
+    } else if (value === "BACKSPACE") {
       backspaceTyped();
     } else if (isLetter(value)) {
       letterTyped(value);
@@ -212,16 +219,19 @@ function handleInputs(value, wordOfTheDay) {
 
 function letterTyped(letter) {
   const wordLength = currentWordOfTheDay.length;
-  if (numberOfLetters < wordLength * currentWord) {
+  const maxLetters = wordLength * currentWord;
+  if (numberOfLetters < maxLetters) {
     numberOfLetters++;
-    document.getElementById(`letter-${numberOfLetters}`).innerText = letter;
+    const letterBox = document.getElementById(`letter-${numberOfLetters}`);
+    letterBox.innerText = letter.toUpperCase();
   }
 }
 
 function backspaceTyped() {
   if (numberOfLetters > (currentWord - 1) * currentWordOfTheDay.length) {
-    document.getElementById(`letter-${numberOfLetters}`).innerText = "";
-      numberOfLetters--;
+    const letterBox = document.getElementById(`letter-${numberOfLetters}`);
+    letterBox.innerText = "";
+    numberOfLetters--;
   }
 }
 
@@ -230,33 +240,85 @@ function enterTyped(wordOfTheDay) {
   const startIndex = (currentWord - 1) * wordLength + 1;
   let guessedWord = "";
 
+  // Collect the guessed word
   for (let i = 0; i < wordLength; i++) {
-    guessedWord += document.getElementById(`letter-${startIndex + i}`).innerText;
+    const letterBox = document.getElementById(`letter-${startIndex + i}`);
+    const letter = letterBox.innerText.trim(); // Trim to remove spaces or empty strings
+    guessedWord += letter || " "; // Use a space to represent missing letters
   }
 
   guessedWord = guessedWord.toUpperCase();
 
-  if (guessedWord.length !== wordLength) {
+  // Validate input
+  if (guessedWord.trim().length !== wordLength || guessedWord.includes(" ")) {
     alert("Word is incomplete!");
     return;
   }
 
+  // Style the current row
+  styleRow(startIndex, wordLength, wordOfTheDay, guessedWord);
+
+  // Check if the guessed word is correct
   if (guessedWord === wordOfTheDay) {
-    winEffect();
     win = true;
+    winEffect();
     alert("You Win!");
-  } else if (currentWord < 6) {
+    return;
+  }
+
+  // Proceed to the next attempt or end the game if guesses are exhausted
+  if (currentWord < 6) {
     currentWord++;
   } else {
-    alert(`You Lose! The word was ${wordOfTheDay}`);
     lose = true;
+    alert(`You Lose! The word was ${wordOfTheDay}`);
   }
 }
-				       
+
+function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
+  const wordArray = wordOfTheDay.split("");
+  const guessedArray = guessedWord.split("");
+  const remainingLetters = [...wordArray]; // To track unmatched letters for yellow styling
+
+  // First pass: Style correct letters in the correct position (green)
+  for (let i = 0; i < wordLength; i++) {
+    const letterBox = document.getElementById(`letter-${startIndex + i}`);
+    const letter = guessedArray[i];
+
+    if (wordArray[i] === letter) {
+      letterBox.style.backgroundColor = "#6aaa64"; // Green
+      letterBox.style.color = "#fff";
+      remainingLetters[i] = null; // Mark this position as matched
+    }
+  }
+
+  // Second pass: Style correct letters in the wrong position (yellow)
+  for (let i = 0; i < wordLength; i++) {
+    const letterBox = document.getElementById(`letter-${startIndex + i}`);
+    const letter = guessedArray[i];
+
+    if (
+      wordArray[i] !== letter && // Skip already matched letters
+      remainingLetters.includes(letter)
+    ) {
+      letterBox.style.backgroundColor = "#c9b458"; // Yellow
+      letterBox.style.color = "#fff";
+      remainingLetters[remainingLetters.indexOf(letter)] = null; // Mark this letter as matched
+    } else if (wordArray[i] !== letter) {
+      // Incorrect letter (gray)
+      letterBox.style.backgroundColor = "#787c7e"; // Gray
+      letterBox.style.color = "#fff";
+    }
+  }
+}
+
 function isLetter(key) {
   return /^[a-zA-Z_.]$/.test(key);
 }
 
 function winEffect() {
   document.querySelector(".wordle-title").classList.add("win-animation");
+  document.querySelectorAll(".key-button").forEach((button) => {
+    button.disabled = true; // Disable keyboard inputs on win
+  });
 }
