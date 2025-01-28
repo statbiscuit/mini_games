@@ -114,12 +114,17 @@ function initGame(wordBank) {
   // Store the word description globally
   window.currentWordDescription = wordDescription;
 
-  resetGame();
+  resetGame(); // Reset the game state
+
+  // Ensure the Hint button is visible and functional
+  hintButton.classList.remove("hidden");
+  hintButton.disabled = false;
 
   // Generate grid dynamically based on word length
   generateGrid(selectedWord.length);
   generateKeyboard();
 }
+
 
 // Ensure that handleInputs only listens to a single `keydown` event
 document.removeEventListener("keydown", handleKeyDown);
@@ -170,13 +175,8 @@ function resetGame() {
 
   clearGrid();
   clearKeyboard();
+  clearHint();
 
-  // Reset the hint
-  hintText.textContent = ""; // Clear the hint text
-  hintContainer.classList.add("hidden"); // Hide the hint container
-
-  // Show the Hint button
-  hintButton.classList.remove("hidden");
 }
 
 
@@ -188,6 +188,14 @@ function clearGrid() {
 function clearKeyboard() {
   document.querySelector(".keyboard").innerHTML = "";
 }
+
+function clearHint() {
+  hintText.textContent = ""; // Clear the hint text
+  hintContainer.classList.add("hidden"); // Hide the hint container
+  hintButton.classList.remove("hidden"); // Ensure the Hint button is visible
+  hintButton.disabled = false; // Ensure the Hint button is enabled
+}
+
 
 // Generate Grid
 function generateGrid(wordLength, maxAttempts = 6) {
@@ -321,8 +329,9 @@ function enterTyped(wordOfTheDay) {
       lose = true;
       showModal("You Lost!", `The correct word was: ${wordOfTheDay}`);
       
-      // Hide the Hint button
-      hintButton.classList.add("hidden");
+    // Hide and disable the Hint button
+    hintButton.classList.add("hidden");
+    hintButton.disabled = true;
   }
 }
 
@@ -396,9 +405,11 @@ function winEffect() {
       button.disabled = true; // Disable keyboard inputs on win
   });
 
-  // Hide the Hint button
+  // Hide and disable the Hint button
   hintButton.classList.add("hidden");
+  hintButton.disabled = true;
 }
+
 
 
 
@@ -415,13 +426,11 @@ function showModal(title, message) {
   // Show the modal
   modal.classList.remove("hidden");
 
-  // Hide the hint button
-  hintButton.style.display = "none";
-
   // Close the modal on button click
   closeButton.addEventListener("click", () => {
       modal.classList.add("hidden");
       resetGame(); // Reset the game when modal is closed
   });
 }
+
 
