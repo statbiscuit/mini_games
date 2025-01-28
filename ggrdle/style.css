@@ -160,3 +160,8 @@ body {
     padding: 2%;
   }
 }
+
+.r-letter {
+  color: #1577a5; /*  R-themed color */
+  font-weight: bold;
+}
