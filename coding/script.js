@@ -146,12 +146,21 @@ function resetGameState() {
   charIndex = mistakes = 0;
   isTyping = false;
 
+  // Clear the input field and paragraph
   inpField.value = "";
+  typingText.innerHTML = ""; // Clear the paragraph content
+
+  // Reset UI stats
   timeTag.innerText = timeLeft;
   wpmTag.innerText = 0;
   mistakeTag.innerText = 0;
   cpmTag.innerText = 0;
 }
 
+
 // Start the game when the page loads
 document.addEventListener("DOMContentLoaded", startGame);
+
+tryAgainBtn.addEventListener("click", () => {
+  startGame(); // Resets and starts the game
+});
