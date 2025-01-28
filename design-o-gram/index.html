@@ -16,14 +16,37 @@
 <div id="guide-modal" class="modal hidden">
   <div class="modal-content">
     <h2>How to Play Design-o-gram</h2>
-    <p>
-      Your goal is to recreate the target grid by toggling cells. Match the patterns in rows and columns to the numbers provided as hints.
-    </p>
-    <ul>
-      <li>Click a cell to toggle it on/off.</li>
-      <li>The numbers outside the grid indicate consecutive filled cells in rows/columns.</li>
-      <li>When all the rows and columns match the target, you win!</li>
-    </ul>
-    <button id="start-game-btn">Start Game</button>
+    <div class="scrollable-content">
+      <p>
+        Your goal is to recreate the target grid by toggling cells to match the patterns indicated by the row and column clues.
+      </p>
+      <ul>
+        <li>Click a cell to toggle it on/off.</li>
+        <li>The game is won when all rows and columns match their respective clues.</li>
+      </ul>
+      <hr class="section-divider">
+      <h3>Understanding the Clues</h3>
+      <p>The numbers outside the grid represent groups of consecutive filled cells:</p>
+      <ul>
+        <li>
+          A **comma-separated hint** (e.g., <strong>3, 2</strong>) means there is at least one empty cell between the groups.
+        </li>
+        <li>
+          A **whitespace-separated hint** (e.g., <strong>1 2</strong>) also means groups are separated by at least one empty cell.
+        </li>
+        <li>
+          A single number (e.g., <strong>5</strong>) represents one continuous group of filled cells.
+        </li>
+      </ul>
+      <hr class="section-divider">
+      <h3>Hints and Tips</h3>
+      <p>Here are some tips to help you solve the puzzle:</p>
+      <ul>
+        <li>Start with rows or columns that have the largest numbers.</li>
+        <li>Use the numbers to infer which cells must remain empty.</li>
+        <li>Revisit the guide anytime by clicking the "Help" button.</li>
+      </ul>
+    </div>
+    <button id="start-game-btn" class="start-btn">Start Game</button>
   </div>
 </div>

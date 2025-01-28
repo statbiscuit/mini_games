@@ -4,7 +4,7 @@
     --shadow-color: rgba(0, 0, 0, 0.342);
     --border-color: #000;
     --solved-color: #56964f;
-    --unsolved-color: #d29ad4;
+    --unsolved-color: #ccb285;
     --menu-background: #383838;
 }
 
@@ -47,7 +47,7 @@ body {
     flex: 1;
     width: 70%;
     margin: 20px;
-    background-color:  #e4c7b7;
+    background-color:  #f9e4bc
     color: #383838;
     font-size: 30px;
     font-weight: 900;
@@ -148,7 +148,7 @@ body {
 
 /* Modal content */
 .modal-content {
-  background-color: white;
+  background-color: rgb(227, 222, 206);
   padding: 20px;
   border-radius: 10px;
   width: 80%;
@@ -213,4 +213,71 @@ body {
     background-color: var(--unsolved-color);
   }
   
+  /* Modal scrollable content */
+.scrollable-content {
+    max-height: 60vh; /* Limit the height to 60% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin: 10px 0;
+    padding-right: 10px;
+    scroll-behavior: smoooth;
+  }
+  
+  /* Add scrollbar styles (optional) */
+  .scrollable-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background-color: var(--menu-background);
+    border-radius: 4px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--unsolved-color);
+  }
+
+  .scrollable-content p, .scrollable-content ul {
+    margin-bottom: 10px;
+  }
+  
+  .scrollable-content strong {
+    color: var(--unsolved-color);
+  }
+  
+  .start-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color: var(--menu-background);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .start-btn:hover {
+    background-color: var(--unsolved-color);
+  }
+  
+  .scrollable-content ul {
+    background-color: #dbd7d17f; /* Light background */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--shadow-color);
+    text-align: center;
+  }
+
+  .scrollable-content ul li {
+  list-style-type: disc;
+  }
+  
+  .section-divider {
+    border: none;
+    height: 1px;
+    background-color: var(--shadow-color);
+    margin: 15px 0;
+  }
   
