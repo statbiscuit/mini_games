@@ -192,3 +192,16 @@ class GameManager {
 }
 // pass any board size to game manager here:
 new GameManager("game", 3, 4, 7);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const guideModal = document.getElementById("guide-modal");
+  const startGameBtn = document.getElementById("start-game-btn");
+
+  // Show the guide modal on page load
+  guideModal.classList.remove("hidden");
+
+  // Hide the guide and start the game when the button is clicked
+  startGameBtn.addEventListener("click", () => {
+    guideModal.classList.add("hidden");
+  });
+});
