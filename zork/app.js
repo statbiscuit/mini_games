@@ -1,3 +1,5 @@
+import { rooms } from './rooms.js';
+
 const inputEl = document.getElementById('input');
 const outputEl = document.getElementById('output');
 
