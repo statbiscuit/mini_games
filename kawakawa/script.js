@@ -63,16 +63,24 @@ const initGame = (button, clickedLetter) => {
     if(correctLetters.length === currentWord.length) return gameOver(true);
 }
 
-const keys = ['q', 'w', 'e', 'ē', 'r', 't' , 'y', 'u', 'ū','i', 'ī', 'o', 'ō', 'p', 'a','ā', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'];
+const keyboardRows = [
+    ['q', 'w', 'e', 'ē', 'r', 't', 'y', 'u', 'ū', 'i', 'ī', 'o', 'ō', 'p'],
+    ['a', 'ā', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+];
 
+// Get the keyboard row containers
+const keyboardDivs = document.querySelectorAll(".keyboard-row");
 
-// Creating keyboard buttons and adding event listeners
-for (let i = 0; i <= 30; i++) {
-    const button = document.createElement("button");
-    button.innerText = keys[i]; 
-    keyboardDiv.appendChild(button);
-    button.addEventListener("click", (e) => initGame(e.target, keys[i]));
-}
+// Generate buttons for each row
+keyboardRows.forEach((row, rowIndex) => {
+    row.forEach((letter) => {
+        const button = document.createElement("button");
+        button.innerText = letter;
+        button.addEventListener("click", (e) => initGame(e.target, letter));
+        keyboardDivs[rowIndex].appendChild(button);
+    });
+});
 
 getRandomWord();
 playAgainBtn.addEventListener("click", getRandomWord);
