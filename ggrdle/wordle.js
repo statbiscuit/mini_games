@@ -45,15 +45,34 @@ learnButton.addEventListener("click", () => {
 });
 
 backButton.addEventListener("click", () => {
+  // Hide subcategory selection
   subcategorySelection.style.display = "none";
-  modeSelection.style.display = "flex"; // Return to mode selection
+
+  // Ensure the game is completely hidden and not initialized
+  wordleGame.style.display = "none";
+  modeSelection.style.display = "flex"; // Show mode selection screen
+
+  // Clear the game board completely
+  document.querySelector(".wordle-words").innerHTML = "";
+  document.querySelector(".keyboard").innerHTML = "";
+
+  // Remove any ongoing game session
+  selectedWordBank = [];
+  currentWordOfTheDay = "";
+  win = false;
+  lose = false;
+  numberOfLetters = 0;
+  currentWord = 1;
 });
 
 subcategoryButtons.forEach((button) => {
   button.addEventListener("click", (event) => {
     const category = event.target.dataset.category;
+    if (!category) return; // Prevents accidental triggers
+
+    // Hide subcategories and show the game only when a category is selected
     subcategorySelection.style.display = "none";
-    wordleGame.style.display = "block";
+    wordleGame.style.display = "block"; // Game should only show if a subcategory is chosen
     startGame(category); // Start game with selected category
   });
 });
@@ -62,44 +81,44 @@ subcategoryButtons.forEach((button) => {
 let selectedWordBank = []; // Global variable to store the current word bank
 
 function startGame(wordBankCategory) {
-    switch (wordBankCategory) {
-        case "statisticalFunction":
-            selectedWordBank = statisticalFunction;
-            break;
-        case "baseRFunctions":
-            selectedWordBank = baseRFunctions;
-            break;
-        case "dataFrameFunctions":
-            selectedWordBank = dataFrameFunctions;
-            break;
-        case "dplyrFunctions":
-            selectedWordBank = dplyrFunctions;
-            break;
-        case "tidyrFunctions":
-            selectedWordBank = tidyrFunctions;
-            break;
-        case "ggplot2Functions":
-            selectedWordBank = ggplot2Functions;
-            break;
-        case "stringRFunctions":
-            selectedWordBank = stringRFunctions;
-            break;
-        case "generalTidyverseFunctions":
-            selectedWordBank = generalTidyverseFunctions;
-            break;
-        case "magickFunctions":
-            selectedWordBank = magickFunctions;
-            break;
-        case "lubridateFunctions":
-            selectedWordBank = lubridateFunctions;
-            break;
-        case "playWordBank": // Default for Play mode
-        default:
-            selectedWordBank = playWordBank;
-    }
+  switch (wordBankCategory) {
+    case "statisticalFunction":
+      selectedWordBank = statisticalFunction;
+      break;
+    case "baseRFunctions":
+      selectedWordBank = baseRFunctions;
+      break;
+    case "dataFrameFunctions":
+      selectedWordBank = dataFrameFunctions;
+      break;
+    case "dplyrFunctions":
+      selectedWordBank = dplyrFunctions;
+      break;
+    case "tidyrFunctions":
+      selectedWordBank = tidyrFunctions;
+      break;
+    case "ggplot2Functions":
+      selectedWordBank = ggplot2Functions;
+      break;
+    case "stringRFunctions":
+      selectedWordBank = stringRFunctions;
+      break;
+    case "generalTidyverseFunctions":
+      selectedWordBank = generalTidyverseFunctions;
+      break;
+    case "magickFunctions":
+      selectedWordBank = magickFunctions;
+      break;
+    case "lubridateFunctions":
+      selectedWordBank = lubridateFunctions;
+      break;
+    case "playWordBank": // Default for Play mode
+    default:
+      selectedWordBank = playWordBank;
+  }
 
-    console.log(`Starting game with category: ${wordBankCategory}`);
-    initGame(selectedWordBank);
+  console.log(`Starting game with category: ${wordBankCategory}`);
+  initGame(selectedWordBank);
 }
 
 function initGame(wordBank) {
@@ -114,17 +133,12 @@ function initGame(wordBank) {
   // Store the word description globally
   window.currentWordDescription = wordDescription;
 
-  resetGame(); // Reset the game state
-
-  // Ensure the Hint button is visible and functional
-  hintButton.classList.remove("hidden");
-  hintButton.disabled = false;
+  resetGame();
 
   // Generate grid dynamically based on word length
   generateGrid(selectedWord.length);
   generateKeyboard();
 }
-
 
 // Ensure that handleInputs only listens to a single `keydown` event
 document.removeEventListener("keydown", handleKeyDown);
@@ -133,10 +147,9 @@ document.addEventListener("keydown", handleKeyDown);
 function handleKeyDown(event) {
   const key = event.key;
   if (key === "Backspace" || key === "Enter" || isLetter(key)) {
-      handleInputs(key.toUpperCase()); // Normalize key to uppercase
+    handleInputs(key.toUpperCase()); // Normalize key to uppercase
   }
 }
-
 
 // Buttons
 const newWordButton = document.getElementById("new-word-button");
@@ -147,7 +160,6 @@ const hintButton = document.getElementById("hint-button");
 const hintContainer = document.getElementById("hint-container");
 const hintText = document.getElementById("hint-text");
 
-
 // Event Listener for "Home"
 homeButton.addEventListener("click", () => {
   resetGame();
@@ -155,11 +167,14 @@ homeButton.addEventListener("click", () => {
   modeSelection.style.display = "flex"; // Show the mode selection screen
 });
 
-// Event Listener for "New Word"
 newWordButton.addEventListener("click", () => {
   resetGame();
   initGame(selectedWordBank); // Restart the game with the same word bank
+  
+  // ✅ Ensure the Hint button is visible when starting a new word
+  hintButton.style.display = "block"; 
 });
+
 
 // Event listener for the Hint button
 hintButton.addEventListener("click", () => {
@@ -176,10 +191,7 @@ function resetGame() {
   clearGrid();
   clearKeyboard();
   clearHint();
-
 }
-
-
 
 function clearGrid() {
   document.querySelector(".wordle-words").innerHTML = "";
@@ -195,7 +207,6 @@ function clearHint() {
   hintButton.classList.remove("hidden"); // Ensure the Hint button is visible
   hintButton.disabled = false; // Ensure the Hint button is enabled
 }
-
 
 // Generate Grid
 function generateGrid(wordLength, maxAttempts = 6) {
@@ -299,17 +310,17 @@ function enterTyped(wordOfTheDay) {
 
   // Collect the guessed word
   for (let i = 0; i < wordLength; i++) {
-      const letterBox = document.getElementById(`letter-${startIndex + i}`);
-      const letter = letterBox.innerText.trim(); // Trim to remove spaces or empty strings
-      guessedWord += letter || " "; // Use a space to represent missing letters
+    const letterBox = document.getElementById(`letter-${startIndex + i}`);
+    const letter = letterBox.innerText.trim(); // Trim to remove spaces or empty strings
+    guessedWord += letter || " "; // Use a space to represent missing letters
   }
 
   guessedWord = guessedWord.toUpperCase();
 
   // Validate input
   if (guessedWord.trim().length !== wordLength || guessedWord.includes(" ")) {
-      alert("Word is incomplete!");
-      return;
+    alert("Word is incomplete!");
+    return;
   }
 
   // Style the current row
@@ -317,24 +328,21 @@ function enterTyped(wordOfTheDay) {
 
   // Check if the guessed word is correct
   if (guessedWord === wordOfTheDay) {
-      win = true;
-      winEffect();
-      return;
+    win = true;
+    winEffect();
+    return;
   }
 
   // Proceed to the next attempt or end the game if guesses are exhausted
   if (currentWord < 6) {
-      currentWord++;
+    currentWord++;
   } else {
-      lose = true;
-      showModal("You Lost!", `The correct word was: ${wordOfTheDay}`);
-      
-    // Hide and disable the Hint button
+    lose = true;
+    showModal("You Lose!", `The correct word was: ${wordOfTheDay}`);
     hintButton.classList.add("hidden");
     hintButton.disabled = true;
   }
 }
-
 
 function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
   const wordArray = wordOfTheDay.split("");
@@ -365,10 +373,7 @@ function styleRow(startIndex, wordLength, wordOfTheDay, guessedWord) {
     const letterBox = document.getElementById(`letter-${startIndex + i}`);
     const letter = guessedArray[i];
 
-    if (
-      wordArray[i] !== letter && // Skip already matched letters
-      remainingLetters.includes(letter)
-    ) {
+    if (wordArray[i] !== letter && remainingLetters.includes(letter)) {
       letterBox.style.backgroundColor = "#c9b458"; // Yellow
       letterBox.style.color = "#fff";
       remainingLetters[remainingLetters.indexOf(letter)] = null; // Mark this letter as matched
@@ -401,16 +406,15 @@ function isLetter(key) {
 function winEffect() {
   showModal("You Win!", "Congratulations on guessing the correct word!");
   document.querySelector(".wordle-title").classList.add("win-animation");
+  
+  // Disable keyboard input
   document.querySelectorAll(".key-button").forEach((button) => {
-      button.disabled = true; // Disable keyboard inputs on win
+    button.disabled = true;
   });
 
-  // Hide and disable the Hint button
-  hintButton.classList.add("hidden");
-  hintButton.disabled = true;
+  // ✅ Hide the Hint button
+  hintButton.style.display = "none"; 
 }
-
-
 
 
 function showModal(title, message) {
@@ -419,18 +423,13 @@ function showModal(title, message) {
   const resultMessage = document.getElementById("result-message");
   const closeButton = document.getElementById("close-modal");
 
-  // Set the modal content
   resultTitle.textContent = title;
   resultMessage.textContent = message;
 
-  // Show the modal
   modal.classList.remove("hidden");
 
-  // Close the modal on button click
   closeButton.addEventListener("click", () => {
-      modal.classList.add("hidden");
-      resetGame(); // Reset the game when modal is closed
+    modal.classList.add("hidden");
+    resetGame();
   });
 }
-
-
