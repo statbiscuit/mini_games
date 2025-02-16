@@ -23,10 +23,10 @@ function startGameMode(mode) {
     console.log(`Game mode clicked: ${mode}`); // Debugging log
 
     const availableModes = {
-        "dragon hunt": dragonHuntRooms,
-        "debugger quest": debuggerQuestRooms,  
-        "tidyverse trials": tidyverseTrialsRooms,
-        "the prophecy": prophecyRooms
+        "🐉 dragon hunt": dragonHuntRooms,
+        "🛠 debugger's quest": debuggerQuestRooms,  
+        "📊 tidyverse trials": tidyverseTrialsRooms,
+        "📂 the package prophecy": prophecyRooms
     };    
 
     if (availableModes[mode]) {
@@ -67,10 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
 // Number input handling to select game mode
 document.addEventListener("keydown", function (event) {
     if (!gameMode) {
-        if (event.key === "1") startGameMode("dragon hunt");
-        else if (event.key === "2") startGameMode("debugger quest");
-        else if (event.key === "3") startGameMode("tidyverse trials");
-        else if (event.key === "4") startGameMode("package prophecy");
+        if (event.key === "1") startGameMode("🐉 dragon hunt");
+        else if (event.key === "2") startGameMode("🛠 debugger's quest");
+        else if (event.key === "3") startGameMode("📊 tidyverse trials");
+        else if (event.key === "4") startGameMode("📂 the package prophecy");
     }
 });
 
