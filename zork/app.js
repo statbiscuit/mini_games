@@ -87,7 +87,6 @@ function updateOutput(command, output) {
 /********************************************
              COMMAND HANDLING
  ********************************************/
-
 function handleCommand(command) {
     if (!gameMode) {
         outputEl.innerHTML += `<div class="red">Select a game mode first.</div>`;
@@ -101,6 +100,17 @@ function handleCommand(command) {
     // Check if the command is a movement command (e.g., "go north")
     if (command.startsWith("go ")) {
         output = handleMovement(command);
+    } else if (gameMode === "🛠 debugger's quest" 
+        && modeRooms[currentRoom].challenge 
+        && command !== "CAI" 
+        && command !== "look") {
+        // Debugger Quest Handling: Check if the command is the correct solution
+        if (command === modeRooms[currentRoom].solution) {
+            output = `<span class='blue'>Correct! The issue is fixed.</span> <br>`;
+        
+            // Move to the next room if an exit exists
+            output += "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
+        }        
     } else {
         switch (command) {
             case 'PLAY':
@@ -112,57 +122,66 @@ function handleCommand(command) {
                 break;
 
             case 'CAI':
-                output = modeRooms[currentRoom].companion;
+                if (modeRooms[currentRoom].companion) {
+                    output = modeRooms[currentRoom].companion; // Displays CAI’s message
+                } else {
+                    output = `<span class="blue">CAI is silent... maybe there's nothing to hint at.</span>`;
+                }
                 break;
+                
 
             case 'look':
                 output = modeRooms[currentRoom].description;
+                
+                // Ensure challenge is displayed in Debugger's Quest
+                if (gameMode === "🛠 debugger's quest" && modeRooms[currentRoom].challenge) {
+                    output += `<br><span class='green'>${modeRooms[currentRoom].challenge}</span>`;
+                }
                 break;
+                
 
             case 'help':
-                output = `<div class="blue">Available commands:</div><div class="command-list">
+                output = `<div class="blue">General commands:</div><div class="command-list">
                     <div><span class="green">look</span> - Describe the current room.</div>
                     <div><span class="green">CAI</span> - Interact with your companion.</div>
-                    <div><span class="green">torch</span> - Use your torch.</div>
-                    <div><span class="green">PLAY</span> - Try playing with something.</div>
                     <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div>
                     <div><span class="green">clear</span> - Clear the terminal without resetting the game.</div></div>`
                 break;
 
-                case 'clear':
-                    if (!gameMode) {
-                        outputEl.innerHTML = `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>Select a game mode to begin.</div>`;
-                    } else {
-                        outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}</div>`;
-                    }
-                    return;
+            case 'clear':
+                outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}`;
                 
-                                
-;
+                if (gameMode === "🛠 debugger's quest" && modeRooms[currentRoom].challenge) {
+                    outputEl.innerHTML += `<br><span class='green'>${modeRooms[currentRoom].challenge}</span>`;
+                }
+                return;
+                
 
             default:
-                output = `<span class="red">I don't recognise <span class="green">${command}<span class="red">. Do you need <span class="green">help</span>?`;
+                output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?`;
         }
     }
 
     updateOutput(command, output);
 }
 
-
 /********************************************
              MOVEMENT HANDLING
  ********************************************/
-
 function handleMovement(command) {
-    const direction = command.split(/\s+/)[1]; // Extract direction, handling extra spaces
+    const direction = command.split(/\s+/)[1]; // Extract direction
 
     if (modeRooms[currentRoom].exits[direction]) {
         currentRoom = modeRooms[currentRoom].exits[direction];
-        return modeRooms[currentRoom].description;
+
+        // Prevent repeating room descriptions multiple times
+        return `<br>${modeRooms[currentRoom].description}`;
     } else {
         return `<span class="red">You can't go that way.</span>`;
     }
 }
+
+
 
 // Display initial game message
 if (modeRooms) {
