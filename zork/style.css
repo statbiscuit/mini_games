@@ -1,11 +1,20 @@
+/* Global Styles */
+:root {
+    --bg-color: #000;
+    --text-color: #00FF00;
+    --font-family: 'Courier New', monospace;
+    --input-cursor: text;
+}
+
 body, html {
     height: 100%;
     margin: 0;
-    font-family: 'Courier New', monospace;
-    background-color: #000;
-    color: #00FF00;
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
+/* Terminal UI */
 #terminal {
     padding: 20px;
     height: 100%;
@@ -13,6 +22,7 @@ body, html {
     overflow-y: auto;
 }
 
+/* Input Line */
 #input-line {
     display: flex;
     align-items: center;
@@ -22,17 +32,24 @@ body, html {
     margin-right: 5px;
 }
 
+/* Input Field */
 #input {
     width: 100%;
     border: none;
     background: none;
     outline: none;
     color: inherit;
+    font-size: 1rem; /* Adjust for better readability */
+    cursor: var(--input-cursor);
 }
-#output{
-    white-space: pre;
+
+/* Output Area */
+#output {
+    white-space: pre-wrap; /* Better text wrapping */
+    word-wrap: break-word; /* Ensure long words break properly */
 }
+
+/* Miscellaneous */
 .field {
-    white-space: pre;
-    font-size: 20px;
+    font-size: 1.2rem;
 }
