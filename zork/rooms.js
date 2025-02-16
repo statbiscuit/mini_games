@@ -30,3 +30,5 @@ export const rooms = {
         requiredItem: "key",  // Players must find a key before entering
     }
 };
+
+

@@ -12,94 +12,119 @@ inputEl.addEventListener('keydown', (event) => {
     }
 });
 
-let currentRoom = 'start';
+function formatText(text) {
+    return text
+        .replace(/\btorch\b/g, "<span class='item'>torch</span>")
+        .replace(/\bCAI\b/g, "<span class='companion'>CAI</span>")
+        .replace(/\bAWWOOF\b/g, "<span class='dog-sound'>AWWOOF</span>");
+}
 
-const rooms = {
-    start: {
-        description: " <span style='color: blue'>You are in a dark room, alone, apart from your faithful companion </span> CAI",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Looks like there's a door over there.\nDo you have any treats? No? Just a </span> torch<span style='color: blue'>... AWWOOF </span>",
-	help: "<span style='color: blue'>There is a door to your north, perhaps you should </span> go north?",
-	play: "<span style='color: blue'>There is no one to </span> play <span style='color: blue'>with here</span>",
-        exits: {north: 'hallway'},
-    },
-    hallway: {
-        description: "<span style='color: blue'>You are in a long hallway and your</span> torch<span style='color: blue'> flickers out</span>",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>",
-	// help: "There is a door to the south and another one to the east.",
-	help: "<span style='color: blue'>Your torch no longer works</span>",
-	play: "<span style='color: blue'>There is no one to play with here</span>",
-        exits: {south: 'start', east: 'treasureRoom'},
-    },
-    treasureRoom: {
-        description: "<span style='color: blue'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n You found Andarna!!",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF AWWOOF Does she want to</span> PLAY <span style='color: blue'>with us? AWWOOF</span>",
-	help: "<span style='color: blue'>Your torch no longer works</span>",
-	play: "<span style='color: blue'>Dragons do not play. We are far too regal to mix with mere mortals</span>",
-        exits: {west: 'hallway'},
-    }
-};
+let currentRoom = 'start';
+let inventory = [];
+
 
 function handleCommand(command) {
     let output = '';
 
-    switch(command) {
-
-     case 'PLAY':
-	output = rooms[currentRoom].play
-	break;
-	
-    case 'torch':
-	output = rooms[currentRoom].help
-	break;
-	
-    case 'CAI':
-	output = rooms[currentRoom].companion
-	break;
-	
-    case 'look':
-        output = rooms[currentRoom].description;
-        break;
-
-    case 'go north':
-        if(rooms[currentRoom].exits.north) {
-            currentRoom = rooms[currentRoom].exits.north;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go south':
-        if(rooms[currentRoom].exits.south) {
-            currentRoom = rooms[currentRoom].exits.south;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go east':
-        if(rooms[currentRoom].exits.east) {
-            currentRoom = rooms[currentRoom].exits.east;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go west':
-        if(rooms[currentRoom].exits.west) {
-            currentRoom = rooms[currentRoom].exits.west;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    default:
-        output = 'I don\'t understand ' + command;
+    if (command.startsWith("take ") || command.startsWith("use ")) {
+        output = handleItemActions(command);
+    } else if (command.startsWith("go ")) {
+        output = handleMovement(command);
+    } else if (rooms[currentRoom].puzzle) {
+        output = handlePuzzle(command);
+    } else {
+        output = handleGeneralCommands(command);
     }
-    outputEl.innerHTML += `<div class="prompt">></div><div>${command}</div><div>${output}</div>`;
+
+    document.getElementById('output').innerHTML += `
+        <div class="prompt">></div>
+        <div>${command}</div>
+        <div>${formatText(output)}</div>
+    `;
+}
+
+function handleMovement(command) {
+    let direction = command.split(" ")[1];
+
+    if (!rooms[currentRoom].exits[direction]) {
+        return "You can't go that way.";
+    }
+
+    let nextRoom = rooms[currentRoom].exits[direction];
+
+    // If a puzzle exists and hasn't been solved, block the path
+    if (rooms[nextRoom].puzzle) {
+        return `A puzzle blocks your way: ${rooms[nextRoom].puzzle.question}`;
+    }
+
+    // Check if the next room requires an item to enter
+    if (rooms[nextRoom].requiredItem && !inventory.includes(rooms[nextRoom].requiredItem)) {
+        return `You need a ${rooms[nextRoom].requiredItem} to enter this room.`;
+    }
+
+    currentRoom = nextRoom;
+    return rooms[currentRoom].description;
+}
+
+function handleItemActions(command) {
+    let words = command.split(" ");
+    let action = words[0];
+    let item = words[1];
+
+    if (action === "take") {
+        if (rooms[currentRoom].items && rooms[currentRoom].items.includes(item)) {
+            inventory.push(item);
+            rooms[currentRoom].items = rooms[currentRoom].items.filter(i => i !== item);
+            return `You picked up the ${item}.`;
+        } else {
+            return `There is no ${item} here.`;
+        }
+    }
+
+    if (action === "use") {
+        if (inventory.includes(item)) {
+            if (item === "torch" && currentRoom === "hallway") {
+                return "You light the torch, revealing the hallway!";
+            } else if (item === "key" && currentRoom === "treasureRoom") {
+                return "You use the key to unlock the treasure chest!";
+            } else {
+                return `You used the ${item}, but nothing happens.`;
+            }
+        } else {
+            return `You don't have a ${item}.`;
+        }
+    }
+
+    return "Invalid item action.";
+}
+
+function handlePuzzle(command) {
+    let puzzle = rooms[currentRoom].puzzle;
+
+    if (!puzzle) {
+        return "There is no puzzle here.";
+    }
+
+    if (command === puzzle.answer) {
+        delete rooms[currentRoom].puzzle;  // Remove the puzzle after solving
+        return "Correct! The door unlocks.";
+    } else {
+        return `Wrong answer. Hint: ${puzzle.hint}`;
+    }
+}
+
+function handleGeneralCommands(command) {
+    if (command === "look") {
+        return rooms[currentRoom].description;
+    } 
+    if (command === "help") {
+        return rooms[currentRoom].help || "Try exploring!";
+    }
+    if (command === "CAI") {
+        return rooms[currentRoom].companion || "Your companion is silent.";
+    }
+
+    return `I don’t understand '${command}'.`;
 }
 
 // Initial description
