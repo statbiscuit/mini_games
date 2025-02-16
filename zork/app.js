@@ -28,36 +28,44 @@ import { rooms } from './rooms.js';
 function handleCommand(command) {
     let output = '';
 
-    switch (command) {
-        case 'PLAY':
-            output = rooms[currentRoom].play;
-            break;
+    // Check if the command is a movement command (e.g., "go north")
+    if (command.startsWith("go ")) {
+        output = handleMovement(command);
+    } else {
+        switch (command) {
+            case 'PLAY':
+                output = rooms[currentRoom].play;
+                break;
 
-        case 'torch':
-            output = rooms[currentRoom].help;
-            break;
+            case 'torch':
+                output = rooms[currentRoom].help;
+                break;
 
-        case 'CAI':
-            output = rooms[currentRoom].companion;
-            break;
+            case 'CAI':
+                output = rooms[currentRoom].companion;
+                break;
 
-        case 'look':
-            output = rooms[currentRoom].description;
-            break;
+            case 'look':
+                output = rooms[currentRoom].description;
+                break;
 
-        case 'go north':
-        case 'go south':
-        case 'go east':
-        case 'go west':
-            output = handleMovement(command);
-            break;
+            case 'help':
+                output = `<span class="blue">Available commands:</span>
+                          <span class="green">look</span> - Describe the current room.
+                          <span class="green">CAI</span> - Interact with your companion.
+                          <span class="green">torch</span> - Use your torch.
+                          <span class="green">PLAY</span> - Try playing with something.
+                          <span class="green">go [direction]</span> - Move (north, south, east, west).`;
+                break;
 
-        default:
-            output = `I don't understand "<strong>${command}</strong>"`;
+            default:
+                output = `<span class="red">I don't recognise <span class="green">${command}<span class="red">. Do you need <span class="green">help</span>?`;
+        }
     }
 
     updateOutput(command, output);
 }
+
 
 /********************************************
              MOVEMENT HANDLING
