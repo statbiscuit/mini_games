@@ -1,104 +1,90 @@
+// Select input and output elements
 const inputEl = document.getElementById('input');
 const outputEl = document.getElementById('output');
 
+// Auto-focus input on load
 inputEl.focus();
+
+// Load room data from external file (rooms.js)
+import { rooms } from './rooms.js';
+
+// Track the current room
+let currentRoom = 'start';
+
+// Command Constants
+const COMMANDS = {
+    LOOK: 'look',
+    TORCH: 'torch',
+    COMPANION: 'CAI',
+    PLAY: 'PLAY',
+    MOVE_NORTH: 'go north',
+    MOVE_SOUTH: 'go south',
+    MOVE_EAST: 'go east',
+    MOVE_WEST: 'go west'
+};
+
+// Handle user input
 inputEl.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        const command = inputEl.value;
-        handleCommand(command);
-        inputEl.value = '';
+        const command = inputEl.value.trim().toLowerCase();
+        processCommand(command);
+        inputEl.value = ''; // Clear input field
     }
 });
 
-let currentRoom = 'start';
-
-const rooms = {
-    start: {
-        description: " <span style='color: blue'>You are in a dark room, alone, apart from your faithful companion </span> CAI",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Looks like there's a door over there.\nDo you have any treats? No? Just a </span> torch<span style='color: blue'>... AWWOOF </span>",
-	help: "<span style='color: blue'>There is a door to your north, perhaps you should </span> go north?",
-	play: "<span style='color: blue'>There is no one to </span> play <span style='color: blue'>with here</span>",
-        exits: {north: 'hallway'},
-    },
-    hallway: {
-        description: "<span style='color: blue'>You are in a long hallway and your</span> torch<span style='color: blue'> flickers out</span>",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>",
-	// help: "There is a door to the south and another one to the east.",
-	help: "<span style='color: blue'>Your torch no longer works</span>",
-	play: "<span style='color: blue'>There is no one to play with here</span>",
-        exits: {south: 'start', east: 'treasureRoom'},
-    },
-    treasureRoom: {
-        description: "<span style='color: blue'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n You found Andarna!!",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF AWWOOF Does she want to</span> PLAY <span style='color: blue'>with us? AWWOOF</span>",
-	help: "<span style='color: blue'>Your torch no longer works</span>",
-	play: "<span style='color: blue'>Dragons do not play. We are far too regal to mix with mere mortals</span>",
-        exits: {west: 'hallway'},
-    }
-};
-
-function handleCommand(command) {
+// Process player commands
+function processCommand(command) {
     let output = '';
 
-    switch(command) {
+    switch (command) {
+        case COMMANDS.PLAY:
+            output = rooms[currentRoom].play || "You can't play here.";
+            break;
 
-     case 'PLAY':
-	output = rooms[currentRoom].play
-	break;
-	
-    case 'torch':
-	output = rooms[currentRoom].help
-	break;
-	
-    case 'CAI':
-	output = rooms[currentRoom].companion
-	break;
-	
-    case 'look':
-        output = rooms[currentRoom].description;
-        break;
+        case COMMANDS.TORCH:
+            output = rooms[currentRoom].help || "Nothing happens.";
+            break;
 
-    case 'go north':
-        if(rooms[currentRoom].exits.north) {
-            currentRoom = rooms[currentRoom].exits.north;
+        case COMMANDS.COMPANION:
+            output = rooms[currentRoom].companion || "Your companion is silent.";
+            break;
+
+        case COMMANDS.LOOK:
             output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
+            break;
 
-    case 'go south':
-        if(rooms[currentRoom].exits.south) {
-            currentRoom = rooms[currentRoom].exits.south;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go east':
-        if(rooms[currentRoom].exits.east) {
-            currentRoom = rooms[currentRoom].exits.east;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go west':
-        if(rooms[currentRoom].exits.west) {
-            currentRoom = rooms[currentRoom].exits.west;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    default:
-        output = 'I don\'t understand ' + command;
+        default:
+            // Handle movement dynamically
+            if (command.startsWith('go ')) {
+                output = movePlayer(command.split(' ')[1]);
+            } else {
+                output = `I don't understand "${command}". Try another command.`;
+            }
     }
-    outputEl.innerHTML += `<div class="prompt">></div><div>${command}</div><div>${output}</div>`;
+
+    updateOutput(command, output);
 }
 
-// Initial description
-outputEl.innerHTML += `<div><h3>Nau mai, haere mai.\nWelcome to the BIOSCI 220 Dragon Hunt!</h3></div><div>${rooms[currentRoom].description}</div>`;
+// Move player to a new room
+function movePlayer(direction) {
+    if (rooms[currentRoom].exits[direction]) {
+        currentRoom = rooms[currentRoom].exits[direction];
+        return rooms[currentRoom].description;
+    }
+    return "You can't go that way.";
+}
+
+// Update game output
+function updateOutput(command, output) {
+    outputEl.innerHTML += `
+        <div class="prompt">></div>
+        <div>${command}</div>
+        <div>${output}</div>
+    `;
+}
+
+// Initialize the game with a welcome message
+outputEl.innerHTML += `
+    <div><h3>Nau mai, haere mai. Welcome to zoRk!</h3></div>
+    <div>${rooms[currentRoom].description}</div>
+`;
