@@ -7,17 +7,17 @@ export const debuggerQuestRooms = {
     },
 
     lab: {
-        description: "<span class='blue'>You enter a laboratory filled with datasets and analysis tools. A script is analysing plant data: <span class='green'> summary(plant_data, Height)</span>, but a monitor displays an error...</span>",
+        description: "<span class='blue'>You enter a laboratory filled with datasets and analysis tools. A script is analysing plant data: <span class='green'> summary(plant_data<span class = 'red'>,</span> Height)</span>, but a monitor displays an error...</span> <span class = 'red'> Error in summary(plant_data, Height) : unused argument (Height)</span>",
         challenge: "<span class='green'>summary(plant_data, Height)</span>",
         prompt: "<span class='blue'>Can you debug this script? Enter the correct R command.</span>",
         hint: "<span class='blue'>Check the function used in the summary command. Does it correctly reference</span> <span class='green'>Height</span><span class='blue'>?</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Hmmm... maybe it's a syntax issue?</span>",
         solution: "summary(plant_data$Height)",
-        exits: {east: "treasureRoom"}
+        exits: {east: "syntaxMazeRoom"}
     },
 
     syntaxMaze: {
-        description: "<span class='blue'>The next room contains a script attempting to filter gene expression data: <span class='green'>filter(gene_data, expression > 10)</span>, but it throws an error...</span>",
+        description: "<span class='blue'>The next room contains a script attempting to filter gene expression data: <span class='green'>filter(gene_data, expression > 10)</span>, but it throws an error...<span class = 'red'> Error in filter(gene_data, expression > 10) : could not find function \"filter\"</span>",
         challenge: "<span class='green'>filter(gene_data, expression > 10)</span>",
         prompt: "<span class='blue'>Can you debug this script? Enter the correct R command.</span>",
         hint: "<span class='blue'>Ensure that the</span> <span class='green'>tidyverse</span> <span class='blue'>package is loaded.",
