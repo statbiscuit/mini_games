@@ -53,3 +53,16 @@ body, html {
 .field {
     font-size: 1.2rem;
 }
+
+/* Colors for different text elements */
+.blue {
+    color: blue;
+}
+
+.green {
+    color: #00FF00;
+}
+
+.yellow {
+    color: yellow;
+}

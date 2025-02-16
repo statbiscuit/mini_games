@@ -78,8 +78,13 @@ function handleMovement(command) {
  ********************************************/
 
 function updateOutput(command, output) {
-    outputEl.innerHTML += `<div class="prompt">></div>${command}<br>${output}`;
+    outputEl.innerHTML += `<div class="prompt">> <span class="green">${command}</span></div><div class="output-line">${output}</div>`;
 }
+
+
+
+
+
 
 // Display initial game message
 outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${rooms[currentRoom].description}</div>`;
