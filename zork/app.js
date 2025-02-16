@@ -24,10 +24,10 @@ function startGameMode(mode) {
 
     const availableModes = {
         "dragon hunt": dragonHuntRooms,
-        "debugger quest": debuggerQuestRooms,
+        "debugger quest": debuggerQuestRooms,  
         "tidyverse trials": tidyverseTrialsRooms,
-        "the prophecy": prophecyRooms // Updated key
-    };
+        "the prophecy": prophecyRooms
+    };    
 
     if (availableModes[mode]) {
         console.log(`Starting game mode: ${mode}`); // Debugging log
