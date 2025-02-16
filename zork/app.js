@@ -72,14 +72,16 @@ function handleCommand(command) {
  ********************************************/
 
 function handleMovement(command) {
-    const direction = command.split(' ')[1]; // Extract direction
+    const direction = command.split(' ')[1]; // Extracts "north", "south", etc.
+
     if (rooms[currentRoom].exits[direction]) {
         currentRoom = rooms[currentRoom].exits[direction];
         return rooms[currentRoom].description;
     } else {
-        return `You can't go that way.`;
+        return `<span class="red">You can't go that way.</span>`;
     }
 }
+
 
 /********************************************
              OUTPUT HANDLING
