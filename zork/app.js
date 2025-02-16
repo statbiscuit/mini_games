@@ -16,16 +16,59 @@ inputEl.addEventListener('keydown', (event) => {
 
 // Track the player's current room
 let currentRoom = 'start';
+let gameMode = null; // Current game mode (null until selected)
+let modeRooms = null;  // Stores the selected mode’s room structure
+
 
 // import rooms
-import { rooms } from './rooms.js';
+import { dragonHuntRooms } from './rooms/dragonHuntRooms.js';
+import { debuggerQuestRooms } from './rooms/debuggerQuestRooms.js';
+import { tidyverseTrialsRooms } from './rooms/tidyverseTrialsRooms.js';
+import { packageProphecyRooms } from './rooms/packageProphecyRooms.js';
 
+/********************************************
+             GAME MODE HANDLING
+ ********************************************/
+function startGameMode(mode) {
+    const availableModes = {
+        "dragon hunt": dragonHuntRooms,
+        "debugger quest": debuggerQuestRooms,
+        "tidyverse trials": tidyverseTrialsRooms,
+        "package prophecy": packageProphecyRooms
+    };
+
+    if (availableModes[mode]) {
+        gameMode = mode;
+        modeRooms = availableModes[mode]; // Load the correct room structure
+        currentRoom = "start"; // Reset player position
+        
+        // Hide the menu and show the game
+        document.getElementById("mode-selection").style.display = "none";
+        document.getElementById("terminal").style.display = "block";
+
+        outputEl.innerHTML = `<h3>Welcome to ${mode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}`;
+    }
+}
+
+document.addEventListener("keydown", function (event) {
+    if (!gameMode) {
+        if (event.key === "1") startGameMode("dragon hunt");
+        else if (event.key === "2") startGameMode("debugger quest");
+        else if (event.key === "3") startGameMode("tidyverse trials");
+        else if (event.key === "4") startGameMode("package prophecy");
+    }
+});
 
 /********************************************
              COMMAND HANDLING
  ********************************************/
 
 function handleCommand(command) {
+    if (!gameMode) {
+        outputEl.innerHTML += `<div class="red">Select a game mode first.</div>`;
+        return;
+    }
+
     let output = '';
     
     if (command === "") return; // Ignore empty input
@@ -36,19 +79,19 @@ function handleCommand(command) {
     } else {
         switch (command) {
             case 'PLAY':
-                output = rooms[currentRoom].play;
+                output = modeRooms[currentRoom].play;
                 break;
 
             case 'torch':
-                output = rooms[currentRoom].help;
+                output = modeRooms[currentRoom].help;
                 break;
 
             case 'CAI':
-                output = rooms[currentRoom].companion;
+                output = modeRooms[currentRoom].companion;
                 break;
 
             case 'look':
-                output = rooms[currentRoom].description;
+                output = modeRooms[currentRoom].description;
                 break;
 
             case 'help':
@@ -62,11 +105,13 @@ function handleCommand(command) {
                 break;
 
                 case 'clear':
-                    outputEl.innerHTML = `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${rooms[currentRoom].description}</div>`;
-                    return; // Exit function to avoid appending anything further
+                    if (!gameMode) {
+                        outputEl.innerHTML = `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>Select a game mode to begin.</div>`;
+                    } else {
+                        outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}</div>`;
+                    }
+                    return;                
 ;
-
-
 
             default:
                 output = `<span class="red">I don't recognise <span class="green">${command}<span class="red">. Do you need <span class="green">help</span>?`;
@@ -84,9 +129,9 @@ function handleCommand(command) {
 function handleMovement(command) {
     const direction = command.split(/\s+/)[1]; // Extract direction, handling extra spaces
 
-    if (rooms[currentRoom].exits[direction]) {
-        currentRoom = rooms[currentRoom].exits[direction];
-        return rooms[currentRoom].description;
+    if (modeRooms[currentRoom].exits[direction]) {
+        currentRoom = modeRooms[currentRoom].exits[direction];
+        return modeRooms[currentRoom].description;
     } else {
         return `<span class="red">You can't go that way.</span>`;
     }
@@ -101,10 +146,5 @@ function updateOutput(command, output) {
     outputEl.innerHTML += `<div class="prompt">> <span class="green">${command}</span></div><div class="output-line">${output}</div>`;
 }
 
-
-
-
-
-
 // Display initial game message
-outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${rooms[currentRoom].description}</div>`;
+outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${modeRooms[currentRoom].description}</div>`;

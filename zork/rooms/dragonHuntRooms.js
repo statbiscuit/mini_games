@@ -1,4 +1,4 @@
-const rooms = {
+export const dragonHuntRooms = {
   start: {
       description: "<span class='blue'>You are in a dark room, alone, apart from your faithful companion</span> CAI",
       companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Looks like there's a door over there.\nDo you have any treats? No? Just a</span> <span class='green'>torch</span><span class='blue'>... AWWOOF</span>",
@@ -22,4 +22,4 @@ const rooms = {
   }
 };
 
-export { rooms };
+

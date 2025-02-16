@@ -82,3 +82,30 @@ body, html {
     line-height: 0.4; /* Balanced spacing */
 }
 
+#mode-selection {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#mode-selection h2 {
+    color: #00FF00;
+    font-family: 'Courier New', monospace;
+}
+
+#mode-selection button {
+    display: block;
+    width: 250px;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 18px;
+    background-color: black;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+}
+
+#mode-selection button:hover {
+    background-color: #00FF00;
+    color: black;
+}
