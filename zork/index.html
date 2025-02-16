@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A text-based adventure game where you explore rooms and find a dragon.">
+    <meta name="author" content="statbiscuit">
     <link rel="stylesheet" href="style.css">
-    <title>Dragon Hunt</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon support -->
+    <title>zoRk</title>
+    <script src="app.js" defer></script> <!-- Defer ensures script loads after HTML -->
 </head>
 <body>
-    <div id="terminal">
-        <div id="output"></div>
+    <div id="terminal" role="region" aria-label="Game Terminal">
+        <div id="output" aria-live="polite"></div>
         <div id="input-line">
             <span class="prompt">></span>
-            <input type="text" id="input" autofocus>
+            <input type="text" id="input" autofocus aria-label="Enter your command">
         </div>
     </div>
-
-    <script src="app.js"></script>
 </body>
 </html>
