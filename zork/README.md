@@ -44,3 +44,30 @@ The ASCII dog is from the [ASCII Art Archive](https://www.asciiart.eu/animals/do
 - **Allows users to reset the screen** without refreshing the page:
   - Typing `clear` removes all previous output but **keeps the game state** intact.
   - The game does **not** restart; the player remains in the same room.
+
+## Next Steps
+
+### 1. Multiple Game Modes
+
+Different versions of the game with varying difficulty levels.
+
+### 2. R-Themed Puzzle Rooms
+
+Players solve R-related challenges to advance
+
+### 3. R Challenges (Debugging & Coding)
+
+Interactive coding puzzles and debugging tasks
+
+### 4. Adaptive Hints & Error Handling
+
+Provide contextual suggestions when players are stuck
+
+### 5. Statbiscuit Integration
+
+Allow access to other Statbiscuit games from within Zork
+
+### 6. Procedural Story Elements
+
+Randomised quests, puzzles, and environments.
+
