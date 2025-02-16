@@ -36,18 +36,3 @@ body, html {
     white-space: pre;
     font-size: 20px;
 }
-
-.item {
-    color: yellow;
-    font-weight: bold;
-}
-
-.companion {
-    color: cyan;
-    font-style: italic;
-}
-
-.dog-sound {
-    color: orange;
-    font-weight: bold;
-}
