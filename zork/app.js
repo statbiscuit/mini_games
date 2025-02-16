@@ -57,10 +57,13 @@ function handleCommand(command) {
                     <div><span class="green">CAI</span> - Interact with your companion.</div>
                     <div><span class="green">torch</span> - Use your torch.</div>
                     <div><span class="green">PLAY</span> - Try playing with something.</div>
-                    <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div></div>`
-
+                    <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div>
+                    <div><span class="green">clear</span> - Clear the terminal without resetting the game.`
                 break;
 
+                case 'clear':
+                    outputEl.innerHTML = `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${rooms[currentRoom].description}</div>`;
+                    return; // Exit function to avoid appending anything further
 ;
 
 
