@@ -8,7 +8,7 @@ const outputEl = document.getElementById('output');
 inputEl.focus();
 inputEl.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        const command = inputEl.value.trim(); // Trim whitespace
+        const command = inputEl.value.trim().replace(/\s+/g, " "); // Trim and normalize spaces
         handleCommand(command); // Process the command
         inputEl.value = ''; // Clear input field
     }
@@ -27,6 +27,8 @@ import { rooms } from './rooms.js';
 
 function handleCommand(command) {
     let output = '';
+    
+    if (command === "") return; // Ignore empty input
 
     // Check if the command is a movement command (e.g., "go north")
     if (command.startsWith("go ")) {
@@ -56,7 +58,7 @@ function handleCommand(command) {
                     <div><span class="green">torch</span> - Use your torch.</div>
                     <div><span class="green">PLAY</span> - Try playing with something.</div>
                     <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div></div>`
-                    
+
                 break;
 
 ;
@@ -77,7 +79,7 @@ function handleCommand(command) {
  ********************************************/
 
 function handleMovement(command) {
-    const direction = command.split(' ')[1]; // Extracts "north", "south", etc.
+    const direction = command.split(/\s+/)[1]; // Extract direction, handling extra spaces
 
     if (rooms[currentRoom].exits[direction]) {
         currentRoom = rooms[currentRoom].exits[direction];
