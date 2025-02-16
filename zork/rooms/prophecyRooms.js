@@ -1,4 +1,4 @@
-export const packageProphecyRooms = {
+export const prophecyRooms = {
     start: {
         description: "The world is breaking. A missing package must be found.",
         exits: { north: "installRoom" }

@@ -5,39 +5,33 @@
 const inputEl = document.getElementById('input');
 const outputEl = document.getElementById('output');
 
-inputEl.focus();
-inputEl.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        const command = inputEl.value.trim().replace(/\s+/g, " "); // Trim and normalize spaces
-        handleCommand(command); // Process the command
-        inputEl.value = ''; // Clear input field
-    }
-});
-
 // Track the player's current room
 let currentRoom = 'start';
 let gameMode = null; // Current game mode (null until selected)
 let modeRooms = null;  // Stores the selected mode’s room structure
 
-
-// import rooms
+// Import rooms (Updated to ProphecyRooms.js)
 import { dragonHuntRooms } from './rooms/dragonHuntRooms.js';
 import { debuggerQuestRooms } from './rooms/debuggerQuestRooms.js';
 import { tidyverseTrialsRooms } from './rooms/tidyverseTrialsRooms.js';
-import { packageProphecyRooms } from './rooms/packageProphecyRooms.js';
+import { prophecyRooms } from './rooms/ProphecyRooms.js';  // Updated import
 
 /********************************************
              GAME MODE HANDLING
  ********************************************/
 function startGameMode(mode) {
+    console.log(`Game mode clicked: ${mode}`); // Debugging log
+
     const availableModes = {
         "dragon hunt": dragonHuntRooms,
         "debugger quest": debuggerQuestRooms,
         "tidyverse trials": tidyverseTrialsRooms,
-        "package prophecy": packageProphecyRooms
+        "the prophecy": prophecyRooms // Updated key
     };
 
     if (availableModes[mode]) {
+        console.log(`Starting game mode: ${mode}`); // Debugging log
+
         gameMode = mode;
         modeRooms = availableModes[mode]; // Load the correct room structure
         currentRoom = "start"; // Reset player position
@@ -47,9 +41,30 @@ function startGameMode(mode) {
         document.getElementById("terminal").style.display = "block";
 
         outputEl.innerHTML = `<h3>Welcome to ${mode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}`;
+    } else {
+        console.error(`Invalid game mode: ${mode}`);
     }
 }
 
+// Make `startGameMode` globally available after page load
+document.addEventListener("DOMContentLoaded", () => {
+    window.startGameMode = startGameMode;
+
+    console.log("Attaching event listeners to game mode buttons...");
+
+    // Attach event listeners to buttons
+    document.querySelectorAll("#mode-selection button").forEach(button => {
+        button.addEventListener("click", (event) => {
+            let selectedMode = event.target.innerText.toLowerCase().trim();
+
+            console.log(`Button clicked: ${selectedMode}`);  // Debugging log
+            startGameMode(selectedMode);
+        });
+    });
+});
+
+
+// Number input handling to select game mode
 document.addEventListener("keydown", function (event) {
     if (!gameMode) {
         if (event.key === "1") startGameMode("dragon hunt");
@@ -58,6 +73,16 @@ document.addEventListener("keydown", function (event) {
         else if (event.key === "4") startGameMode("package prophecy");
     }
 });
+
+/********************************************
+             OUTPUT HANDLING
+ ********************************************/
+
+function updateOutput(command, output) {
+    outputEl.innerHTML += `<div class="prompt">> <span class="green">${command}</span></div><div class="output-line">${output}</div>`;
+}
+
+
 
 /********************************************
              COMMAND HANDLING
@@ -101,7 +126,7 @@ function handleCommand(command) {
                     <div><span class="green">torch</span> - Use your torch.</div>
                     <div><span class="green">PLAY</span> - Try playing with something.</div>
                     <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div>
-                    <div><span class="green">clear</span> - Clear the terminal without resetting the game.`
+                    <div><span class="green">clear</span> - Clear the terminal without resetting the game.</div></div>`
                 break;
 
                 case 'clear':
@@ -110,7 +135,9 @@ function handleCommand(command) {
                     } else {
                         outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}</div>`;
                     }
-                    return;                
+                    return;
+                
+                                
 ;
 
             default:
@@ -137,14 +164,21 @@ function handleMovement(command) {
     }
 }
 
-
-/********************************************
-             OUTPUT HANDLING
- ********************************************/
-
-function updateOutput(command, output) {
-    outputEl.innerHTML += `<div class="prompt">> <span class="green">${command}</span></div><div class="output-line">${output}</div>`;
+// Display initial game message
+if (modeRooms) {
+    outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${modeRooms[currentRoom].description}</div>`;
+} else {
+    outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>Select a game mode to begin.</div>`;
 }
 
-// Display initial game message
-outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${modeRooms[currentRoom].description}</div>`;
+// Improving user input handling
+inputEl.focus();
+inputEl.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        const command = inputEl.value.trim().replace(/\s+/g, " "); // Trim and normalize spaces
+        handleCommand(command); // Process the command
+        inputEl.value = ''; // Clear input field
+    }
+});
+
+

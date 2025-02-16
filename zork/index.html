@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon support -->
     <title>zoRk</title>
-    <script type="module" src="app.js" defer></script>
+    <script type="module" src="app.js"></script>
 </head>
 <body>
     <div id="mode-selection">
         <h2>Select a Game Mode</h2>
-        <button onclick="startGameMode('dragon hunt')">🐉 Dragon Hunt</button>
-        <button onclick="startGameMode('debugger quest')">🛠 Debugger’s Quest</button>
-        <button onclick="startGameMode('tidyverse trials')">📊 Tidyverse Trials</button>
-        <button onclick="startGameMode('package prophecy')">📂 The Package Prophecy</button>
+        <button id="dragon-hunt">Dragon Hunt</button>
+        <button id="debugger-quest">Debugger’s Quest</button>
+        <button id="tidyverse-trials">Tidyverse Trials</button>
+        <button id="prophecy">The Prophecy</button>        
     </div>
 
     <div id="terminal" style="display: none;">
@@ -27,5 +27,4 @@
         </div>
     </div>
 </body>
-
 </html>
