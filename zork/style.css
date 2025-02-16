@@ -70,3 +70,15 @@ body, html {
 .red {
     color: red;
 }
+
+.output-line {
+    margin: 1px 0;  /* Increase vertical spacing */
+    padding: 4px 0; /* Increase padding between outputs */
+    line-height: 1.2; /* Slightly increase spacing */
+}
+
+.command-list {
+    padding-left: 15px; /* Slight indent for readability */
+    line-height: 0.4; /* Balanced spacing */
+}
+

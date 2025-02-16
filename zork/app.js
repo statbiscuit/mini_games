@@ -50,13 +50,18 @@ function handleCommand(command) {
                 break;
 
             case 'help':
-                output = `<span class="blue">Available commands:</span>
-                          <span class="green">look</span> - Describe the current room.
-                          <span class="green">CAI</span> - Interact with your companion.
-                          <span class="green">torch</span> - Use your torch.
-                          <span class="green">PLAY</span> - Try playing with something.
-                          <span class="green">go [direction]</span> - Move (north, south, east, west).`;
+                output = `<div class="blue">Available commands:</div><div class="command-list">
+                    <div><span class="green">look</span> - Describe the current room.</div>
+                    <div><span class="green">CAI</span> - Interact with your companion.</div>
+                    <div><span class="green">torch</span> - Use your torch.</div>
+                    <div><span class="green">PLAY</span> - Try playing with something.</div>
+                    <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div></div>`
+                    
                 break;
+
+;
+
+
 
             default:
                 output = `<span class="red">I don't recognise <span class="green">${command}<span class="red">. Do you need <span class="green">help</span>?`;
