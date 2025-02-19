@@ -3,7 +3,8 @@ export const debuggerQuestRooms = {
         description: "<span class='blue'>You find yourself in a high-tech lab filled with glowing monitors. Your faithful companion</span> CAI <span class='blue'>greets you.</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Welcome to the Debugger's Quest!</span> Which way should we go?",
         help: "<span class='blue'>Try asking</span> <span class='green'>CAI</span> <span class='blue'>for help!</span>",
-        exits: { north: "lab" }
+        exits: { north: "lab" },
+        locked: false
     },
 
     lab: {
@@ -12,7 +13,8 @@ export const debuggerQuestRooms = {
         hint: "<span class='blue'>Check the function used in the summary command. Does it correctly reference</span> <span class='green'>Height</span><span class='blue'>?</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Hmmm... maybe it's a syntax issue?</span>",
         solution: "summary(plant_data$Height)",
-        exits: {east: "syntaxMazeRoom"}
+        exits: {east: "syntaxMazeRoom"},
+        locked: false
     },
 
     syntaxMaze: {
@@ -21,7 +23,8 @@ export const debuggerQuestRooms = {
         hint: "<span class='blue'>Ensure that the</span> <span class='green'>tidyverse</span> <span class='blue'>package is loaded.",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF I think you might be missing something at the start...</span>",
         solution: "library(tidyverse)",
-        exits: {south: "dataTrapRoom" }
+        exits: {south: "dataTrapRoom" },
+        locked: true
     },
 
     dataTrapRoom: {
@@ -30,7 +33,8 @@ export const debuggerQuestRooms = {
         hint: "<span class='blue'>Does</span> <span class='green'>merge()</span> <span class='blue'>use</span> <span class='green'>key</span> <span class='blue'>or</span> <span class='green'>by</span> <span class='blue'>to specify the joining column?</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Are you sure about that argument?</span>",
         solution: "merge(species_data, habitat_data, by = 'species_id')",
-        exits: {west: "finalDebuggingChamber" }
+        exits: {west: "finalDebuggingChamber" },
+        locked: true
     },
 
     finalDebuggingChamber: {
@@ -39,7 +43,8 @@ export const debuggerQuestRooms = {
         hint: "<span class='blue'>Check the column name used in the</span> <span class='green'>mean()</span> <span class='blue'>function. Does it match the dataset?</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\  AWWOOF That column name seems off...</span>",
         solution: "mean(survival_data$survived, na.rm = TRUE)",
-        exits: {north: "treasureRoom" }
+        exits: {north: "treasureRoom" },
+        locked: true
     },
 
     treasureRoom: {
