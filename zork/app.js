@@ -77,9 +77,12 @@ document.addEventListener("keydown", function (event) {
 /********************************************
              OUTPUT HANDLING
  ********************************************/
+
 function updateOutput(command, output) {
     outputEl.innerHTML += `<div class="prompt">> <span class="green">${command}</span></div><div class="output-line">${output}</div>`;
 }
+
+
 
 /********************************************
              COMMAND HANDLING
@@ -91,99 +94,75 @@ function handleCommand(command) {
     }
 
     let output = '';
-
+    
     if (command === "") return; // Ignore empty input
 
     // Check if the command is a movement command (e.g., "go north")
     if (command.startsWith("go ")) {
         output = handleMovement(command);
-    } 
-    else if (gameMode === "🛠 debugger's quest") {
-        output = handleDebuggerQuestCommands(command);
-    } 
-    else if (gameMode === "🐉 dragon hunt") {
-        output = handleDragonHuntCommands(command);
-    } 
-    else {
-        output = handleDefaultCommands(command);
+    } else if (gameMode === "🛠 debugger's quest" 
+        && modeRooms[currentRoom].challenge 
+        && command !== "CAI" 
+        && command !== "look") {
+        // Debugger Quest Handling: Check if the command is the correct solution
+        if (command === modeRooms[currentRoom].solution) {
+            output = `<span class='blue'>Correct! The issue is fixed.</span> <br>`;
+        
+            // Move to the next room if an exit exists
+            output += "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
+        }        
+    } else {
+        switch (command) {
+            case 'PLAY':
+                output = modeRooms[currentRoom].play;
+                break;
+
+            case 'torch':
+                output = modeRooms[currentRoom].help;
+                break;
+
+            case 'CAI':
+                if (modeRooms[currentRoom].companion) {
+                    output = modeRooms[currentRoom].companion; // Displays CAI’s message
+                } else {
+                    output = `<span class="blue">CAI is silent... maybe there's nothing to hint at.</span>`;
+                }
+                break;
+                
+
+            case 'look':
+                output = modeRooms[currentRoom].description;
+                
+                // Ensure challenge is displayed in Debugger's Quest
+                if (gameMode === "🛠 debugger's quest" && modeRooms[currentRoom].challenge) {
+                    output += `<br><span class='green'>${modeRooms[currentRoom].challenge}</span>`;
+                }
+                break;
+                
+
+            case 'help':
+                output = `<div class="blue">General commands:</div><div class="command-list">
+                    <div><span class="green">look</span> - Describe the current room.</div>
+                    <div><span class="green">CAI</span> - Interact with your companion.</div>
+                    <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div>
+                    <div><span class="green">clear</span> - Clear the terminal without resetting the game.</div></div>`
+                break;
+
+            case 'clear':
+                outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}`;
+                
+                if (gameMode === "🛠 debugger's quest" && modeRooms[currentRoom].challenge) {
+                    outputEl.innerHTML += `<br><span class='green'>${modeRooms[currentRoom].challenge}</span>`;
+                }
+                return;
+                
+
+            default:
+                output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?`;
+        }
     }
 
     updateOutput(command, output);
-}
-
-/********************************************
-            DEFAULT COMMAND HANDLING
- ********************************************/
-function handleDefaultCommands(command) {
-    switch (command) {
-        case 'PLAY':
-            return modeRooms[currentRoom].play;
-
-        case 'CAI':
-            return modeRooms[currentRoom].companion || 
-                   `<span class="blue">CAI is silent... maybe there's nothing to hint at.</span>`;
-
-        case 'look':
-            return modeRooms[currentRoom].description;
-
-        case 'help':
-            return `<div class="blue">General commands:</div><div class="command-list">
-                        <div><span class="green">look</span> - Describe the current room.</div>
-                        <div><span class="green">CAI</span> - Interact with your companion.</div>
-                        <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div>
-                        <div><span class="green">clear</span> - Clear the terminal without resetting the game.</div>
-                    </div>`;
-
-        case 'clear':
-            outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}`;
-            
-            if (gameMode === "🛠 debugger's quest" && modeRooms[currentRoom].challenge) {
-                outputEl.innerHTML += `<br><span class='green'>${modeRooms[currentRoom].challenge}</span>`;
-            }
-            return '';
-
-        default:
-            return `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?</span>`;
-    }
-}
-
-
-/********************************************
-        DRAGON HUNT COMMAND HANDLING
- ********************************************/
-function handleDragonHuntCommands(command) {
-    if (command === "torch") {
-        return modeRooms[currentRoom].help;
-    }
-    return handleDefaultCommands(command);
-}
-
-
-/********************************************
-        DEBUGGER'S QUEST COMMAND HANDLING
- ********************************************/
-function handleDebuggerQuestCommands(command) {
-    if (modeRooms[currentRoom].challenge 
-        && command !== "CAI" 
-        && command !== "look"
-        && command !== "help"
-        && command !== "go [direction]"
-        && command !== "clear") {
-        if (command === modeRooms[currentRoom].solution) {
-            let output = `<span class='green'>Correct! The issue is fixed.</span> <br>`;
-            const nextRoom = Object.values(modeRooms[currentRoom].exits)[0];
-            if (nextRoom) {
-                currentRoom = nextRoom;
-                output += `<br>${modeRooms[currentRoom].description}`;
-            } else {
-                output += "<span class='blue'>           __\r\n      (___()\';\r\n      \/,    \/\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
-            }
-            return output;
-        } else {
-            return `<span class='red'>Incorrect. Try again.</span> <br>${modeRooms[currentRoom].hint}`;
-        }
-    }
-    return handleDefaultCommands(command);
 }
 
 /********************************************
@@ -202,8 +181,9 @@ function handleMovement(command) {
     }
 }
 
-
-
+/********************************************
+             MOVEMENT HANDLING
+ ********************************************/
 // Display initial game message
 if (modeRooms) {
     outputEl.innerHTML += `<div><h3>Nau mai, haere mai.<br>Welcome to zoRk!</h3><br>${modeRooms[currentRoom].description}</div>`;
