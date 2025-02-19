@@ -8,3 +8,8 @@ export const tidyverseTrialsRooms = {
         exits: { west: "start" }
     }
 };
+
+
+// What kind of distributions are there
+// hints to data types
+// continuous vs discrete
