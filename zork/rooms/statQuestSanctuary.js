@@ -1,7 +1,7 @@
 export const statQuestSanctuary = {
     start: {
       description: "<span class='blue'>You stand at the gates of the StatQuest Sanctuary, where core statistical knowledge is the key to moving forward. Your faithful companion</span> CAI <span class='blue'>is by your side.</span>",
-      companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Welcome, explorer! Let’s tackle some stats together. The sanctuary awaits. Which way should we</span> go?",
+      companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Welcome, explorer! Let’s tackle some stats together. The sanctuary awaits. Which way should we</span> go<span class ='blue'>?</span>",
       locked: false,
       exits: { north: 'distributionHall' }
     },

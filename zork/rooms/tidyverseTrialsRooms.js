@@ -2,7 +2,7 @@ export const tidyverseTrialsRooms = {
     // START ROOM — No challenge here
     start: {
       description: "<span class='blue'>You enter the Data Lab, where datasets float mid-air and R code powers the world around you. Your faithful companion</span> CAI <span class='blue'>greets you.</span>",
-      companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Let's tidy some data, friend! Which way should we</span> go?",
+      companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Let's tidy some data, friend! Which way should we</span> go<span class = 'blue'>?</span>",
       locked: false,
       exits: { north: 'filterLab' }
     },

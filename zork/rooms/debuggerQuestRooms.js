@@ -1,7 +1,7 @@
 export const debuggerQuestRooms = {
     start: {
         description: "<span class='blue'>You find yourself in a high-tech lab filled with glowing monitors. Your faithful companion</span> CAI <span class='blue'>greets you.</span>",
-        companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Welcome to the Debugger's Quest! Which way should we</span> go?",
+        companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Welcome to the Debugger's Quest! Which way should we</span> go<span class='blue'>?</span>?",
         help: "<span class='blue'>Try asking</span> <span class='green'>CAI</span> <span class='blue'>for help!</span>",
         locked: false,
         exits: { north: "labRoom" },

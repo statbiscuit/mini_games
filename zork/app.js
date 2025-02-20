@@ -142,7 +142,7 @@ function handleMovement(command) {
         return modeRooms[currentRoom].description;
 
     } else {
-        return `<span class="red">You can't go that way. Maybe <span class="green">north, east, south, or west?</span></span>`;
+        return `<span class="red">You can't go that way.</span>`;
     }
 }
 
@@ -277,6 +277,7 @@ function handleCodeQuestsCommands(command) {
             output += "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
 
             modeRooms[currentRoom].locked = false;
+            modeRooms[currentRoom].companion = "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
 
         } else {
             if (modeRooms[currentRoom].locked) {

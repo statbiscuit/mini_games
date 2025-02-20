@@ -1,7 +1,7 @@
 export const biostatsLabyrinth = {
     start: {
       description: "<span class='blue'>You step into the Biostat Labyrinth. Ancient scripts on the walls detail the history of biological research. Your companion</span> CAI <span class='blue'>bounds forward, ready to explore.</span>",
-      companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Time to dive into the data! Ready?</span>",
+      companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Time to dive into the data! Ready? Which way should we</span> go<span class='blue'>?</span>",
       locked: false,
       exits: { north: 'epidemiologyGate' }
     },
