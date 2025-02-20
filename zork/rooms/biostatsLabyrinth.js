@@ -3,7 +3,8 @@ export const biostatsLabyrinth = {
       description: "<span class='blue'>You step into the Biostat Labyrinth. Ancient scripts on the walls detail the history of biological research. Your companion</span> CAI <span class='blue'>bounds forward, ready to explore.</span>",
       companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Time to dive into the data! Ready? Which way should we</span> go<span class='blue'>?</span>",
       locked: false,
-      exits: { north: 'epidemiologyGate' }
+      exits: { north: 'epidemiologyGate' },
+      isStart: true
     },
   
     // Epidemiology Gate --> Study Design & Sampling (case-control, cohort, randomisation)
@@ -78,7 +79,8 @@ export const biostatsLabyrinth = {
       description: "<span class='yellow'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n <span style='color: blue'>You’ve completed the Biostats Labyrinth! A grand Andarna lights up!!</span>",
       companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF You did it, pal! Time to celebrate!</span>",
       locked: false,
-      exits: {}
+      exits: {},
+      isFinal: true
     } 
   };
   

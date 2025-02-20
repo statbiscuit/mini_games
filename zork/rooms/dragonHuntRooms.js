@@ -5,6 +5,7 @@ export const dragonHuntRooms = {
       help: "<span class='blue'>There is a door to your north, perhaps you should</span> <span class='green'>go north?</span>",
       play: "<span class='blue'>There is no one to</span> <span class='green'>play</span> <span class='blue'>with here</span>",
       exits: {north: 'hallway'},
+      isStart: true
   },
   hallway: {
       description: "<span class='blue'>You are in a long hallway and your</span> <span class='green'>torch</span> <span class='blue'>flickers out</span>",

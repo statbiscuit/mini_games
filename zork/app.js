@@ -16,7 +16,7 @@ import { debuggerQuestRooms } from './rooms/debuggerQuestRooms.js';
 import { tidyverseTrialsRooms } from './rooms/tidyverseTrialsRooms.js';
 import { statQuestSanctuary } from './rooms/statQuestSanctuary.js';
 import { biostatsLabyrinth } from './rooms/biostatsLabyrinth.js';
-
+import { randomModeRooms } from './rooms/randomModeRooms.js';
 
 /********************************************
              HELPER FUNCTIONS
@@ -42,7 +42,8 @@ function startGameMode(mode) {
         "🛠 debugger's quest": debuggerQuestRooms,
         "📊 tidyverse trials": tidyverseTrialsRooms,
         "📐 statquest sanctuary": statQuestSanctuary,
-        "🧬 biostats labyrinth": biostatsLabyrinth
+        "🧬 biostats labyrinth": biostatsLabyrinth,
+        "🎲 zoRk": randomModeRooms        
     };
 
     if (availableModes[mode]) {
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else if (event.key === "3") startGameMode("📊 tidyverse trials");
             else if (event.key === "4") startGameMode("📐 statquest sanctuary");
             else if (event.key === "5") startGameMode("🧬 biostats labyrinth");
+            else if (event.key === "6") startGameMode("🎲 zoRk");
         } else if (event.key === "Enter") {
             const command = inputEl.value.trim().replace(/\s+/g, " ");
             handleCommand(command);
@@ -185,6 +187,10 @@ function handleCommand(command) {
         break;
 
         case "🧬 biostats labyrinth": 
+        output = handleCodeQuestsCommands(command);
+        break;
+
+        case "🎲 zoRk":
         output = handleCodeQuestsCommands(command);
         break;
 

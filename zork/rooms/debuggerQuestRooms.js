@@ -5,6 +5,7 @@ export const debuggerQuestRooms = {
         help: "<span class='blue'>Try asking</span> <span class='green'>CAI</span> <span class='blue'>for help!</span>",
         locked: false,
         exits: { north: "labRoom" },
+        isStart: true
     },
 
     labRoom: {
@@ -53,6 +54,7 @@ export const debuggerQuestRooms = {
         challenge: "<span class='green'>mean(survival_data$surdive, na.rm = TRUE)</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF AWWOOF AWWOOF</span>",
         play: "<span class='blue'>Dragons do not play. We are far too regal to mix with mere mortals</span>",
-        exits: null,
+        exits: {},
+        isFinal: true
       }
     };

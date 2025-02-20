@@ -4,7 +4,8 @@ export const tidyverseTrialsRooms = {
       description: "<span class='blue'>You enter the Data Lab, where datasets float mid-air and R code powers the world around you. Your faithful companion</span> CAI <span class='blue'>greets you.</span>",
       companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Let's tidy some data, friend! Which way should we</span> go<span class = 'blue'>?</span>",
       locked: false,
-      exits: { north: 'filterLab' }
+      exits: { north: 'filterLab' },
+      isStart: true
     },
   
     // FILTER LAB --> Data Filtering
@@ -67,7 +68,8 @@ export const tidyverseTrialsRooms = {
       description: "<span class='yellow'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n <span style='color: blue'>You’ve completed the Tidyverse Trials! A grand Andarna lights up!!</span>",
       companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF You did it, pal! Time to celebrate!</span>",
       locked: false,
-      exits: {}
+      exits: {},
+      isFinal: true
     }
   };
   

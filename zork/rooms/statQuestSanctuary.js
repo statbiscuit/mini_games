@@ -3,7 +3,8 @@ export const statQuestSanctuary = {
       description: "<span class='blue'>You stand at the gates of the StatQuest Sanctuary, where core statistical knowledge is the key to moving forward. Your faithful companion</span> CAI <span class='blue'>is by your side.</span>",
       companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Welcome, explorer! Let’s tackle some stats together. The sanctuary awaits. Which way should we</span> go<span class ='blue'>?</span>",
       locked: false,
-      exits: { north: 'distributionHall' }
+      exits: { north: 'distributionHall' },
+      isStart: true
     },
   
     // Distribution Hall —-> Normal Distribution
@@ -66,6 +67,7 @@ export const statQuestSanctuary = {
         description: "<span class='red'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n <span style='color: blue'>You’ve reached the end of StatQuest Sanctuary! A grand Andarna lights up!!</span>",
         companion: "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF You did it, pal! Time to celebrate!</span>",
         locked: false,
-        exits: {}
+        exits: {},
+        isFinal: true
       }
     };
