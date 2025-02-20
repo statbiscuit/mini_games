@@ -3,7 +3,7 @@ export const debuggerQuestRooms = {
         description: "<span class='blue'>You find yourself in a high-tech lab filled with glowing monitors. Your faithful companion</span> CAI <span class='blue'>greets you.</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Welcome to the Debugger's Quest!</span> Which way should we go?",
         help: "<span class='blue'>Try asking</span> <span class='green'>CAI</span> <span class='blue'>for help!</span>",
-        exits: { north: "labRoom" },
+        exits: { north: "finalDebuggingChamberRoom" },
     },
 
     labRoom: {
@@ -12,14 +12,14 @@ export const debuggerQuestRooms = {
         hint: "<span class='blue'>Check the function used in the summary command. Does it correctly reference</span> <span class='green'>Height</span><span class='blue'>?</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Hmmm... maybe it's a syntax issue?</span>",
         solution: "summary(plant_data$Height)",
-        exits: {east: "syntaxMaze"},
+        exits: {east: "syntaxMazeRoom"},
     },
 
     syntaxMazeRoom: {
         description: "<span class='blue'>The next room contains a script attempting to filter gene expression data: <span class='green'>filter(gene_data, expression > 10)</span>, but it throws an error...<span class = 'red'> Error in filter(gene_data, expression > 10) : could not find function \"filter\"</span> <span class = 'blue'> Enter the correct R command </script>",
         challenge: "<span class='green'>filter(gene_data, expression > 10)</span>",
         hint: "<span class='blue'>Ensure that the</span> <span class='green'>tidyverse</span> <span class='blue'>package is loaded.",
-        companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF I think you might be missing something at the start...</span>",
+        companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF! Be quiet! People are reading!</span>",
         solution: "library(tidyverse)",
         exits: {south: "dataTrapRoom" },
     },
@@ -34,7 +34,7 @@ export const debuggerQuestRooms = {
     },
 
     finalDebuggingChamberRoom: {
-        description: "<span class='blue'>In the final chamber, a complex script aims to calculate mean survival rates: <span class='green'>mean(survival_data$survi<span class= 'red'>d</span>e, na.rm = TRUE)</span>, but produces an error...</span> <span class ='blue'> Can you debug this script?</span>",
+        description: "<span class='blue'>In the final chamber, a complex script aims to calculate mean survival rates: <span class='green'>mean(survival_data$survi<span class= 'red'>d</span>ed, na.rm = TRUE)</span>, but produces an error...</span> <span class ='blue'> Can you debug this script?</span>",
         challenge: "<span class='green'>mean(survival_data$surdive, na.rm = TRUE)</span>",
         hint: "<span class='blue'>Check the column name used in the</span> <span class='green'>mean()</span> <span class='blue'>function. Does it match the dataset?</span>",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\  AWWOOF That column name seems off...</span>",
@@ -43,9 +43,9 @@ export const debuggerQuestRooms = {
     },
 
     treasureRoom: {
-        description: "<span style='color: blue'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n You found Andarna!!",
+        description: "<span style='color: blue'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n You've finished the quest!!",
         challenge: "<span class='green'>mean(survival_data$surdive, na.rm = TRUE)</span>",
-        companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF AWWOOF Does she want to</span> <span class='green'>PLAY</span> <span class='blue'>with us? AWWOOF</span>",
+        companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF AWWOOF AWWOOF</span>",
         play: "<span class='blue'>Dragons do not play. We are far too regal to mix with mere mortals</span>",
         exits: null,
       }
