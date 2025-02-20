@@ -126,18 +126,25 @@ function handleMovement(command) {
     }
     
 
-    // Check if current room has defined exits
-    const exits = modeRooms[currentRoom]?.exits;
-    if (!exits) {
-        return `<span class="red">You can't go anywhere from here.</span>`;
+    const currentRoomData = modeRooms[currentRoom];
+
+    //  1. Check if current room is locked
+    if (currentRoomData.locked) {
+        return `<span class="red">The exits are locked. Solve the challenge first!</span>`;
     }
 
-    // Check if the specified direction exists
-    if (exits[direction]) {
-        currentRoom = exits[direction]; // Move to the new room
+    //  2. Check if the chosen direction exists
+    const exits = currentRoomData.exits;
+    if (exits && exits[direction]) {
+        const nextRoom = exits[direction];
+        const nextRoomData = modeRooms[nextRoom];
+
+        //  3. Move to next room if unlocked
+        currentRoom = nextRoom;
         return modeRooms[currentRoom].description;
+
     } else {
-        return `<span class="red">You can't go that way.</span>`;
+        return `<span class="red">You can't go that way. Maybe <span class="green">north, east, south, or west?</span></span>`;
     }
 }
 
@@ -168,8 +175,12 @@ function handleCommand(command) {
             break;
 
         case "🛠 debugger's quest":
-            output = handleDebuggerQuestCommands(command);
+            output = handleCodeQuestsCommands(command);
             break;
+
+        case "📊 tidyverse trials":  // ✅ New case for Tidyverse Trials
+        output = handleCodeQuestsCommands(command);
+        break;
 
             default:
                 output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?`;
@@ -243,9 +254,9 @@ function handleDragonHuntCommands(command) {
 }
 
 /**********************************************
-    DEBUGGER QUEST SPECIFIC COMMAND HANDLING
+     ROOMS 2-4 SPECIFIC COMMAND HANDLING
  **********************************************/
-function handleDebuggerQuestCommands(command) {
+function handleCodeQuestsCommands(command) {
     let output = '';
 
     // checks to see if command is a default command
@@ -253,21 +264,21 @@ function handleDebuggerQuestCommands(command) {
     if (defaultCommands.includes(command)) {
         return handleDefaultCommands(command); // Pass to default handler
     }
-    
 
     //  Evaluate challenge solution
     if (modeRooms[currentRoom].challenge) {
         if (command === modeRooms[currentRoom].solution) {
             output = `<span class='green'>Correct! The issue is fixed.</span><br>`;
             output += "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
+
+            room.locked = false; 
+
         } else {
             output =  `<span class="red">I don't recognize </span><span class="green">${command}</span>.<br>${modeRooms[currentRoom].hint}`;
         }
     } else {
-        output = `<span class="red">I don't recognize <span class="green">${command}</span>. Try <span class="green">CAI</span> for help.</span>`;
+        output = `<span class="red">I don't recognize <span class="green">${command}</span>. Try asking <span class="green">CAI</span> for help.</span>`;
     }
 
     return output;
 }
-
-
