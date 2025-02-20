@@ -15,6 +15,7 @@ import { dragonHuntRooms } from './rooms/dragonHuntRooms.js';
 import { debuggerQuestRooms } from './rooms/debuggerQuestRooms.js';
 import { tidyverseTrialsRooms } from './rooms/tidyverseTrialsRooms.js';
 import { statQuestSanctuary } from './rooms/statQuestSanctuary.js';
+import { biostatsLabyrinth } from './rooms/biostatsLabyrinth.js';
 
 
 /********************************************
@@ -40,7 +41,8 @@ function startGameMode(mode) {
         "🐉 dragon hunt": dragonHuntRooms,
         "🛠 debugger's quest": debuggerQuestRooms,
         "📊 tidyverse trials": tidyverseTrialsRooms,
-        "📐 statquest sanctuary": statQuestSanctuary
+        "📐 statquest sanctuary": statQuestSanctuary,
+        "🧬 biostats labyrinth": biostatsLabyrinth
     };
 
     if (availableModes[mode]) {
@@ -81,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else if (event.key === "2") startGameMode("🛠 debugger's quest");
             else if (event.key === "3") startGameMode("📊 tidyverse trials");
             else if (event.key === "4") startGameMode("📐 statquest sanctuary");
+            else if (event.key === "5") startGameMode("🧬 biostats labyrinth");
         } else if (event.key === "Enter") {
             const command = inputEl.value.trim().replace(/\s+/g, " ");
             handleCommand(command);
@@ -181,6 +184,10 @@ function handleCommand(command) {
         output = handleCodeQuestsCommands(command);
         break;
 
+        case "🧬 biostats labyrinth": 
+        output = handleCodeQuestsCommands(command);
+        break;
+
             default:
                 output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?`;
         }
@@ -269,10 +276,15 @@ function handleCodeQuestsCommands(command) {
             output = `<span class='green'>Correct! The issue is fixed.</span><br>`;
             output += "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
 
-            room.locked = false; 
+            modeRooms[currentRoom].locked = false;
 
         } else {
-            output =  `<span class="red">I don't recognize </span><span class="green">${command}</span>.<br>${modeRooms[currentRoom].hint}`;
+            if (modeRooms[currentRoom].locked) {
+                output =  `<span class="red">I don't recognize </span><span class="green">${command}</span>.<br>${modeRooms[currentRoom].hint}`;
+            }
+            else {
+                output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?</span>`;    
+            }
         }
     } else {
         output = `<span class="red">I don't recognize <span class="green">${command}</span>. Try asking <span class="green">CAI</span> for help.</span>`;
