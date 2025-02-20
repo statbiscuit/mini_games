@@ -53,6 +53,7 @@ The ASCII dog is from the [ASCII Art Archive](https://www.asciiart.eu/animals/do
 - **📊 Tidyverse Trials**: Hands-on R coding with core Tidyverse functions like `filter()`, `mutate()`, `summarise()`, and `ggplot()`.
 - **📐 StatQuest Sanctuary**: A statistics-themed challenge with topics like distributions, hypothesis testing, regression, and ANOVA.
 - **🧬 Biostats Labyrinth**: Dive into biostatistics with challenges covering epidemiology, survival analysis, logistic regression, chi-square tests, and meta-analysis.
+- **🎲 zoRk**: A randomised game mode that selects 5 random rooms from the new additional rooms
 
 ### 2. **Codebase Refactoring**
 - **Modularized Game Logic**: 
@@ -85,6 +86,7 @@ The ASCII dog is from the [ASCII Art Archive](https://www.asciiart.eu/animals/do
 | 📊 Tidyverse Trials      | Data Manipulation (Tidyverse)     | `filter()`, `mutate()`, etc. |
 | 📐 StatQuest Sanctuary   | Core Statistics                   | `mean()`, `t.test()`, `lm()` |
 | 🧬 Biostats Labyrinth    | Biostatistics & Research Methods  | `survfit()`, `glm()`, `chisq.test()` |
+| 🎲 zoRk    | Randomised game mode  | 5 of the above |
 
 ## Finalized Commands
 
@@ -99,7 +101,6 @@ The ASCII dog is from the [ASCII Art Archive](https://www.asciiart.eu/animals/do
 - **Adaptive Hints & Error Handling**: Provide contextual suggestions when players are stuck.
 - **Statbiscuit Integration**: Link puzzle rooms to be other statbiscuit games.
 - **Procedural Story Elements**: Randomised quests, puzzles, and environments.
-- **Randomised mode**: A button that randomly selects a game mode.
 
 - **More Game Modes**: "Machine Learning Mansion", "Data Science Dungeon", etc...
 - **Leaderboard Integration**: Track completion times and share with friends.
