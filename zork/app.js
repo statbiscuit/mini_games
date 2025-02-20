@@ -14,13 +14,12 @@ let modeRooms = null;  // Stores the selected mode’s room structure
 import { dragonHuntRooms } from './rooms/dragonHuntRooms.js';
 import { debuggerQuestRooms } from './rooms/debuggerQuestRooms.js';
 import { tidyverseTrialsRooms } from './rooms/tidyverseTrialsRooms.js';
-import { prophecyRooms } from './rooms/prophecyRooms.js';
+import { statQuestSanctuary } from './rooms/statQuestSanctuary.js';
 
 
 /********************************************
              HELPER FUNCTIONS
  ********************************************/
-
 // Display current room description
 function displayRoomDescription() {
     if (!modeRooms || !modeRooms[currentRoom]) {
@@ -29,11 +28,6 @@ function displayRoomDescription() {
     }
     let roomDesc = `<div><h3>Welcome to ${gameMode ? gameMode.toUpperCase() : 'zoRk'}!</h3><br>${modeRooms[currentRoom].description}</div>`;
     outputEl.innerHTML = roomDesc;
-
-    // Show challenge if in Debugger's Quest
-    if (gameMode === "🛠 debugger's quest" && modeRooms[currentRoom].challenge) {
-        outputEl.innerHTML += `<br><span class='green'>${modeRooms[currentRoom].challenge}</span>`;
-    }
 }
 
 /********************************************
@@ -46,7 +40,7 @@ function startGameMode(mode) {
         "🐉 dragon hunt": dragonHuntRooms,
         "🛠 debugger's quest": debuggerQuestRooms,
         "📊 tidyverse trials": tidyverseTrialsRooms,
-        "📂 the package prophecy": prophecyRooms
+        "📐 statquest sanctuary": statQuestSanctuary
     };
 
     if (availableModes[mode]) {
@@ -63,6 +57,7 @@ function startGameMode(mode) {
         console.error(`Invalid game mode: ${mode}`);
     }
 }
+
 /********************************************
              EVENT LISTENERS
  ********************************************/
@@ -85,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (event.key === "1") startGameMode("🐉 dragon hunt");
             else if (event.key === "2") startGameMode("🛠 debugger's quest");
             else if (event.key === "3") startGameMode("📊 tidyverse trials");
-            else if (event.key === "4") startGameMode("📂 the package prophecy");
+            else if (event.key === "4") startGameMode("📐 statquest sanctuary");
         } else if (event.key === "Enter") {
             const command = inputEl.value.trim().replace(/\s+/g, " ");
             handleCommand(command);
@@ -178,7 +173,11 @@ function handleCommand(command) {
             output = handleCodeQuestsCommands(command);
             break;
 
-        case "📊 tidyverse trials":  // ✅ New case for Tidyverse Trials
+        case "📊 tidyverse trials": 
+        output = handleCodeQuestsCommands(command);
+        break;
+
+        case "📐 statquest sanctuary": 
         output = handleCodeQuestsCommands(command);
         break;
 
@@ -229,7 +228,6 @@ function handleDefaultCommands(command) {
 
     return output;
 }
-
 
 /********************************************
     DRAGON HUNT SPECIFIC COMMAND HANDLING
