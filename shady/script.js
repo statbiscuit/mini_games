@@ -219,3 +219,8 @@ checkButton.addEventListener("click", () => {
 	window.location.reload();
     }
 });
+
+
+// dp
+// randomly choosing curves
+// discrete 
