@@ -56,21 +56,21 @@ body {
   background-color: #110815;
 }
 .tile:after {
-    background-color: #ac59d4;
+    background-color: #276DC2;
     box-shadow:inset 0 0 0em .25em #eee, 
 	       inset 1em 1em 1em #eee5,
 	       inset -1em -1em 1em #0005;
 }
 .tile:hover:after {
-  background-color:  #d29ad4;
+  background-color:  #C1D9F0;
 }
 
 .tile {
-  background-color: #eeddf6
+  background-color: #E7EDF3
 ;
 }
 .tile_closed {
-  background-color: #eeddf6;
+  background-color: #E7EDF3;
 }
 
 /*Dimensions*/
@@ -120,7 +120,7 @@ body {
   margin: 5vmin 0px;
 }
 .overlay_win h2 {
-  color:#f8d363;
+  color:#276DC3;
   font-family: "Courier New", monospace;
 }
 
@@ -134,7 +134,7 @@ body {
 }
 
 #replay {
-  background-color:#f8d363;
+  background-color:#276DC3;
   color:  #b5b2b6;
 }
 
