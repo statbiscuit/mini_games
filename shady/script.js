@@ -171,11 +171,10 @@ function renderBetaDist(elementId, ablist, num) {
 // Set the focus on input field
 input.focus();
 
-// Initialize the game with random α and β
+// Initialize the game with random α
 let randomNum = Math.round(Math.random() * 100);
 let ranA = (Math.random() * 9) + 1; // α between 1 and 10
-let ranB = (Math.random() * 9) + 1; // β between 1 and 10
-let randomNumP = Math.round((1 - jStat.beta.cdf(randomNum / 100, ranA, ranB)) * 100) / 100;
+let randomNumP = Math.round((1 - jStat.beta.cdf(randomNum / 100, ranA)) * 100) / 100;
 let chance = 10;
 
 // draw distribution
