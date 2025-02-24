@@ -43,23 +43,28 @@ const MemoryGame = {
 
   // Shuffle the pairs
   shufflePairs() {
+    // Shuffle the full pairs array
+    const shuffledPairs = [...pairs].sort(() => Math.random() - 0.5);
+  
+    // Select the first 8 pairs for the game
+    const selectedPairs = shuffledPairs.slice(0, 8);
+  
+    // Create tiles from the selected pairs (both symbol & meaning)
     const allTiles = [];
-
-    // Duplicate each pair (symbol and meaning) for the tiles
-    pairs.forEach(pair => {
+    selectedPairs.forEach(pair => {
       allTiles.push({ id: pair.id, content: pair.symbol });
       allTiles.push({ id: pair.id, content: pair.meaning });
     });
-
-    // Fisher-Yates shuffle
+  
+    // Shuffle the 16 tiles before returning
     for (let i = allTiles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [allTiles[i], allTiles[j]] = [allTiles[j], allTiles[i]];
     }
-
+  
     return allTiles;
   },
-
+  
   // Reset all tiles
   resetTiles() {
     const container = document.querySelector(".tile_container");
@@ -111,7 +116,7 @@ const MemoryGame = {
       this.markAsMatched(this.lastTile);
       this.pairCount++;
 
-      if (this.pairCount === pairs.length) {
+      if (this.pairCount === 8) {
         addClass("overlay_win", "overlay_win_open");
       }
     } else {
