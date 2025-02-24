@@ -84,17 +84,29 @@ body {
 }
 
 /* === Math Symbol Styling === */
+/* === Math Symbol Styling (Dynamic Font Size with Fallback) === */
 .tile .math {
   text-align: center;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   color: var(--tile-text-color);
-  font-size: 5vmin;
-  line-height: 1;
+  font-size: 5vmin; /* Default size */
+  line-height: 1.1;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  white-space: normal; /* Allow wrapping */
+  word-break: break-word; /* Break long words */
+  text-align: center;
+  transition: font-size 0.2s ease-in-out;
+}
+
+/* === Ensure Text Fits Inside Tiles === */
+.tile_open .math {
+  max-width: 100%;
+  max-height: 100%;
+  text-overflow: ellipsis;
 }
 
 /* === Overlay Win Screen === */
@@ -157,3 +169,22 @@ body {
     font-size: 6vmin;
   }
 } 
+
+/* === Responsive Font Scaling === */
+@media (max-width: 800px) {
+  .tile .math {
+    font-size: 4vmin;
+  }
+}
+
+@media (max-width: 600px) {
+  .tile .math {
+    font-size: 3.5vmin;
+  }
+}
+
+/* .math from old maths.css */
+.math {
+  display: inline-block;
+  text-rendering: auto;
+}

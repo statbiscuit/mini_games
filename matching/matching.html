@@ -24,26 +24,7 @@
     </div>
   </main>
 
-  <script>
-    // Dynamically create tiles
-    const container = document.querySelector(".tile_container");
-    for (let i = 0; i < 16; i++) {
-      const tile = document.createElement("div");
-      tile.id = `tile_${i}`;
-      tile.className = "tile";
-      tile.setAttribute("role", "button");
-      tile.setAttribute("aria-label", "Memory tile");
-
-      const icon = document.createElement("i");
-      icon.id = `tile_icon_${i}`;
-      icon.className = "math";
-
-      tile.appendChild(icon);
-      container.appendChild(tile);
-    }
-  </script>
-
-  <script src="tiles.js"></script>
+<script type="module" src="tiles.js"></script>
 
 </body>
 </html>

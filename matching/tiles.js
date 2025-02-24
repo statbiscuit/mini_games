@@ -1,4 +1,6 @@
-// Memory Matching Game (Refactored JavaScript with Click Prevention on Matched Tiles)
+// Memory Matching Game (Refactored with External Pairs.js)
+
+import { pairs } from './pairs.js';
 
 // Utility functions for toggling, adding, and removing CSS classes
 function toggleClass(id, className) {
@@ -30,7 +32,7 @@ const MemoryGame = {
 
   // Initialize game
   init() {
-    this.A = this.shuffle();
+    this.A = this.shufflePairs();
     this.pairCount = 0;
     this.tileCount = 0;
     this.lastTile = null;
@@ -39,39 +41,49 @@ const MemoryGame = {
     removeClass("overlay_win", "overlay_win_open");
   },
 
-  // Shuffle tiles using Fisher-Yates algorithm
-  shuffle() {
-    const symbols = [
-      "pipe", "pipepipe", "equal", "equalequal",
-      "assign", "assignassign", "plus", "plusplus",
-      "neq", "neqneq", "comment", "commentcomment",
-      "base", "basebase", "mean", "meanmean"
-    ];
+  // Shuffle the pairs
+  shufflePairs() {
+    const allTiles = [];
 
-    for (let i = symbols.length - 1; i > 0; i--) {
+    // Duplicate each pair (symbol and meaning) for the tiles
+    pairs.forEach(pair => {
+      allTiles.push({ id: pair.id, content: pair.symbol });
+      allTiles.push({ id: pair.id, content: pair.meaning });
+    });
+
+    // Fisher-Yates shuffle
+    for (let i = allTiles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [symbols[i], symbols[j]] = [symbols[j], symbols[i]];
+      [allTiles[i], allTiles[j]] = [allTiles[j], allTiles[i]];
     }
 
-    return symbols;
+    return allTiles;
   },
 
   // Reset all tiles
   resetTiles() {
-    for (let i = 0; i < 16; i++) {
-      this.removeTileSelection(i);
-      this.addTileEvent(i, this.A[i]);
-      removeClass(`tile_${i}`, "tile_closed");
-    }
-  },
+    const container = document.querySelector(".tile_container");
+    container.innerHTML = ""; // Clear existing tiles
 
-  // Add event listener to a tile
-  addTileEvent(i, elem) {
-    document.getElementById(`tile_${i}`).onclick = () => this.handleTileClick(i, elem);
+    this.A.forEach((tileData, i) => {
+      const tile = document.createElement("div");
+      tile.id = `tile_${i}`;
+      tile.className = "tile";
+
+      const icon = document.createElement("i");
+      icon.id = `tile_icon_${i}`;
+      icon.className = "math";
+      icon.textContent = tileData.content;
+
+      tile.appendChild(icon);
+      tile.onclick = () => this.handleTileClick(i, tileData);
+
+      container.appendChild(tile);
+    });
   },
 
   // Handle tile click events
-  handleTileClick(i, elem) {
+  handleTileClick(i, tileData) {
     const tile = document.getElementById(`tile_${i}`);
 
     // Prevent click if tile is already matched
@@ -79,7 +91,6 @@ const MemoryGame = {
 
     this.openTile = i;
     addClass(`tile_${i}`, "tile_open");
-    addClass(`tile_icon_${i}`, `math-${elem}`);
 
     if (this.tileCount === 1) {
       this.checkMatch(i);
@@ -92,15 +103,15 @@ const MemoryGame = {
 
   // Check if selected tiles match
   checkMatch(currentTile) {
-    const match = this.A[currentTile].includes(this.A[this.lastTile]) ||
-                  this.A[this.lastTile].includes(this.A[currentTile]);
+    const currentId = this.A[currentTile].id;
+    const lastId = this.A[this.lastTile].id;
 
-    if (match && currentTile !== this.lastTile) {
+    if (currentId === lastId && currentTile !== this.lastTile) {
       this.markAsMatched(currentTile);
       this.markAsMatched(this.lastTile);
       this.pairCount++;
 
-      if (this.pairCount === 8) {
+      if (this.pairCount === pairs.length) {
         addClass("overlay_win", "overlay_win_open");
       }
     } else {
@@ -118,16 +129,9 @@ const MemoryGame = {
   // Remove tile classes after delay for mismatches
   removeWithDelay(first, second) {
     setTimeout(() => {
-      this.removeTileSelection(first);
-      this.removeTileSelection(second);
+      removeClass(`tile_${first}`, "tile_open");
+      removeClass(`tile_${second}`, "tile_open");
     }, 1000);
-  },
-
-  // Remove tile selection (hide tile)
-  removeTileSelection(i) {
-    const symbols = ["pipe", "pipepipe", "equal", "equalequal", "assign", "assignassign", "plus", "plusplus", "neq", "neqneq", "comment", "commentcomment", "base", "basebase", "mean", "meanmean"];
-    symbols.forEach(symbol => removeClass(`tile_icon_${i}`, `math-${symbol}`));
-    removeClass(`tile_${i}`, "tile_open");
   }
 };
 
