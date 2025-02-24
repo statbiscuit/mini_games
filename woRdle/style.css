@@ -1,0 +1,473 @@
+/* Animations */
+@keyframes RGB {
+  0% { color: #dcd8cc; }
+  15% { color: #a84438; }
+  30% { color: #458d50; }
+  45% { color: #2e5070; }
+  60% { color: #1577a5; }
+  75% { color: #6b4636; }
+  90% { color: #2e374c; }
+  100% { color: #31754e; }
+}
+
+@keyframes flash {
+  5% { border-color: crimson; }
+  100% { border-color: #ccc; }
+}
+
+@keyframes shrinks {
+  25% { width: 35px; height: 35px; }
+  50% { width: 50px; height: 50px; }
+  95% { width: 45px; height: 45px; }
+}
+
+@keyframes stretch {
+  25% { width: 55px; height: 55px; }
+  50% { width: 40px; height: 40px; }
+  95% { width: 45px; height: 45px; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes winColorChange {
+  0% { color: #dcd8cc; }
+  15% { color: #a84438; }
+  30% { color: #458d50; }
+  45% { color: #2e5070; }
+  60% { color: #1577a5; }
+  75% { color: #6b4636; }
+  90% { color: #2e374c; }
+  100% { color: #31754e; }
+}
+
+@media (max-width: 600px) {
+  .key-button {
+    font-size: 0.9rem; /* Smaller font size for small screens */
+    padding: 0.4rem 0.8rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .kb-line {
+    gap: 0.2rem; /* Further reduce spacing */
+  }
+}
+
+/* Default CSS settings */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  border: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-image: url(img/tidy.png);
+  font-weight: bold;
+}
+
+.win-animation {
+  animation: winColorChange 5s infinite linear;
+}
+
+/* Centering Title */
+.wordle-title {
+  font-size: 2rem;
+  color: #222222;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+/* Centering Mode Selection Under Title */
+.mode-selection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* Space between buttons */
+  margin-top: 2rem; /* Adjust spacing below the title */
+}
+
+/* Styling the Play and Learn Buttons */
+.mode-button {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.mode-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+.mode-button:active {
+  background-color: #003f7f; /* Even darker blue on click */
+}
+
+.mode-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Add spacing for smaller screens */
+@media (max-width: 800px) {
+  .mode-button {
+    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Hide Subcategories by Default */
+.subcategory-selection {
+  display: none; /* Hidden initially */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem; /* Ensure consistent spacing */
+}
+
+.subcategory-button {
+  font-size: 1rem;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #6c757d;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s, color 0.3s;
+}
+
+.subcategory-button:hover {
+  background-color: #d6d8db; /* Improved contrast */
+  color: #212529;
+  transform: scale(1.05);
+}
+
+.subcategory-button:active {
+  background-color: #ced4da;
+}
+
+.subcategory-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Back Button */
+.back-button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #6c757d;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #495057;
+  transform: scale(1.05);
+}
+
+.back-button:active {
+  background-color: #343a40;
+}
+
+.back-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Letter Box Styling */
+.letter-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  text-transform: uppercase;
+  border: 4px solid #ccc;
+  width: 50px;
+  height: 50px;
+  background: white;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+/* Word Grid */
+.wordle-words {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.row {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1%;
+  justify-content: center;
+  margin-bottom: 1%;
+}
+
+/* Keyboard container */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem; /* Add padding around the container */
+}
+
+/* Keyboard rows */
+.kb-line {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem; /* Adjust gap between buttons */
+}
+
+/* Keyboard buttons */
+.key-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem; /* Increase font size */
+  padding: 0.5rem 1rem; /* Increase padding */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, color 0.3s;
+  min-width: 45px; /* Set a minimum width for the buttons */
+  min-height: 45px; /* Set a minimum height for the buttons */
+  text-transform: uppercase; /* Uppercase text for uniformity */
+}
+
+/* Hover effect for buttons */
+.key-button:hover {
+  background-color: #e2e6ea;
+  transform: scale(1.05);
+}
+
+/* Active effect for buttons */
+.key-button:active {
+  background-color: #ced4da;
+}
+
+/* Focus effect for buttons */
+.key-button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Special styles for Enter and Backspace buttons */
+.key-button[aria-label="Key Enter"] {
+  background-color: #007bff;
+  color: white;
+}
+
+.key-button[aria-label="Key Backspace"] {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Correct letter in the correct position (green) */
+.letter-box.correct {
+  background-color: #6aaa64; /* Green */
+  color: #fff;
+}
+
+/* Correct letter in the wrong position (yellow) */
+.letter-box.matched {
+  background-color: #c9b458; /* Yellow */
+  color: #fff;
+}
+
+/* Incorrect letter (gray) */
+.letter-box.incorrect {
+  background-color: #787c7e; /* Gray */
+  color: #fff;
+}
+
+/* Animating letter boxes when letters are typed */
+.letter-box.stretch-animation {
+  animation: stretch 0.8s ease;
+}
+
+.letter-box.shrink-animation {
+  animation: shrinks 0.8s ease;
+}
+
+/* Animated R in the woRdle title */
+.r-title-letter {
+  color: #1577a5;
+  font-weight: bold;
+  display: inline-block;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* colours the "R" in the header */
+.r-letter {
+  color: #1577a5;
+  font-weight: bold;
+}
+
+/* When key button is matched, update color */
+.key-button.correct {
+  background-color: #6aaa64; /* Green */
+  color: white;
+}
+
+.key-button.matched {
+  background-color: #c9b458; /* Yellow */
+  color: white;
+}
+
+.key-button.incorrect {
+  background-color: #787c7e; /* Gray */
+  color: white;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-content button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: white;
+  background: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.modal-content button:hover {
+  background: #0056b3;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Game Controls Container */
+.game-controls {
+  display: flex;
+  flex-direction: column; /* Change direction to column for vertical layout */
+  align-items: center; /* Center buttons horizontally */
+  gap: 1rem; /* Add spacing between buttons */
+  margin-bottom: 1rem; /* Space below the controls */
+}
+
+/* Game Control Buttons */
+.game-controls button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  width: 100%; /* Ensure buttons are the same width */
+  max-width: 200px; /* Optional: Limit maximum button width */
+}
+
+.game-controls button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.game-controls button:active {
+  background-color: #003f7f;
+}
+
+.game-controls button:focus {
+  outline: 2px solid #1577a5;
+  outline-offset: 2px;
+}
+
+/* Hint Button */
+#hint-button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745; /* Green for hint */
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  width: 100%; /* Ensure consistent width */
+  max-width: 200px; /* Optional: Limit maximum button width */
+}
+
+#hint-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+#hint-button:active {
+  background-color: #1e7e34;
+}
+
+#hint-button:focus {
+  outline: 2px solid #1c7430;
+  outline-offset: 2px;
+}
+
+/* Hint Container */
+#hint-container {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  color: #495057;
+  font-size: 1rem;
+  text-align: center;
+}

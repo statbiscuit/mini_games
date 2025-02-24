@@ -1,154 +1,190 @@
+
+/* === Root Variables === */
+:root {
+  --bg-color: #110815;
+  --tile-bg: #E7EDF3;
+  --tile-hover-bg: #C1D9F0;
+  --tile-front-bg: #276DC2;
+  --tile-text-color: #272027;
+  --tile-shadow-light: #eee5;
+  --tile-shadow-dark: #0005;
+  --overlay-bg: #b5b2b6;
+  --overlay-text-color: #276DC3;
+  --button-bg: #276DC3;
+  --button-text: #b5b2b6;
+  --button-hover: #607891;
+}
+
+/* === Reset === */
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* === Tile Container === */
+.tile_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  width: 70vmin;
+  height: 70vmin;
+  box-sizing: border-box;
+}
+
+/* === Tile Styling === */
 .tile {
-  display: block;
-  float: left;
+  width: 100%;
+  height: 100%;
+  background-color: var(--tile-bg);
   border-radius: 5%;
-  overflow: hidden;
   position: relative;
   cursor: pointer;
-  box-shadow:inset 0 0 0em .2em #eee, 
-    inset 1em 1em 1em #eee5,
-    inset -1em -1em 1em #0005;
-}
-
-.tile:nth-of-type(4n + 1) {
-  clear: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 .2em var(--tile-shadow-light), 
+              inset 1em 1em 1em var(--tile-shadow-light),
+              inset -1em -1em 1em var(--tile-shadow-dark);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 .tile:after {
   content: '';
-  display: block;
   width: 100%;
   height: 100%;
   border-radius: 5%;
-  position: absolute;
-  /*left:0; top:0;*/
-  bottom: 0;
-  right: 0;
+  background-color: var(--tile-front-bg);
+  box-shadow: inset 0 0 0 .25em var(--tile-shadow-light),
+              inset 1em 1em 1em var(--tile-shadow-light),
+              inset -1em -1em 1em var(--tile-shadow-dark);
   transition: transform 0.2s;
+  transform: translateX(0);
+  position: absolute;
+}
+
+.tile:hover:after {
+  background-color: var(--tile-hover-bg);
 }
 
 .tile_open:after {
-  transition: transform 0.2s;
   transform: translateX(-105%);
 }
 
-.tile .math {
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  color: #272027;
-}
-
 .tile_closed {
-  cursor: normal;
+  cursor: default;
   opacity: 0.3;
   transition: opacity 0.5s;
 }
 
-/*Colours*/
-
-body {
-  background-color: #110815;
-}
-.tile:after {
-    background-color: #ac59d4;
-    box-shadow:inset 0 0 0em .25em #eee, 
-	       inset 1em 1em 1em #eee5,
-	       inset -1em -1em 1em #0005;
-}
-.tile:hover:after {
-  background-color:  #d29ad4;
-}
-
-.tile {
-  background-color: #eeddf6
-;
-}
-.tile_closed {
-  background-color: #eeddf6;
-}
-
-/*Dimensions*/
-/*This is be used to make it more responsive*/
-
-.tile_container {
-  overflow: hidden;
-  width: 90vmin;
-  height: 90vmin;
-  margin-left: auto;
-  margin-right: auto;
-}
-
+/* === Math Symbol Styling === */
+/* === Math Symbol Styling (Dynamic Font Size with Fallback) === */
 .tile .math {
-  font-size: 50px;
-  font-size: 10vmin;
-  line-height: 100px;
-  line-height: 16vmin;
+  text-align: center;
+  width: 90%;
+  height: 90%;
+  color: var(--tile-text-color);
+  font-size: 5vmin; /* Default size */
+  line-height: 1.1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: normal; /* Allow wrapping */
+  word-break: break-word; /* Break long words */
+  text-align: center;
+  transition: font-size 0.2s ease-in-out;
 }
 
-.tile {
-  width: 100px;
-  width: 17%;
-  height: 100px;
-  height: 17%;
-  margin: 20px;
-  margin: 4%;
+/* === Ensure Text Fits Inside Tiles === */
+.tile_open .math {
+  max-width: 100%;
+  max-height: 100%;
+  text-overflow: ellipsis;
 }
 
-/*Overlay*/
-
+/* === Overlay Win Screen === */
 .overlay_win {
   position: absolute;
   top: 25vmin;
   left: 0;
-  height: 40vmin;
   width: 100%;
+  height: 40vmin;
+  background-color: var(--overlay-bg);
   text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
 }
-.overlay_win {
-  background-color:  #b5b2b6;
+
+.overlay_win_open {
+  opacity: 0.9;
+  pointer-events: auto;
 }
 
 .overlay_win h2 {
   font-size: 15vmin;
   line-height: 15vmin;
-  margin: 5vmin 0px;
-}
-.overlay_win h2 {
-  color:#f8d363;
+  color: var(--overlay-text-color);
   font-family: "Courier New", monospace;
+  margin: 5vmin 0;
 }
 
+/* === Replay Button === */
 #replay {
   font-size: 7vmin;
-  display: inline-block;
-  border-radius: 1vmin;
   padding: 2vmin 4vmin;
+  border-radius: 1vmin;
   font-family: "Courier New", monospace;
   cursor: pointer;
-}
-
-#replay {
-  background-color:#f8d363;
-  color:  #b5b2b6;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  transition: color 0.3s;
 }
 
 #replay:hover {
-  color: #607891;
+  color: var(--button-hover);
 }
 
-.overlay_win {
-  opacity: 0;
-  transition: opacity 0.4s;
-  pointer-events: none;
+/* === Responsive Design === */
+@media (max-width: 600px) {
+  .tile_container {
+    width: 90vmin;
+    height: 90vmin;
+    gap: 5px;
+  }
+
+  .overlay_win h2 {
+    font-size: 12vmin;
+  }
+
+  #replay {
+    font-size: 6vmin;
+  }
+} 
+
+/* === Responsive Font Scaling === */
+@media (max-width: 800px) {
+  .tile .math {
+    font-size: 4vmin;
+  }
 }
-.overlay_win_open {
-  opacity: 0.9;
-  transition: opacity 0.4s;
-  pointer-events: auto;
+
+@media (max-width: 600px) {
+  .tile .math {
+    font-size: 3.5vmin;
+  }
+}
+
+/* .math from old maths.css */
+.math {
+  display: inline-block;
+  text-rendering: auto;
 }

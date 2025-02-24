@@ -1,19 +1,22 @@
 /* Importing Google font - Open Sans */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
 }
+
 body {
     display: flex;
     padding: 0 10px;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: #cebefa;
+    background: #276DC2;
 }
+
 .container {
     display: flex;
     width: 850px;
@@ -25,16 +28,19 @@ body {
     justify-content: space-between;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
 .hangman-box img {
     user-select: none;
     max-width: 270px;
 }
+
 .hangman-box h1 {
     font-size: 1.45rem;
     text-align: center;
     margin-top: 20px;
     text-transform: uppercase;
 }
+
 .game-box .word-display {
     gap: 10px;
     list-style: none;
@@ -43,6 +49,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .word-display .letter {
     width: 28px;
     font-size: 2rem;
@@ -52,22 +59,27 @@ body {
     text-transform: uppercase;
     border-bottom: 3px solid #000;
 }
+
 .word-display .letter.guessed {
     margin: -40px 0 35px;
     border-color: transparent;
 }
+
 .game-box h4 {
     text-align: center;
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 15px;
 }
+
 .game-box h4 b {
     font-weight: 600;
 }
+
 .game-box .guesses-text b {
-    color: #f8d369;
+    color: #276DC2;
 }
+
 .game-box .keyboard {
     display: flex;
     gap: 5px;
@@ -75,6 +87,7 @@ body {
     margin-top: 40px;
     justify-content: center;
 }
+
 :where(.game-modal, .keyboard) button {
     color: #fff;
     border: none;
@@ -84,19 +97,23 @@ body {
     font-weight: 600;
     border-radius: 4px;
     text-transform: uppercase;
-    background: #5E63BA;
+    background: #165CAA;
 }
+
 .keyboard button {
     padding: 7px;
-    width: calc(100% / 9 - 5px);
+    width: calc(100% / 10 - 5px);
 }
+
 .keyboard button[disabled] {
     pointer-events: none;
     opacity: 0.6;
 }
+
 :where(.game-modal, .keyboard) button:hover {
-    background: #8286c9;
+    background: #276DC2;
 }
+
 .game-modal {
     position: fixed;
     top: 0;
@@ -113,11 +130,13 @@ body {
     padding: 0 10px;
     transition: opacity 0.4s ease;
 }
+
 .game-modal.show {
     opacity: 1;
     pointer-events: auto;
     transition: opacity 0.4s 0.4s ease;
 }
+
 .game-modal .content {
     padding: 30px;
     max-width: 420px;
@@ -127,18 +146,22 @@ body {
     text-align: center;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
 .game-modal h4 {
     font-size: 1.53rem;
 }
+
 .game-modal p {
     font-size: 1.15rem;
     margin: 15px 0 30px;
     font-weight: 500;
 }
+
 .game-modal p b {
-    color: #cebefa;
+    color: #276DC2;
     font-weight: 600;
 }
+
 .game-modal button {
     padding: 12px 23px;
 }
@@ -163,7 +186,7 @@ body {
         font-size: 1.7rem;
     }
     .word-display .letter.guessed {
-        margin: -35px 0 25px;
+        margin: -35px 0 25px;ke
     }
     .game-modal img {
         max-width: 120px;
@@ -177,4 +200,29 @@ body {
     .game-modal button {
         padding: 10px 18px;
     }
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.keyboard-row {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+}
+
+.keyboard-row.row-1 button {
+    width: calc(100% / 14 - 5px);
+}
+
+.keyboard-row.row-2 button {
+    width: calc(100% / 10 - 5px);
+}
+
+.keyboard-row.row-3 button {
+    width: calc(100% / 7 - 5px);
 }

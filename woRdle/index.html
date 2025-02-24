@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>woRdle</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Game Title -->
+        <header class="wordle-title">
+            <h2>wo<span class="r-title-letter">R</span>dle</h2>
+            <p>A guessing game for <span class="r-letter">R</span> functions and methods!</p>
+        </header>
+
+        <!-- Mode Selection -->
+        <div class="mode-selection" id="mode-selection">
+            <h3>Select a Mode</h3>
+            <button class="mode-button" id="play-mode" aria-label="Play Mode">Play</button>
+            <button class="mode-button" id="learn-mode" aria-label="Learn Mode">Learn</button>
+        </div>
+
+        <!-- Learn Mode Subcategory Selection -->
+        <div class="subcategory-selection hidden" id="subcategory-selection">
+            <h3>Select a Subcategory</h3>
+            <!-- Subcategory Buttons -->
+            <button class="subcategory-button" data-category="statisticalFunction" aria-label="Statistical Functions">
+                Statistical Functions
+            </button>
+            <button class="subcategory-button" data-category="baseRFunctions" aria-label="Base R Functions">
+                Base R Functions
+            </button>
+            <button class="subcategory-button" data-category="dataFrameFunctions" aria-label="Data Frame Functions">
+                Data Frame Functions
+            </button>
+            <button class="subcategory-button" data-category="tidyverseFunctions" aria-label="General Tidyverse Functions">
+                General {tidyverse} Functions
+            </button>
+            <button class="subcategory-button" data-category="dplyrFunctions" aria-label="Dplyr Functions">
+                {dplyr} Functions
+            </button>
+            <button class="subcategory-button" data-category="tidyrFunctions" aria-label="Tidyr Functions">
+                {tidyr} Functions
+            </button>
+            <button class="subcategory-button" data-category="ggplot2Functions" aria-label="Ggplot2 Functions">
+                {ggplot2} Functions
+            </button>
+            <button class="subcategory-button" data-category="stringRFunctions" aria-label="StringR Functions">
+                {stringr} Functions
+            </button>
+            <button class="subcategory-button" data-category="magickFunctions" aria-label="Magick Functions">
+                {magick} Functions
+            </button>
+            <button class="subcategory-button" data-category="lubridateFunctions" aria-label="Lubridate Functions">
+                {lubridate} Functions
+            </button>
+            <!-- Back Button -->
+            <button class="subcategory-button back-button" id="back-to-mode" aria-label="Back to Mode Selection">Back</button>
+        </div>
+
+            <!-- Wordle Game Area -->
+            <div class="wordle-game hidden" id="wordle-game">
+                <!-- New Buttons -->
+                <div class="game-controls">
+                    <button id="home-button">Home</button>
+                    <button id="new-word-button">New Word</button>
+                    <button id="hint-button">Hint</button>
+                </div>                
+                <div id="hint-container" class="hidden">
+                    <p id="hint-text"></p>
+                </div>
+                <div class="wordle-words">
+                    <!-- Game grid dynamically generated in wordle.js -->
+                </div>
+                <div class="keyboard">
+                    <!-- Virtual keyboard dynamically generated in wordle.js -->
+                </div>
+            </div>
+
+
+    <script type="module" src="wordle.js"></script>
+
+<!-- Win/Loss Modal -->
+<div id="result-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 id="result-title"></h3>
+        <p id="result-message"></p>
+        <button id="close-modal">Close</button>
+    </div>
+</div>
+
+</body>
+</html>

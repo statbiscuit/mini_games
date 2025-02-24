@@ -10,11 +10,11 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background:  #e8cce9;
+  background:  #276DC2;
 }
 ::selection{
   color: #fff;
-  background:  #e8cce9;
+  background:  #276DC2;
 }
 .wrapper{
   width: 40%;
@@ -97,7 +97,7 @@ body{
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  background: #d29ad4;
+  background: #165CAA;
   transition: transform 0.3s ease;
 }
 .content button:active{
@@ -181,3 +181,167 @@ li:not(:first-child) span{
     margin-top: 10px;
   }
 }
+
+/* Narrative Section */
+#narrative, #outcome {
+  display: none;
+  text-align: center;
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#narrative h2, #outcome h2 {
+  color: #276DC2;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#narrative p, #outcome p {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+#narrative button, #outcome button {
+  outline: none;
+  border: none;
+  background: #276DC2;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#narrative button:hover, #outcome button:hover {
+  background: #165CAA;
+}
+
+#narrative button:active, #outcome button:active {
+  transform: scale(0.98);
+}
+
+/* Improving visual hierarchy */
+.typing-text p {
+  font-size: 22px; /* Slightly larger */
+  line-height: 1.6; /* Better spacing */
+  color: #333; /* Improve contrast */
+  background: #f9f9f9;
+  padding: 15px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Better Active and Correct/Incorrect Highlights */
+.typing-text p span.correct {
+  color: #2e7d32; /* Darker green */
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.typing-text p span.incorrect {
+  color: #d32f2f; /* Darker red */
+  background: #ffcdd2; /* Lighter red background */
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 0 2px;
+}
+
+.typing-text p span.active {
+  color: #5e35b1;
+  font-weight: bold;
+  background: #d1c4e9; /* Slightly darker purple */
+  padding: 0 3px; /* Slight padding for focus */
+  border-radius: 4px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+  transition: background 0.3s ease, color 0.3s ease;
+
+}
+
+/* Improving button styles */
+.content button, #narrative button, #outcome button {
+  background: linear-gradient(135deg, #276DC2, #165CAA);
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.content button:hover, #narrative button:hover, #outcome button:hover {
+  background: linear-gradient(135deg, #4169E1, #27408B);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.content button:active, #narrative button:active, #outcome button:active {
+  transform: scale(0.96);
+}
+
+/* Fade-in for narrative and outcome sections */
+#narrative, #outcome {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Improving responsiveness for smaller screens */
+@media (max-width: 745px) {
+  #narrative, #outcome {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .typing-text p {
+    font-size: 20px;
+  }
+
+  .content button {
+    width: 100%;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 518px) {
+  .wrapper {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .content-box {
+    padding: 10px 15px;
+  }
+
+  .typing-text p {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .result-details li {
+    font-size: 16px;
+  }
+
+  .content button {
+    margin-top: 10px;
+  }
+}
+

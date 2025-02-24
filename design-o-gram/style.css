@@ -4,7 +4,7 @@
     --shadow-color: rgba(0, 0, 0, 0.342);
     --border-color: #000;
     --solved-color: #56964f;
-    --unsolved-color: #d29ad4;
+    --unsolved-color: #ccb285;
     --menu-background: #383838;
 }
 
@@ -131,3 +131,164 @@ body {
     border: 4px solid var(--border-color);
     background-color: var(--solved-color);
 }
+
+/* Modal container */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content */
+.modal-content {
+  background-color: rgb(227, 222, 206);
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  margin-bottom: 15px;
+}
+
+.modal-content ul {
+  list-style-type: disc;
+  margin: 10px auto;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: var(--menu-background);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: var(--unsolved-color);
+}
+
+/* Hidden state */
+.hidden {
+  display: none;
+}
+
+.help-btn {
+    position: fixed;
+    bottom: 20px; /* Fixed position at the bottom-right corner */
+    right: 20px;
+    background-color: var(--menu-background);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 6px var(--shadow-color);
+    z-index: 1001; /* Ensure it is above other elements */
+    transition: background-color 0.3s ease;
+  }
+  
+  .help-btn:hover {
+    background-color: var(--unsolved-color);
+  }
+  
+  /* Modal scrollable content */
+.scrollable-content {
+    max-height: 60vh; /* Limit the height to 60% of the viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin: 10px 0;
+    padding-right: 10px;
+    scroll-behavior: smoooth;
+  }
+  
+  /* Add scrollbar styles (optional) */
+  .scrollable-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb {
+    background-color: var(--menu-background);
+    border-radius: 4px;
+  }
+  
+  .scrollable-content::-webkit-scrollbar-thumb:hover {
+    background-color: var(--unsolved-color);
+  }
+
+  .scrollable-content p, .scrollable-content ul {
+    margin-bottom: 10px;
+  }
+  
+  .scrollable-content strong {
+    color: var(--unsolved-color);
+  }
+  
+  .start-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 20px;
+    background-color: var(--menu-background);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .start-btn:hover {
+    background-color: var(--unsolved-color);
+  }
+  
+.scrollable-content ul {
+  list-style: none;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.scrollable-content ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 8px;
+}
+
+.scrollable-content ul li::before {
+  content: "✔"; /* Use checkmarks or icons */
+  color: var(--unsolved-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+    
+  .section-divider {
+    border: none;
+    height: 1px;
+    background-color: var(--shadow-color);
+    margin: 15px 0;
+  }
+  

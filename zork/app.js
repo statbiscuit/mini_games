@@ -1,104 +1,301 @@
+/********************************************
+               GAME SETUP
+ ********************************************/
+
 const inputEl = document.getElementById('input');
 const outputEl = document.getElementById('output');
 
+// Track the player's current room
+let currentRoom = 'start';
+let gameMode = null; // Current game mode (null until selected)
+let modeRooms = null;  // Stores the selected mode’s room structure
+
+// Import rooms
+import { dragonHuntRooms } from './rooms/dragonHuntRooms.js';
+import { debuggerQuestRooms } from './rooms/debuggerQuestRooms.js';
+import { tidyverseTrialsRooms } from './rooms/tidyverseTrialsRooms.js';
+import { statQuestSanctuary } from './rooms/statQuestSanctuary.js';
+import { biostatsLabyrinth } from './rooms/biostatsLabyrinth.js';
+import { randomModeRooms } from './rooms/randomModeRooms.js';
+
+/********************************************
+             HELPER FUNCTIONS
+ ********************************************/
+// Display current room description
+function displayRoomDescription() {
+    if (!modeRooms || !modeRooms[currentRoom]) {
+        outputEl.innerHTML += `<span class="red">Error: Room data missing for <span class="green">${currentRoom}</span>.</span>`;
+        return;
+    }
+    let roomDesc = `<div><h3>Welcome to ${gameMode ? gameMode.toUpperCase() : 'zoRk'}!</h3><br>${modeRooms[currentRoom].description}</div>`;
+    outputEl.innerHTML = roomDesc;
+}
+
+/********************************************
+             GAME MODE HANDLING
+ ********************************************/
+function startGameMode(mode) {
+    console.log(`Game mode clicked: ${mode}`);
+
+    const availableModes = {
+        "🐉 dragon hunt": dragonHuntRooms,
+        "🛠 debugger's quest": debuggerQuestRooms,
+        "📊 tidyverse trials": tidyverseTrialsRooms,
+        "📐 statquest sanctuary": statQuestSanctuary,
+        "🧬 biostats labyrinth": biostatsLabyrinth,
+        "🎲 zoRk": randomModeRooms        
+    };
+
+    if (availableModes[mode]) {
+        console.log(`Starting game mode: ${mode}`);
+        gameMode = mode;
+        modeRooms = availableModes[mode];
+        currentRoom = "start";
+
+        document.getElementById("mode-selection").style.display = "none";
+        document.getElementById("terminal").style.display = "block";
+
+        displayRoomDescription();
+    } else {
+        console.error(`Invalid game mode: ${mode}`);
+    }
+}
+
+/********************************************
+             EVENT LISTENERS
+ ********************************************/
+document.addEventListener("DOMContentLoaded", () => {
+    window.startGameMode = startGameMode;
+
+    console.log("Attaching event listeners to game mode buttons...");
+
+    // Attach listeners to mode selection buttons
+    document.querySelectorAll("#mode-selection button").forEach(button => {
+        button.addEventListener("click", (event) => {
+            const selectedMode = event.target.innerText.toLowerCase().trim();
+            startGameMode(selectedMode);
+        });
+    });
+
+    // Keydown listener for game mode selection and command handling
+    document.addEventListener("keydown", (event) => {
+        if (!gameMode) {
+            if (event.key === "1") startGameMode("🐉 dragon hunt");
+            else if (event.key === "2") startGameMode("🛠 debugger's quest");
+            else if (event.key === "3") startGameMode("📊 tidyverse trials");
+            else if (event.key === "4") startGameMode("📐 statquest sanctuary");
+            else if (event.key === "5") startGameMode("🧬 biostats labyrinth");
+            else if (event.key === "6") startGameMode("🎲 zoRk");
+        } else if (event.key === "Enter") {
+            const command = inputEl.value.trim().replace(/\s+/g, " ");
+            handleCommand(command);
+            inputEl.value = '';
+        }
+    });
+
+    // Display initial message
+    displayRoomDescription();
+});
+
+/********************************************
+             OUTPUT HANDLING
+ ********************************************/
+function updateOutput(command, output) {
+    outputEl.innerHTML += `<div class="prompt">> <span class="green">${command}</span></div><div class="output-line">${output}</div>`;
+}
+
+// Improving user input handling
 inputEl.focus();
 inputEl.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        const command = inputEl.value;
-        handleCommand(command);
-        inputEl.value = '';
+        const command = inputEl.value.trim().replace(/\s+/g, " "); // Trim and normalize spaces
+        handleCommand(command); // Process the command
+        inputEl.value = ''; // Clear input field
     }
 });
 
-let currentRoom = 'start';
+/********************************************
+             MOVEMENT HANDLING
+ ********************************************/
+function handleMovement(command) {
+    const parts = command.trim().split(/\s+/); // Split command into parts
+    const direction = parts[1]; // Get direction from "go [direction]"
 
-const rooms = {
-    start: {
-        description: " <span style='color: blue'>You are in a dark room, alone, apart from your faithful companion </span> CAI",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Looks like there's a door over there.\nDo you have any treats? No? Just a </span> torch<span style='color: blue'>... AWWOOF </span>",
-	help: "<span style='color: blue'>There is a door to your north, perhaps you should </span> go north?",
-	play: "<span style='color: blue'>There is no one to </span> play <span style='color: blue'>with here</span>",
-        exits: {north: 'hallway'},
-    },
-    hallway: {
-        description: "<span style='color: blue'>You are in a long hallway and your</span> torch<span style='color: blue'> flickers out</span>",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>",
-	// help: "There is a door to the south and another one to the east.",
-	help: "<span style='color: blue'>Your torch no longer works</span>",
-	play: "<span style='color: blue'>There is no one to play with here</span>",
-        exits: {south: 'start', east: 'treasureRoom'},
-    },
-    treasureRoom: {
-        description: "<span style='color: blue'>Whakamihi!!     ^    ^\r\n               \/ \\  \/\/\\\r\n |\\___\/|      \/   \\\/\/  .\\\r\n \/O  O  \\__  \/    \/\/  | \\ \\\r\n\/     \/  \\\/_\/    \/\/   |  \\  \\\r\n@___@\'    \\\/_   \/\/    |   \\   \\ \r\n   |       \\\/_ \/\/     |    \\    \\ \r\n   |        \\\/\/\/      |     \\     \\ \r\n  _|_ \/   )  \/\/       |      \\     _\\\r\n \'\/,_ _ _\/  ( ; -.    |    _ _\\.-~        .-~~~^-.\r\n ,-{        _      `-.|.-~-.           .~         `.\r\n  \'\/\\      \/                 ~-. _ .-~      .-~^-.  \\\r\n     `.   {            }                   \/      \\  \\\r\n   .----~-.\\        \\-\'                 .~         \\  `. \\^-.\r\n  \/\/\/.----..>    c   \\             _ -~             `.  ^-`   ^-_\r\n    \/\/\/-._ _ _ _ _ _ _}^ - - - - ~                     ~--,   .-~\r\n                                                          \/.-\'\r\n\r\n You found Andarna!!",
-	companion: "<span style='color: blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF AWWOOF Does she want to</span> PLAY <span style='color: blue'>with us? AWWOOF</span>",
-	help: "<span style='color: blue'>Your torch no longer works</span>",
-	play: "<span style='color: blue'>Dragons do not play. We are far too regal to mix with mere mortals</span>",
-        exits: {west: 'hallway'},
+    if (!direction) {
+        return `<span class="red">Where do you want to go? Maybe <span class="green">north, east, south, or west?</span>`;
     }
-};
+    
 
-function handleCommand(command) {
-    let output = '';
+    const currentRoomData = modeRooms[currentRoom];
 
-    switch(command) {
-
-     case 'PLAY':
-	output = rooms[currentRoom].play
-	break;
-	
-    case 'torch':
-	output = rooms[currentRoom].help
-	break;
-	
-    case 'CAI':
-	output = rooms[currentRoom].companion
-	break;
-	
-    case 'look':
-        output = rooms[currentRoom].description;
-        break;
-
-    case 'go north':
-        if(rooms[currentRoom].exits.north) {
-            currentRoom = rooms[currentRoom].exits.north;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go south':
-        if(rooms[currentRoom].exits.south) {
-            currentRoom = rooms[currentRoom].exits.south;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go east':
-        if(rooms[currentRoom].exits.east) {
-            currentRoom = rooms[currentRoom].exits.east;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    case 'go west':
-        if(rooms[currentRoom].exits.west) {
-            currentRoom = rooms[currentRoom].exits.west;
-            output = rooms[currentRoom].description;
-        } else {
-            output = "You can't go that way.";
-        }
-        break;
-
-    default:
-        output = 'I don\'t understand ' + command;
+    //  1. Check if current room is locked
+    if (currentRoomData.locked) {
+        return `<span class="red">The exits are locked. Solve the challenge first!</span>`;
     }
-    outputEl.innerHTML += `<div class="prompt">></div><div>${command}</div><div>${output}</div>`;
+
+    //  2. Check if the chosen direction exists
+    const exits = currentRoomData.exits;
+    if (exits && exits[direction]) {
+        const nextRoom = exits[direction];
+        const nextRoomData = modeRooms[nextRoom];
+
+        //  3. Move to next room if unlocked
+        currentRoom = nextRoom;
+        return modeRooms[currentRoom].description;
+
+    } else {
+        return `<span class="red">You can't go that way.</span>`;
+    }
 }
 
-// Initial description
-outputEl.innerHTML += `<div><h3>Nau mai, haere mai.\nWelcome to the BIOSCI 220 Dragon Hunt!</h3></div><div>${rooms[currentRoom].description}</div>`;
+/********************************************
+             COMMAND HANDLING
+ ********************************************/
+function handleCommand(command) {
+    if (!gameMode) {
+        outputEl.innerHTML += `<div class="red">Select a game mode first.</div>`;
+        return;
+    }
+
+    let output = '';
+
+    if (command === "") return; // Ignore empty input
+
+    // 1️⃣ First, check for default commands (e.g., go, CAI, look)
+    output = handleDefaultCommands(command);
+    if (output) {
+        updateOutput(command, output);
+        return;
+    }
+
+    // 2️⃣ Then, pass the command to the game-mode-specific handler
+    switch (gameMode) {
+        case "🐉 dragon hunt":
+            output = handleDragonHuntCommands(command);
+            break;
+
+        case "🛠 debugger's quest":
+            output = handleCodeQuestsCommands(command);
+            break;
+
+        case "📊 tidyverse trials": 
+        output = handleCodeQuestsCommands(command);
+        break;
+
+        case "📐 statquest sanctuary": 
+        output = handleCodeQuestsCommands(command);
+        break;
+
+        case "🧬 biostats labyrinth": 
+        output = handleCodeQuestsCommands(command);
+        break;
+
+        case "🎲 zoRk":
+        output = handleCodeQuestsCommands(command);
+        break;
+
+            default:
+                output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?`;
+        }
+
+    updateOutput(command, output);
+}
+
+/********************************************
+         DEFAULT COMMAND HANDLING
+ ********************************************/
+function handleDefaultCommands(command) {
+    let output = '';
+
+    if (command.startsWith("go")) {
+        output = handleMovement(command); // Use the fixed movement logic
+    } else {
+        switch (command) {
+            case 'look':
+                output = modeRooms[currentRoom].description;
+                break;
+
+            case 'CAI':
+                output = modeRooms[currentRoom].companion;
+                break;
+
+            case 'help':
+                output = `<div class="blue">Available commands:</div>
+                    <div class="command-list">
+                        <div><span class="green">look</span> - Describe the current room.</div>
+                        <div><span class="green">CAI</span> - Interact with your companion.</div>
+                        <div><span class="green">go [direction]</span> - Move (north, south, east, west).</div>
+                        <div><span class="green">clear</span> - Clear the terminal without resetting the game.</div>
+                    </div>`;
+                break;
+
+            case 'clear':
+                // Reset terminal to starting message without returning null
+                outputEl.innerHTML = `<div><h3>Welcome to ${gameMode.toUpperCase()}!</h3><br>${modeRooms[currentRoom].description}</div>`;
+                return '';
+
+            default:
+                return null; // Let game mode specific logic handle unknown commands
+        }
+    }
+
+    return output;
+}
+
+/********************************************
+    DRAGON HUNT SPECIFIC COMMAND HANDLING
+ ********************************************/
+function handleDragonHuntCommands(command) {
+    let output = '';
+
+    switch (command) {
+        case 'torch':
+            output = modeRooms[currentRoom].help;
+            break;
+
+        case 'PLAY':
+            output = modeRooms[currentRoom].play;
+            break;
+
+        default:
+            output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?`;
+        }
+
+    return output;
+}
+
+/**********************************************
+     ROOMS 2-4 SPECIFIC COMMAND HANDLING
+ **********************************************/
+function handleCodeQuestsCommands(command) {
+    let output = '';
+
+    // checks to see if command is a default command
+    const defaultCommands = ['CAI', 'look', 'help', 'clear'];
+    if (defaultCommands.includes(command)) {
+        return handleDefaultCommands(command); // Pass to default handler
+    }
+
+    //  Evaluate challenge solution
+    if (modeRooms[currentRoom].challenge) {
+        if (command === modeRooms[currentRoom].solution) {
+            output = `<span class='green'>Correct! The issue is fixed.</span><br>`;
+            output += "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
+
+            modeRooms[currentRoom].locked = false;
+            modeRooms[currentRoom].companion = "<span class='blue'>           __\r\n      (___()'`;\r\n      \\,    /`\r\n      \\\\\"--\\\\ AWWOOF Which way now? AWWOOF</span>";
+
+        } else {
+            if (modeRooms[currentRoom].locked) {
+                output =  `<span class="red">I don't recognize </span><span class="green">${command}</span>.<br>${modeRooms[currentRoom].hint}`;
+            }
+            else {
+                output = `<span class="red">I don't recognize <span class="green">${command}</span>. Do you need <span class="green">help</span>?</span>`;    
+            }
+        }
+    } else {
+        output = `<span class="red">I don't recognize <span class="green">${command}</span>. Try asking <span class="green">CAI</span> for help.</span>`;
+    }
+
+    return output;
+}
