@@ -1,4 +1,4 @@
-// Memory Matching Game (Refactored JavaScript)
+// Memory Matching Game (Refactored JavaScript with Click Prevention on Matched Tiles)
 
 // Utility functions for toggling, adding, and removing CSS classes
 function toggleClass(id, className) {
@@ -72,6 +72,11 @@ const MemoryGame = {
 
   // Handle tile click events
   handleTileClick(i, elem) {
+    const tile = document.getElementById(`tile_${i}`);
+
+    // Prevent click if tile is already matched
+    if (tile.classList.contains("tile_closed")) return;
+
     this.openTile = i;
     addClass(`tile_${i}`, "tile_open");
     addClass(`tile_icon_${i}`, `math-${elem}`);
@@ -91,8 +96,8 @@ const MemoryGame = {
                   this.A[this.lastTile].includes(this.A[currentTile]);
 
     if (match && currentTile !== this.lastTile) {
-      addClass(`tile_${currentTile}`, "tile_closed");
-      addClass(`tile_${this.lastTile}`, "tile_closed");
+      this.markAsMatched(currentTile);
+      this.markAsMatched(this.lastTile);
       this.pairCount++;
 
       if (this.pairCount === 8) {
@@ -101,6 +106,13 @@ const MemoryGame = {
     } else {
       this.removeWithDelay(currentTile, this.lastTile);
     }
+  },
+
+  // Mark tile as matched and disable further clicks
+  markAsMatched(i) {
+    const tile = document.getElementById(`tile_${i}`);
+    addClass(`tile_${i}`, "tile_closed");
+    tile.onclick = null; // Disable click
   },
 
   // Remove tile classes after delay for mismatches
