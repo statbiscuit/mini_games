@@ -10,7 +10,7 @@
  + [slide`R` jigsaws](https://statbiscuit.github.io/mini_games/slider/slider.html) can be solved by using the arrows manoeuvre the pieces to complete the puzzles.
  + [Code`R`](https://statbiscuit.github.io/mini_games/coding/index.html) is a `R` coding speed test.
  + [kawakawa](https://statbiscuit.github.io/mini_games/kawakawa/index.html): guess the word before the Kawakawa gets eaten.
- + [ggrdle](https://statbiscuit.github.io/mini_games/ggrdle/index.html): 6 chances to guess a 5-letter `tidyverse` function.
+ + [woRdle](https://statbiscuit.github.io/mini_games/wordle/index.html): 6 chances to guess an R function.
  + [Design-o-gram](https://statbiscuit.github.io/mini_games/design-o-gram/index.html) is a experimental design-inspired nonogram game.
  + [shady](https://statbiscuit.github.io/mini_games/shady/index.html) gets you to guess the p-value correct to two decimal places.
  + [zork](https://statbiscuit.github.io/mini_games/zork/index.html): go on an adventure and find the dragon, Andarna.
