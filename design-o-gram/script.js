@@ -58,6 +58,7 @@ class Board {
     this.setRowsCols(this.boardArray, this.rows, this.cols);
   }
 }
+
 class BoardElement {
   constructor(board, manager) {
     const hostEl = document.getElementById(manager.hostEl);
@@ -120,7 +121,6 @@ class BoardElement {
     );
     containerEl.appendChild(restartBtn);
     this.timerEl = Utility.create("timer", "00 : 00");
-
     containerEl.appendChild(this.timerEl);
     hostEl.appendChild(containerEl);
     this.interval = setInterval(this.formatTimer, 1000);
@@ -162,12 +162,14 @@ class BoardElement {
     this.timer++;
   };
 }
+
 class Game {
   constructor(len, manager) {
     this.board = new Board(len, 0.1);
     new BoardElement(this.board, manager);
   }
 }
+
 class GameManager {
   constructor(host, ...modes) {
     this.modes = modes;
@@ -181,11 +183,7 @@ class GameManager {
     const board = Utility.create("menu-board");
     for (const mode of this.modes) {
       const menuEl = Utility.create("menu");
-      menuEl.innerHTML = mode === "Feeling Adventurous" 
-        ? `<strong>${mode}</strong>` 
-        : `${mode} treatments`;
-      
-      // Add click event for each mode
+      menuEl.innerHTML = `${mode} treatments`;
       menuEl.addEventListener("click", this.start.bind(null, mode, this));
       board.appendChild(menuEl);
     }
@@ -193,29 +191,12 @@ class GameManager {
   }
 
   start(mode, manager) {
-    if (mode === "Feeling Adventurous") {
-      alert("Feeling Adventurous mode is under construction. Stay tuned!");
-      return;
-    }
     new Game(mode, manager);
   }
 }
 
-// Initialize GameManager with the new mode
-new GameManager("game", 3, 4, 7, "Feeling Adventurous");
-
-document.addEventListener("DOMContentLoaded", () => {
-  const guideModal = document.getElementById("guide-modal");
-  const startGameBtn = document.getElementById("start-game-btn");
-
-  // Show the guide modal on page load
-  guideModal.classList.remove("hidden");
-
-  // Hide the guide and start the game when the button is clicked
-  startGameBtn.addEventListener("click", () => {
-    guideModal.classList.add("hidden");
-  });
-});
+// Initialize GameManager without 'Feeling Adventurous'
+new GameManager("game", 3, 4, 7);
 
 document.addEventListener("DOMContentLoaded", () => {
   const guideModal = document.getElementById("guide-modal");
@@ -229,15 +210,12 @@ document.addEventListener("DOMContentLoaded", () => {
     guideModal.classList.add("hidden");
   });
 
-  // Create the Help button (ensures it is always present)
+  // Create the Help button (always present)
   const helpButton = document.createElement("button");
   helpButton.textContent = "Help";
   helpButton.classList.add("help-btn");
-
-  // Append Help button to the body (so it is not tied to game-specific containers)
   document.body.appendChild(helpButton);
 
-  // Add event listener to show the guide modal when Help button is clicked
   helpButton.addEventListener("click", () => {
     guideModal.classList.remove("hidden");
   });
