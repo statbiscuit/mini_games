@@ -1,7 +1,7 @@
 ## [A selection of `R` and stats focused mini games for classroom entertainment](https://statbiscuit.github.io/mini_games/)
 
 
-[![](https://github.com/statbiscuit/mini_games/blob/main/img/games.png?raw=true)](https://statbiscuit.github.io/mini_games/)
+[![](img/games.png?raw=true)](https://statbiscuit.github.io/mini_games/)
 
 
 ## Games

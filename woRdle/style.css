@@ -471,3 +471,44 @@ body {
   font-size: 1rem;
   text-align: center;
 }
+
+/* Example: Shrink for all screens */
+.wordle-title {
+  margin-top: 1rem;  /* was 5rem */
+}
+
+.letter-box {
+  width: 40px;       /* was 50px */
+  height: 40px;      /* was 50px */
+  font-size: 1.5rem; /* was 40px; adjust as needed */
+}
+
+/* The keyboard buttons also take up a lot of space */
+.key-button {
+  font-size: 0.9rem; 
+  min-width: 35px;   
+  min-height: 35px;  
+}
+
+/* Example: If you only want to shrink everything on smaller viewports */
+@media (max-width: 800px) {
+  .wordle-title {
+    margin-top: 0.5rem;
+  }
+  .letter-box {
+    width: 35px;
+    height: 35px;
+  }
+  .mode-button, .subcategory-button {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+  }
+  /* etc. */
+}
+
+.game-container {
+  transform: scale(0.80);      /* Try 0.85, 0.9, etc. */
+  transform-origin: top center;/* so it shrinks from the top down */
+  margin: 0 auto;
+  max-width: 1000px;          /* optional, to keep it from growing too wide */
+}

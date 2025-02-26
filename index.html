@@ -9,6 +9,25 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
   body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+  
+  /* Hide GIF by default */
+  .gif-preview { display: none; }
+
+  /* On hover, hide static image and show GIF */
+  .game-preview:hover .static-img { display: none; }
+  .game-preview:hover .gif-preview { display: block; }
+
+  /* Hover scaling for better UX */
+  .game-preview img {
+    transition: transform 0.3s ease-in-out;
+  width: 640px;
+  height: 320px;
+  object-fit: cover; /* Fills the container, possibly cropping the edges */
+  }
+
+  .game-preview:hover img {
+    transform: scale(1.05);
+  }
 </style>
 </head>
 <body class="w3-light-grey w3-content" style="max-width:1600px">
@@ -18,94 +37,124 @@
     <!-- Header -->
     <header id="portfolio">
       <div class="w3-container">
-	<h1><b>Mini games</b></h1>
+        <h1><b>Mini games</b></h1>
       </div>
     </header>
     
-    <!-- First Game Grid-->
+    <!-- First Game Grid -->
     <div class="w3-row-padding">
       <div class="w3-third w3-container w3-margin-bottom">
-	<a href = "matching/matching.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/matching.png?raw=true" alt="memoRy" style="width:100%" class="w3-hover-opacity">
-	</a>
-	<div class="w3-container w3-white">
+        <a href="matching/matching.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/matching.png" alt="MemoRy" style="width:100%">
+            <img class="gif-preview" src="gifs/matching.gif" alt="MemoRy GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
           <p><b>MemoRy</b></p>
-          <p> A memory-based matching game for basic R syntax and meaning (e.g., %>% matches tidy. pipe).</p>
-	</div>
+          <p>A memory-based matching game for basic R syntax and meaning (e.g., %>% matches tidy. pipe).</p>
+        </div>
       </div>
-      <div class="w3-third w3-container w3-margin-bottom">
-	<a href = "slider/slider.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/slider.png?raw=true" alt="slideR" style="width:100%" class="w3-hover-opacity">
-	</a>
-	<div class="w3-container w3-white">
-          <p><b>slideR</b></p>
-          <p> Using the arrows manoeuvre the pieces to complete the puzzles.</p>
-	</div>
-      </div>
-      <div class="w3-third w3-container w3-margin-bottom">
-      	<a href = "coding/index.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/coding.png?raw=true" alt="coding game" style="width:100%" class="w3-hover-opacity">
-	</a>
-      <div class="w3-container w3-white">
-        <p><b>CodeR</b></p>
-        <p>How fast can you code? A typing-speed game with R code.</p>
-      </div>
-    </div>
-    </div>
-     <!-- Second Photo Grid-->
-  <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      	<a href = "kawakawa/index.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/kawakawa.png?raw=true" alt="kawakawa" style="width:100%" class="w3-hover-opacity">
-	</a>
-      <div class="w3-container w3-white">
-        <p><b>kawakawa</b></p>
-        <p>Guess the word before the Kawakawa gets eaten</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      	<a href = "woRdle/index.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/ggrdle.png?raw=true" alt="woRdle" style="width:100%" class="w3-hover-opacity">
-	</a>
-      <div class="w3-container w3-white">
-        <p><b>woRdle</b></p>
-        <p>6 chances to guess an R function.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      	<a href = "design-o-gram/index.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/designogram.png?raw=true" alt="design-o-gram" style="width:100%" class="w3-hover-opacity">
-	</a>
-      <div class="w3-container w3-white">
-        <p><b>Design-o-gram</b></p>
-        <p>An experimental design-inspired nonogram game.</p>
-      </div>
-    </div>
-    <!-- Third Photo Grid-->
-  <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      	<a href = "shady/index.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/shady.png?raw=true" alt="snowman" style="width:100%" class="w3-hover-opacity">
-	</a>
-      <div class="w3-container w3-white">
-        <p><b>shady</b></p>
-        <p>Guess the p-value correct to two decimal places?</p>
-      </div>
-    </div>
-     <div class="w3-third w3-container w3-margin-bottom">
-      	<a href = "zork/index.html">
-	  <img src="https://github.com/statbiscuit/mini_games/blob/main/img/zork.png?raw=true" alt="Zork" style="width:100%" class="w3-hover-opacity">
-	</a>
-      <div class="w3-container w3-white">
-        <p><b>zork</b></p>
-        <p>Can you figure out how to find the dragon, Andarna?</p>
-      </div>
-    </div>
- <!-- next game here -->
-  </div>
-    <!-- End page content -->
-  </div>
 
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="slider/slider.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/slider.png" alt="slideR" style="width:100%">
+            <img class="gif-preview" src="gifs/slider.gif" alt="slideR GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>slideR</b></p>
+          <p>Using the arrows manoeuvre the pieces to complete the puzzles.</p>
+        </div>
+      </div>
+
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="coding/index.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/coding.png" alt="CodeR" style="width:100%">
+            <img class="gif-preview" src="gifs/coding.gif" alt="CodeR GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>CodeR</b></p>
+          <p>How fast can you code? A typing-speed game with R code.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Game Grid -->
+    <div class="w3-row-padding">
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="kawakawa/index.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/kawakawa.png" alt="kawakawa" style="width:100%">
+            <img class="gif-preview" src="gifs/kawakawa.gif" alt="kawakawa GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>kawakawa</b></p>
+          <p>Guess the word before the Kawakawa gets eaten.</p>
+        </div>
+      </div>
+
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="woRdle/index.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/wordle.png" alt="woRdle" style="width:100%">
+            <img class="gif-preview" src="gifs/wordle.gif" alt="woRdle GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>woRdle</b></p>
+          <p>6 chances to guess an R function.</p>
+        </div>
+      </div>
+
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="design-o-gram/index.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/design-o-gram.png" alt="Design-o-gram" style="width:100%">
+            <img class="gif-preview" src="gifs/design-o-gram.gif" alt="Design-o-gram GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>Design-o-gram</b></p>
+          <p>An experimental design-inspired nonogram game.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Third Game Grid -->
+    <div class="w3-row-padding">
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="shady/index.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/shady.png" alt="shady" style="width:100%">
+            <img class="gif-preview" src="gifs/shady.gif" alt="shady GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>shady</b></p>
+          <p>Guess the p-value correct to two decimal places?</p>
+        </div>
+      </div>
+
+      <div class="w3-third w3-container w3-margin-bottom">
+        <a href="zork/index.html">
+          <div class="game-preview">
+            <img class="static-img" src="img/zork.png" alt="zork" style="width:100%">
+            <img class="gif-preview" src="gifs/zork.gif" alt="zork GIF" style="width:100%">
+          </div>
+        </a>
+        <div class="w3-container w3-white">
+          <p><b>zork</b></p>
+          <p>Can you figure out how to find the dragon, Andarna?</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 </body>
 </html>
