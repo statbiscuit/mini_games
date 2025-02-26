@@ -174,7 +174,7 @@ input.focus();
 // Initialize the game with random α
 let randomNum = Math.round(Math.random() * 100);
 let ranA = (Math.random() * 9) + 1; // α between 1 and 10
-let randomNumP = Math.round((1 - jStat.beta.cdf(randomNum / 100, ranA)) * 100) / 100;
+let randomNumP = Math.round((1 - jStat.beta.cdf(randomNum / 100, ranA, 4)) * 100) / 100;
 let chance = 10;
 
 // draw distribution
@@ -182,50 +182,53 @@ renderBetaDist('bar-chart', [[ranA, 4, 'black']], randomNum);
 
 // Listen for the click event on the check button
 checkButton.addEventListener("click", () => {
-    // Decrement remaining chances
-    chance--;
+  // Decrement remaining chances
+  chance--;
 
-    // Get user input and fix it to 2 decimal places
-    let inputValue = parseFloat(input.value).toFixed(2);
-    let roundedPValue = parseFloat(randomNumP.toFixed(2));
+  // Grab user input as a floating-point number
+  let userNum = parseFloat(input.value);
 
-    // Validate if input is a number and exactly 2 decimal places
-    const regexTwoDP = /^\d+(\.\d{2})$/;
+  // The p-value, to two decimals as a number
+  let pVal = parseFloat(randomNumP.toFixed(2));
 
-    if (!regexTwoDP.test(input.value)) {
-        guess.textContent = "Please enter a number with exactly 2 decimal places (e.g., 0.45)";
-        guess.style.color = "#DE0611";
-        remainChances.textContent = chance;
-    } else if (inputValue == roundedPValue) {
-        // Correct Guess
-        [checkButton.textContent, guess.style.color, input.disabled] = ["Reloading...", "#03AC13", true];
-        guess.textContent = "Correct! Well done!";
-        setTimeout(() => window.location.reload(), 4000); // Reload after 4 seconds
-    } else if (inputValue > roundedPValue && inputValue <= 1.00) {
-        // Guess too high
-        [guess.textContent, remainChances.textContent] = ["Too high! Try again.", chance];
-        guess.style.color = "#333";
-    } else if (inputValue < roundedPValue && inputValue >= 0.00) {
-        // Guess too low
-        [guess.textContent, remainChances.textContent] = ["Too low! Try again.", chance];
-        guess.style.color = "#333";
+  // Validate if input is a number with exactly two decimals, between 0.00 and 1.00
+  const regexTwoDP = /^(0(\.\d{2})?|1\.00)$/;
+  if (!regexTwoDP.test(input.value)) {
+    guess.textContent = "Please enter a number with exactly 2 decimal places (e.g., 0.45)";
+    guess.style.color = "#DE0611";
+    remainChances.textContent = chance;
+  } else {
+    // All comparisons below are numeric
+    if (userNum.toFixed(2) === pVal.toFixed(2)) {
+      // Correct guess
+      [checkButton.textContent, guess.style.color, input.disabled] = ["Reloading...", "#03AC13", true];
+      guess.textContent = "Correct! Well done!";
+      setTimeout(() => window.location.reload(), 4000); // Reload after 4 seconds
+    } else if (userNum > pVal && userNum <= 1) {
+      // Guess too high
+      [guess.textContent, remainChances.textContent] = ["Too high! Try again.", chance];
+      guess.style.color = "#333";
+    } else if (userNum < pVal && userNum >= 0) {
+      // Guess too low
+      [guess.textContent, remainChances.textContent] = ["Too low! Try again.", chance];
+      guess.style.color = "#333";
     } else {
-        // Invalid input
-        [guess.textContent, remainChances.textContent] = ["Invalid guess. Stay between 0.00 and 1.00", chance];
-        guess.style.color = "#DE0611";
+      // UserNum is out of 0–1 range (or something else unexpected)
+      [guess.textContent, remainChances.textContent] = ["Invalid guess. Stay between 0.00 and 1.00", chance];
+      guess.style.color = "#DE0611";
     }
+  }
 
-    // Handle out of chances
-    if (chance == 0 && inputValue != roundedPValue) {
-        [checkButton.textContent, input.disabled] = ["Replay", true];
-        guess.textContent = `Game Over! The correct p-value was ${roundedPValue}`;
-        guess.style.color = "#DE0611";
-    }
+  // Handle out of chances
+  if (chance === 0 && userNum.toFixed(2) !== pVal.toFixed(2)) {
+    [checkButton.textContent, input.disabled] = ["Replay", true];
+    guess.textContent = `Game Over! The correct p-value was ${pVal.toFixed(2)}`;
+    guess.style.color = "#DE0611";
+  }
 
-    // Reload game after out of chances
-    if (chance < 0) {
-        window.location.reload();
-    }
+  // Reload game after out of chances
+  if (chance < 0) {
+    window.location.reload();
+  }
 });
-
 

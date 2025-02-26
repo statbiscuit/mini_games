@@ -25,10 +25,10 @@ export const debuggerQuestRooms = {
         hint: "<span class='blue'>Ensure that the</span> <span class='green'>tidyverse</span> <span class='blue'>package is loaded.",
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF! Be quiet! People are reading!</span>",
         solution: "library(tidyverse)",
-        exits: {south: "dfinalDebuggingChamberRoom" },
+        exits: {south: "dataTrapRoom" },
     },
 
-    /*dataTrapRoom: {
+    dataTrapRoom: {
         description: "<span class='blue'>You encounter a script meant to join two datasets: one with species information and another with habitat data. <span class='green'>merge(species_data, habitat_data, <span class = 'red'>key</span> = 'species_id')</span>. However, the merge isn't working as expected...</span> <span class = 'blue'> Fix the code! </span>",
         locked: true,
         challenge: "<span class='green'>merge(species_data, habitat_data, key = 'species_id')</span>",
@@ -36,7 +36,7 @@ export const debuggerQuestRooms = {
         companion: "<span class='blue'>           __\r\n      (___()\'`;\r\n      \/,    \/`\r\n      \\\\\"--\\\\ AWWOOF Are you sure about that argument?</span>",
         solution: "merge(species_data, habitat_data, by = 'species_id')",
         exits: {west: "finalDebuggingChamberRoom" },
-    },*/
+    },
 
     finalDebuggingChamberRoom: {
         description: "<span class='blue'>In the final chamber, a complex script aims to calculate mean survival rates: <span class='green'>mean(survival_data$survi<span class= 'red'>d</span>ed, na.rm = TRUE)</span>, but produces an error...</span> <span class ='blue'> Can you debug this script?</span>",
