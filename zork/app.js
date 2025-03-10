@@ -43,7 +43,7 @@ function startGameMode(mode) {
         "📊 tidyverse trials": tidyverseTrialsRooms,
         "📐 statquest sanctuary": statQuestSanctuary,
         "🧬 biostats labyrinth": biostatsLabyrinth,
-        "🎲 zoRk": randomModeRooms        
+        "🎲 zork": randomModeRooms        
     };
 
     if (availableModes[mode]) {
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else if (event.key === "3") startGameMode("📊 tidyverse trials");
             else if (event.key === "4") startGameMode("📐 statquest sanctuary");
             else if (event.key === "5") startGameMode("🧬 biostats labyrinth");
-            else if (event.key === "6") startGameMode("🎲 zoRk");
+            else if (event.key === "6") startGameMode("🎲 zork");
         } else if (event.key === "Enter") {
             const command = inputEl.value.trim().replace(/\s+/g, " ");
             handleCommand(command);
