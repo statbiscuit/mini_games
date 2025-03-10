@@ -190,7 +190,7 @@ function handleCommand(command) {
         output = handleCodeQuestsCommands(command);
         break;
 
-        case "🎲 zoRk":
+        case "🎲 zork":
         output = handleCodeQuestsCommands(command);
         break;
 
